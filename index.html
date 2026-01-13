@@ -146,12 +146,34 @@
     }
 
     .role-selector {
-      padding: 6px 12px;
-      border: 1px solid var(--color-border-primary);
-      border-radius: 4px;
-      background-color: var(--bg-secondary);
+      padding: 8px 40px 8px 12px;
+      border: 1px solid #2F54EB;
+      border-radius: 6px;
       font-size: var(--font-body);
+      color: var(--fg-primary);
       cursor: pointer;
+      appearance: none !important;
+      -webkit-appearance: none !important;
+      -moz-appearance: none !important;
+      background-color: white;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 16 16'%3E%3Cpath fill='%23999' d='M8 10.5L4 6.5h8z'/%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: right 12px center;
+      transition: all 0.2s;
+    }
+
+    .role-selector:hover {
+      border-color: #597EF7;
+    }
+
+    .role-selector:focus {
+      outline: none;
+      border-color: #2F54EB;
+      box-shadow: 0 0 0 2px rgba(47, 84, 235, 0.1);
+    }
+
+    .role-selector::-ms-expand {
+      display: none;
     }
 
     .user-info {
@@ -279,7 +301,7 @@
 
     .search-label {
       font-weight: var(--font-weight-semibold);
-      min-width: 120px;
+      white-space: nowrap;
     }
 
     .search-input {
@@ -454,11 +476,27 @@
     }
 
     .page-size-selector {
-      padding: 4px 8px;
+      padding: 6px 32px 6px 10px;
       border: 1px solid var(--color-border-primary);
       border-radius: 4px;
       font-size: var(--font-caption);
       cursor: pointer;
+      appearance: none !important;
+      -webkit-appearance: none !important;
+      -moz-appearance: none !important;
+      background-color: white;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='14' viewBox='0 0 14 14'%3E%3Cpath fill='%23999' d='M7 9L3.5 5.5h7z'/%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: right 8px center;
+      transition: all 0.2s;
+    }
+
+    .page-size-selector:hover {
+      border-color: #597EF7;
+    }
+
+    .page-size-selector::-ms-expand {
+      display: none;
     }
 
     /* Footer */
@@ -471,7 +509,7 @@
       font-size: var(--font-caption);
     }
 
-    /* Modal */
+    /* Drawer */
     .modal-overlay {
       display: none;
       position: fixed;
@@ -481,23 +519,46 @@
       bottom: 0;
       background-color: rgba(0, 0, 0, 0.5);
       z-index: 1000;
+    }
+
+    .modal-overlay.active {
+      display: block;
+    }
+
+    .modal {
+      position: fixed;
+      top: 0;
+      right: -100%;
+      width: 90%;
+      max-width: 1200px;
+      height: 100vh;
+      background-color: var(--bg-secondary);
+      display: flex;
+      flex-direction: column;
+      box-shadow: -4px 0 20px rgba(0, 0, 0, 0.15);
+      transition: right 0.3s ease-in-out;
+    }
+
+    .modal-overlay.active .modal {
+      right: 0;
+    }
+
+    /* Confirmation Modal - Centered */
+    .modal-overlay.confirm.active {
+      display: flex;
       align-items: center;
       justify-content: center;
     }
 
-    .modal-overlay.active {
-      display: flex;
-    }
-
-    .modal {
-      background-color: var(--bg-secondary);
+    .modal-overlay.confirm .modal {
+      position: relative;
+      top: auto;
+      right: auto;
+      width: auto;
+      height: auto;
+      max-width: 480px;
       border-radius: 8px;
-      width: 90%;
-      max-width: 1200px;
-      max-height: 90vh;
-      display: flex;
-      flex-direction: column;
-      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+      transition: none;
     }
 
     .modal-header {
@@ -579,6 +640,27 @@
     .form-input:focus {
       outline: none;
       border-color: var(--brand-fg-primary);
+    }
+
+    select.form-input {
+      padding: 8px 40px 8px 12px;
+      cursor: pointer;
+      appearance: none !important;
+      -webkit-appearance: none !important;
+      -moz-appearance: none !important;
+      background-color: white;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 16 16'%3E%3Cpath fill='%23999' d='M8 10.5L4 6.5h8z'/%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: right 12px center;
+      transition: all 0.2s;
+    }
+
+    select.form-input:hover {
+      border-color: var(--brand-fg-primary);
+    }
+
+    select.form-input::-ms-expand {
+      display: none;
     }
 
     .form-textarea {
@@ -708,6 +790,134 @@
       cursor: pointer;
       user-select: none;
     }
+
+    /* Custom Dropdown */
+    .custom-select {
+      position: relative;
+      display: inline-block;
+    }
+
+    .custom-select-trigger {
+      padding: 8px 40px 8px 12px;
+      border: 1px solid var(--color-border-primary);
+      border-radius: 4px;
+      font-size: var(--font-body);
+      color: var(--fg-primary);
+      cursor: pointer;
+      background-color: white;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 16 16'%3E%3Cpath fill='%23999' d='M8 10.5L4 6.5h8z'/%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: right 12px center;
+      transition: all 0.2s;
+      user-select: none;
+      white-space: nowrap;
+    }
+
+    .custom-select-trigger:hover {
+      border-color: var(--brand-fg-primary);
+    }
+
+    .custom-select.open .custom-select-trigger {
+      border-color: var(--brand-fg-primary);
+      box-shadow: 0 0 0 2px rgba(47, 84, 235, 0.1);
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 16 16'%3E%3Cpath fill='%23999' d='M8 5.5L4 9.5h8z'/%3E%3C/svg%3E");
+    }
+
+    /* Role selector styling */
+    #roleSelector .custom-select-trigger {
+      border-radius: 6px;
+    }
+
+    .custom-select-dropdown {
+      position: absolute;
+      top: calc(100% + 4px);
+      left: 0;
+      right: 0;
+      background: white;
+      border: 1px solid var(--color-border-primary);
+      border-radius: 6px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+      max-height: 240px;
+      overflow-y: auto;
+      z-index: 1000;
+      display: none;
+    }
+
+    .custom-select.open .custom-select-dropdown {
+      display: block;
+    }
+
+    .custom-select-option {
+      padding: 10px 16px;
+      cursor: pointer;
+      transition: all 0.15s;
+      font-size: var(--font-body);
+      color: var(--fg-primary);
+    }
+
+    .custom-select-option:hover {
+      background-color: #F5F7FA;
+    }
+
+    .custom-select-option.selected {
+      background-color: #E6F0FF;
+      color: #2F54EB;
+      font-weight: var(--font-weight-semibold);
+    }
+
+    .custom-select-option.selected::after {
+      content: '✓';
+      float: right;
+      color: #2F54EB;
+      font-weight: bold;
+    }
+
+    /* Toast Notification */
+    .toast {
+      position: fixed;
+      top: 80px;
+      left: 50%;
+      transform: translateX(-50%) translateY(-20px);
+      background-color: var(--bg-secondary);
+      padding: var(--spacing-lg) var(--spacing-xl);
+      border-radius: 8px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+      display: flex;
+      align-items: center;
+      gap: var(--spacing-md);
+      z-index: 2000;
+      opacity: 0;
+      pointer-events: none;
+      transition: all 0.3s ease-in-out;
+    }
+
+    .toast.show {
+      opacity: 1;
+      transform: translateX(-50%) translateY(0);
+    }
+
+    .toast-icon {
+      width: 20px;
+      height: 20px;
+      flex-shrink: 0;
+    }
+
+    .toast-message {
+      color: var(--fg-primary);
+      font-size: var(--font-body);
+    }
+
+    .toast.success .toast-icon {
+      color: #34C759;
+    }
+
+    .toast.error .toast-icon {
+      color: #FF3B30;
+    }
+
+    .toast.info .toast-icon {
+      color: var(--brand-fg-primary);
+    }
   </style>
 </head>
 <body>
@@ -719,11 +929,14 @@
         <span class="app-title">Anker Partner Cloud</span>
       </div>
       <div class="top-header-right">
-        <select class="role-selector">
-          <option>Administrator</option>
-          <option>Company A</option>
-          <option>Company B</option>
-        </select>
+        <div class="custom-select" id="roleSelector">
+          <div class="custom-select-trigger">Administrator</div>
+          <div class="custom-select-dropdown">
+            <div class="custom-select-option selected" data-value="Administrator">Administrator</div>
+            <div class="custom-select-option" data-value="Company A">Company A</div>
+            <div class="custom-select-option" data-value="Company B">Company B</div>
+          </div>
+        </div>
         <div class="user-info">
           <div class="user-avatar">
             <svg viewBox="0 0 1024 1024" width="32" height="32">
@@ -744,7 +957,8 @@
     <div class="main-area">
       <!-- Sidebar -->
       <div class="sidebar">
-        <div class="sidebar-section">
+        <!-- Administrator Menu -->
+        <div id="adminMenu" class="sidebar-section">
           <div class="sidebar-header active" onclick="toggleSection(this)">
             <span>
               <svg class="sidebar-icon" viewBox="0 0 1024 1024" fill="currentColor">
@@ -757,15 +971,27 @@
             </svg>
           </div>
           <div class="sidebar-menu expanded">
-            <div class="sidebar-menu-item active">Company</div>
+            <div class="sidebar-menu-item active" onclick="showCompanyPage()">Company</div>
+          </div>
+        </div>
+
+        <!-- Company Menu -->
+        <div id="companyMenu" class="sidebar-section" style="display: none;">
+          <div class="sidebar-header active" onclick="showDevicePage()">
+            <span>
+              <svg class="sidebar-icon" viewBox="0 0 1024 1024" fill="currentColor">
+                <path d="M954.066 439.7a181.176 181.176 0 0 1-49.844 64.146 25.936 25.936 0 0 1 5.917 30.043l-87.854 188.377a25.985 25.985 0 0 1-34.531 12.566l-74.657-34.81a77.974 77.974 0 0 1-88.605 16.023l-149.2-69.564-50.517 101.011a77.534 77.534 0 0 1-69.729 43.083H223.391v25.982a78.036 78.036 0 0 1-77.952 77.943h-51.97a25.982 25.982 0 0 1-25.984-25.98V608.707a25.983 25.983 0 0 1 25.983-25.982h51.969a78.076 78.076 0 0 1 73.485 51.964h87.941l27.067-54.118L200.593 518.4c-64.927-30.273-93.118-107.718-62.841-172.637l65.89-141.284c30.277-64.919 107.731-93.1 172.655-62.835l565.2 263.523a25.985 25.985 0 0 1 12.569 34.533zM145.439 634.687h-25.985v207.85h25.983a26.012 26.012 0 0 0 25.985-25.982V660.669a26.012 26.012 0 0 0-25.983-25.982z m640.727 42.071l65.894-141.282-2.421-1.127a182 182 0 0 1-59.26 10.429L739.067 654.8z m-463.246 9.89h-99.529v51.962h131.655a25.845 25.845 0 0 0 23.246-14.36l49.884-99.742-47.128-21.973-34.887 69.752a25.984 25.984 0 0 1-23.241 14.361zM217.795 297.083l-32.944 70.641a78.03 78.03 0 0 0 37.7 103.581L646.455 668.95a25.972 25.972 0 0 0 34.53-12.566l55.683-119.4a184.083 184.083 0 0 1-24.326-9.311z m136.539-108.344a78.041 78.041 0 0 0-103.593 37.7l-10.981 23.548 494.544 230.584a130.038 130.038 0 0 0 159.336-40.378z m266.985 411.155l-94.2-43.921a25.982 25.982 0 1 1 21.966-47.094l94.2 43.921a25.982 25.982 0 1 1-21.966 47.094z m-271.626-129.32a25.982 25.982 0 1 1 25.984-25.981 25.983 25.983 0 0 1-25.984 25.981z m-94.184-43.926a25.982 25.982 0 1 1 25.984-25.982 25.984 25.984 0 0 1-25.984 25.982z" fill="currentColor"/>
+              </svg>
+              Device
+            </span>
           </div>
         </div>
       </div>
 
       <!-- Content Area -->
       <div class="content-area">
-        <!-- Main Content -->
-        <div class="main-content">
+        <!-- Company Content -->
+        <div id="companyContent" class="main-content">
           <!-- Search Section -->
           <div class="search-section">
             <label class="search-label">Company Name:</label>
@@ -790,6 +1016,7 @@
                     <th>Company Name</th>
                     <th>Account Quantity</th>
                     <th>Company Description</th>
+                    <th>Business Type</th>
                     <th>Create Time</th>
                     <th>Operate</th>
                   </tr>
@@ -799,6 +1026,7 @@
                     <td>TechVision Solutions</td>
                     <td>8</td>
                     <td>Energy management system integrator.</td>
+                    <td>Installer</td>
                     <td>2025-12-16 18:26:00</td>
                     <td>
                       <a class="action-link" onclick="editCompany('TechVision Solutions')">Edit</a>
@@ -810,6 +1038,7 @@
                     <td>GreenPower Systems</td>
                     <td>12</td>
                     <td>Renewable energy solutions provider.</td>
+                    <td>Installer (SaaS)</td>
                     <td>2025-11-28 14:32:15</td>
                     <td>
                       <a class="action-link" onclick="editCompany('GreenPower Systems')">Edit</a>
@@ -821,6 +1050,7 @@
                     <td>SmartHome Technologies</td>
                     <td>6</td>
                     <td>Home automation and IoT integration.</td>
+                    <td>Others</td>
                     <td>2025-11-17 16:16:32</td>
                     <td>
                       <a class="action-link" onclick="editCompany('SmartHome Technologies')">Edit</a>
@@ -832,6 +1062,7 @@
                     <td>EcoCharge Networks</td>
                     <td>15</td>
                     <td>Electric vehicle charging infrastructure.</td>
+                    <td>Installer</td>
                     <td>2025-11-05 10:22:48</td>
                     <td>
                       <a class="action-link" onclick="editCompany('EcoCharge Networks')">Edit</a>
@@ -843,6 +1074,7 @@
                     <td>PowerGrid Innovations</td>
                     <td>9</td>
                     <td>Smart grid and energy storage solutions.</td>
+                    <td>Installer (SaaS)</td>
                     <td>2025-10-29 11:17:22</td>
                     <td>
                       <a class="action-link" onclick="editCompany('PowerGrid Innovations')">Edit</a>
@@ -854,6 +1086,7 @@
                     <td>SolarTech Industries</td>
                     <td>11</td>
                     <td>Solar panel installation and maintenance.</td>
+                    <td>Installer</td>
                     <td>2025-10-15 09:45:33</td>
                     <td>
                       <a class="action-link" onclick="editCompany('SolarTech Industries')">Edit</a>
@@ -865,6 +1098,7 @@
                     <td>EnergyHub Corporation</td>
                     <td>7</td>
                     <td>Energy monitoring and analytics platform.</td>
+                    <td>Others</td>
                     <td>2025-09-28 15:20:11</td>
                     <td>
                       <a class="action-link" onclick="editCompany('EnergyHub Corporation')">Edit</a>
@@ -876,6 +1110,7 @@
                     <td>NextGen Power Solutions</td>
                     <td>14</td>
                     <td>Battery storage system integrator.</td>
+                    <td>Installer (SaaS)</td>
                     <td>2025-09-12 13:38:47</td>
                     <td>
                       <a class="action-link" onclick="editCompany('NextGen Power Solutions')">Edit</a>
@@ -887,6 +1122,7 @@
                     <td>CleanEnergy Partners</td>
                     <td>10</td>
                     <td>Sustainable energy consulting services.</td>
+                    <td>Others</td>
                     <td>2025-08-30 11:05:29</td>
                     <td>
                       <a class="action-link" onclick="editCompany('CleanEnergy Partners')">Edit</a>
@@ -898,6 +1134,7 @@
                     <td>FutureGrid Systems</td>
                     <td>13</td>
                     <td>Advanced metering infrastructure provider.</td>
+                    <td>Installer</td>
                     <td>2025-08-22 17:10:32</td>
                     <td>
                       <a class="action-link" onclick="editCompany('FutureGrid Systems')">Edit</a>
@@ -915,11 +1152,273 @@
                 <button class="pagination-btn">‹</button>
                 <button class="pagination-btn active">1</button>
                 <button class="pagination-btn">›</button>
-                <select class="page-size-selector">
-                  <option>10 / page</option>
-                  <option>20 / page</option>
-                  <option>50 / page</option>
-                </select>
+                <div class="custom-select page-size-select">
+                  <div class="custom-select-trigger" style="font-size: var(--font-caption); padding: 6px 32px 6px 10px;">10 / page</div>
+                  <div class="custom-select-dropdown">
+                    <div class="custom-select-option selected" data-value="10 / page">10 / page</div>
+                    <div class="custom-select-option" data-value="20 / page">20 / page</div>
+                    <div class="custom-select-option" data-value="50 / page">50 / page</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Device Content -->
+        <div id="deviceContent" class="main-content" style="display: none;">
+          <!-- Search Section -->
+          <div class="search-section">
+            <label class="search-label">Device SN:</label>
+            <input type="text" class="search-input" placeholder="Please enter" style="width: 240px;">
+            <label class="search-label" style="margin-left: 16px;">Account:</label>
+            <input type="text" class="search-input" placeholder="Please enter" style="width: 240px;">
+            <button class="btn btn-primary">Search</button>
+            <button class="btn btn-secondary">Reset</button>
+          </div>
+
+          <!-- Device List Section -->
+          <div class="list-section">
+            <div class="list-header">
+              <h2 class="list-title">Device List</h2>
+            </div>
+
+            <div class="table-wrapper">
+              <table>
+                <thead>
+                  <tr>
+                    <th>Device SN</th>
+                    <th>Device Name</th>
+                    <th>Account</th>
+                    <th>Firmware Version</th>
+                    <th>Hardware Version</th>
+                    <th>Status</th>
+                    <th>Create Time</th>
+                    <th>Bind Time</th>
+                    <th>Update Time</th>
+                    <th>Company</th>
+                    <th>Operate</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>T8124P40233A001B</td>
+                    <td>T8124P40233A001B</td>
+                    <td style="color: var(--brand-fg-primary);">user@example.com</td>
+                    <td>3.2.6.0</td>
+                    <td>0.0.0.0</td>
+                    <td>
+                      <span style="display: inline-flex; align-items: center; gap: 6px;">
+                        <span style="width: 8px; height: 8px; background: #34C759; border-radius: 50%;"></span>
+                        Online
+                      </span>
+                    </td>
+                    <td>2023-10-12 10:29:09</td>
+                    <td>2025-11-14 11:27:08</td>
+                    <td>2025-12-09 11:18:35</td>
+                    <td>TechVision Solutions</td>
+                    <td>
+                      <a class="action-link delete" onclick="confirmRemoveDevice('T8124P40233A001B')">Remove</a>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>T8210P82232B0016</td>
+                    <td>T8210P82232B0016</td>
+                    <td style="color: var(--brand-fg-primary);">admin@example.com</td>
+                    <td>3.0.8.2</td>
+                    <td>0.2.2.3</td>
+                    <td>
+                      <span style="display: inline-flex; align-items: center; gap: 6px;">
+                        <span style="width: 8px; height: 8px; background: #34C759; border-radius: 50%;"></span>
+                        Online
+                      </span>
+                    </td>
+                    <td>2023-06-02 18:54:34</td>
+                    <td>2025-11-14 11:24:46</td>
+                    <td>2026-01-05 14:22:11</td>
+                    <td>SmartGrid Energy</td>
+                    <td>
+                      <a class="action-link delete" onclick="confirmRemoveDevice('T8210P82232B0016')">Remove</a>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>T8010N31933C0046</td>
+                    <td>HB2</td>
+                    <td style="color: var(--brand-fg-primary);">contact@example.com</td>
+                    <td>4.2.6.8</td>
+                    <td>1.3.0.9</td>
+                    <td>
+                      <span style="display: inline-flex; align-items: center; gap: 6px;">
+                        <span style="width: 8px; height: 8px; background: #34C759; border-radius: 50%;"></span>
+                        Online
+                      </span>
+                    </td>
+                    <td>2019-08-21 20:34:48</td>
+                    <td>2025-11-26 03:45:22</td>
+                    <td>2025-11-14 11:23:34</td>
+                    <td>PowerFlow Systems</td>
+                    <td>
+                      <a class="action-link delete" onclick="confirmRemoveDevice('T8010N31933C0046')">Remove</a>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>T8P00530252D7E5C</td>
+                    <td>Back Yard-PoE</td>
+                    <td style="color: var(--brand-fg-primary);">support@example.com</td>
+                    <td>1.0.7.4</td>
+                    <td>-</td>
+                    <td>
+                      <span style="display: inline-flex; align-items: center; gap: 6px;">
+                        <span style="width: 8px; height: 8px; background: #34C759; border-radius: 50%;"></span>
+                        Online
+                      </span>
+                    </td>
+                    <td>2025-07-15 15:13:56</td>
+                    <td>2025-10-15 17:58:51</td>
+                    <td>2026-01-06 10:15:42</td>
+                    <td>EcoCharge Solutions</td>
+                    <td>
+                      <a class="action-link delete" onclick="confirmRemoveDevice('T8P00530252D7E5C')">Remove</a>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>T8E00510252EA05B</td>
+                    <td>Front Yard-PoE</td>
+                    <td style="color: var(--brand-fg-primary);">info@example.com</td>
+                    <td>1.1.0.3</td>
+                    <td>-</td>
+                    <td>
+                      <span style="display: inline-flex; align-items: center; gap: 6px;">
+                        <span style="width: 8px; height: 8px; background: #34C759; border-radius: 50%;"></span>
+                        Online
+                      </span>
+                    </td>
+                    <td>2025-07-14 16:59:21</td>
+                    <td>2025-10-15 17:44:07</td>
+                    <td>2026-01-06 10:30:18</td>
+                    <td>GreenWatt Technologies</td>
+                    <td>
+                      <a class="action-link delete" onclick="confirmRemoveDevice('T8E00510252EA05B')">Remove</a>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>T821451024F371EF</td>
+                    <td>Doorbell2</td>
+                    <td style="color: var(--brand-fg-primary);">hello@example.com</td>
+                    <td>3.2.1.4</td>
+                    <td>0.3.5.3</td>
+                    <td>
+                      <span style="display: inline-flex; align-items: center; gap: 6px;">
+                        <span style="width: 8px; height: 8px; background: #34C759; border-radius: 50%;"></span>
+                        Online
+                      </span>
+                    </td>
+                    <td>2024-11-18 11:55:06</td>
+                    <td>2025-10-15 16:21:13</td>
+                    <td>2026-01-06 10:45:55</td>
+                    <td>VoltSecure Inc</td>
+                    <td>
+                      <a class="action-link delete" onclick="confirmRemoveDevice('T821451024F371EF')">Remove</a>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>T8162T10244G716D</td>
+                    <td>Front Yard</td>
+                    <td style="color: var(--brand-fg-primary);">service@example.com</td>
+                    <td>3.1.2.7</td>
+                    <td>0.0.8.6</td>
+                    <td>
+                      <span style="display: inline-flex; align-items: center; gap: 6px;">
+                        <span style="width: 8px; height: 8px; background: #34C759; border-radius: 50%;"></span>
+                        Online
+                      </span>
+                    </td>
+                    <td>2024-12-04 15:40:13</td>
+                    <td>2025-10-15 16:20:42</td>
+                    <td>2026-01-06 10:52:28</td>
+                    <td>EnergySmart Corp</td>
+                    <td>
+                      <a class="action-link delete" onclick="confirmRemoveDevice('T8162T10244G716D')">Remove</a>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>T8124P40233H002C</td>
+                    <td>Smart Camera Pro</td>
+                    <td style="color: var(--brand-fg-primary);">demo@example.com</td>
+                    <td>3.3.1.5</td>
+                    <td>0.1.2.0</td>
+                    <td>
+                      <span style="display: inline-flex; align-items: center; gap: 6px;">
+                        <span style="width: 8px; height: 8px; background: #34C759; border-radius: 50%;"></span>
+                        Online
+                      </span>
+                    </td>
+                    <td>2024-09-28 09:15:42</td>
+                    <td>2025-11-20 08:35:19</td>
+                    <td>2026-01-08 14:22:56</td>
+                    <td>PowerLink Systems</td>
+                    <td>
+                      <a class="action-link delete" onclick="confirmRemoveDevice('T8124P40233H002C')">Remove</a>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>T8P00530252J08F6</td>
+                    <td>Garage Entrance</td>
+                    <td style="color: var(--brand-fg-primary);">test@example.com</td>
+                    <td>1.0.9.2</td>
+                    <td>-</td>
+                    <td>
+                      <span style="display: inline-flex; align-items: center; gap: 6px;">
+                        <span style="width: 8px; height: 8px; background: #34C759; border-radius: 50%;"></span>
+                        Online
+                      </span>
+                    </td>
+                    <td>2025-08-03 12:28:17</td>
+                    <td>2025-10-22 09:14:33</td>
+                    <td>2026-01-09 11:05:47</td>
+                    <td>CleanEnergy Partners</td>
+                    <td>
+                      <a class="action-link delete" onclick="confirmRemoveDevice('T8P00530252J08F6')">Remove</a>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>T8010N31933K0047</td>
+                    <td>Security Hub</td>
+                    <td style="color: var(--brand-fg-primary);">sample@example.com</td>
+                    <td>4.3.2.1</td>
+                    <td>1.4.1.2</td>
+                    <td>
+                      <span style="display: inline-flex; align-items: center; gap: 6px;">
+                        <span style="width: 8px; height: 8px; background: #34C759; border-radius: 50%;"></span>
+                        Online
+                      </span>
+                    </td>
+                    <td>2020-03-15 14:22:30</td>
+                    <td>2025-11-18 10:42:15</td>
+                    <td>2025-12-20 16:38:44</td>
+                    <td>FutureGrid Systems</td>
+                    <td>
+                      <a class="action-link delete" onclick="confirmRemoveDevice('T8010N31933K0047')">Remove</a>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+
+            <div class="pagination">
+              <div class="pagination-info">1-10 of 10 items</div>
+              <div class="pagination-controls">
+                <button class="pagination-btn">‹</button>
+                <button class="pagination-btn active">1</button>
+                <button class="pagination-btn">›</button>
+                <div class="custom-select page-size-select">
+                  <div class="custom-select-trigger" style="font-size: var(--font-caption); padding: 6px 32px 6px 10px;">10 / page</div>
+                  <div class="custom-select-dropdown">
+                    <div class="custom-select-option selected" data-value="10 / page">10 / page</div>
+                    <div class="custom-select-option" data-value="20 / page">20 / page</div>
+                    <div class="custom-select-option" data-value="50 / page">50 / page</div>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
@@ -927,6 +1426,14 @@
       </div>
     </div>
 
+  </div>
+
+  <!-- Toast Notification -->
+  <div class="toast" id="toast">
+    <svg class="toast-icon" viewBox="0 0 24 24" fill="currentColor">
+      <path id="toastIconPath" d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
+    </svg>
+    <span class="toast-message" id="toastMessage"></span>
   </div>
 
   <!-- Create/Edit Company Modal -->
@@ -947,10 +1454,48 @@
             <textarea class="form-textarea" id="companyDescription" placeholder="Maximum 200 characters" maxlength="200" oninput="updateCharCount()"></textarea>
             <div class="char-count" id="charCount">0 / 200</div>
           </div>
+          <div class="form-group">
+            <label class="form-label required">Business Type</label>
+            <div class="custom-select" id="businessTypeSelect" style="width: 100%;">
+              <div class="custom-select-trigger" style="width: 100%;">Others</div>
+              <div class="custom-select-dropdown">
+                <div class="custom-select-option selected" data-value="Others">Others</div>
+                <div class="custom-select-option" data-value="Installer">Installer</div>
+                <div class="custom-select-option" data-value="Installer (SaaS)">Installer (SaaS)</div>
+              </div>
+            </div>
+            <input type="hidden" id="businessType" value="Others">
+          </div>
+
+          <!-- App Permission -->
+          <div class="form-group">
+            <label class="form-label required">App Permission</label>
+            <div class="custom-select" id="appPermissionSelect" style="width: 100%;">
+              <div class="custom-select-trigger" style="width: 100%;">Disable</div>
+              <div class="custom-select-dropdown">
+                <div class="custom-select-option" data-value="Enable">Enable</div>
+                <div class="custom-select-option selected" data-value="Disable">Disable</div>
+              </div>
+            </div>
+            <input type="hidden" id="appPermission" value="Disable">
+          </div>
+
+          <!-- Data Permission -->
+          <div class="form-group">
+            <label class="form-label required">Data Permission</label>
+            <div class="custom-select" id="dataPermissionSelect" style="width: 100%;">
+              <div class="custom-select-trigger" style="width: 100%;">Company-related</div>
+              <div class="custom-select-dropdown">
+                <div class="custom-select-option selected" data-value="Company-related">Company-related</div>
+                <div class="custom-select-option" data-value="All">All</div>
+              </div>
+            </div>
+            <input type="hidden" id="dataPermission" value="Company-related">
+          </div>
         </div>
         <div class="modal-right">
           <div class="permission-header">
-            <div class="permission-title">Menu Permission</div>
+            <div class="permission-title">Web Permission</div>
             <div class="permission-count" id="permissionCount">0 / 32</div>
           </div>
           <div class="select-all-wrapper">
@@ -1117,6 +1662,30 @@
     </div>
   </div>
 
+  <!-- Remove Device Confirmation Modal -->
+  <div class="modal-overlay confirm" id="removeDeviceModal">
+    <div class="modal">
+      <div class="modal-header" style="border-bottom: none; padding: 24px 24px 16px 24px;">
+        <div style="display: flex; align-items: center; gap: 12px;">
+          <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <circle cx="16" cy="16" r="16" fill="#FFA940"/>
+            <text x="16" y="22" text-anchor="middle" fill="white" font-size="20" font-weight="bold" font-family="Arial">!</text>
+          </svg>
+          <h2 class="modal-title" style="margin: 0;">Confirm Remove</h2>
+        </div>
+      </div>
+      <div class="modal-body" style="padding: 0 24px 24px 24px;">
+        <p id="removeDeviceMessage" style="margin: 0; color: var(--fg-primary); font-size: var(--font-body); line-height: 1.6;">
+          Are you sure you want to remove device <span id="removeDeviceSN" style="font-weight: var(--font-weight-semibold);"></span> from your company?
+        </p>
+      </div>
+      <div class="modal-footer" style="border-top: none; padding: 0 24px 24px 24px; justify-content: flex-end;">
+        <button class="btn btn-secondary" onclick="closeRemoveDeviceModal()">Cancel</button>
+        <button class="btn btn-primary" onclick="confirmRemove()">Remove</button>
+      </div>
+    </div>
+  </div>
+
   <script>
     // Toggle sidebar section
     function toggleSection(header) {
@@ -1150,12 +1719,56 @@
       document.getElementById('modalTitle').textContent = 'Create Company';
       document.getElementById('companyName').value = '';
       document.getElementById('companyDescription').value = '';
+      document.getElementById('businessType').value = 'Others';
+
+      // Reset Business Type custom select
+      const businessTypeSelect = document.getElementById('businessTypeSelect');
+      const trigger = businessTypeSelect.querySelector('.custom-select-trigger');
+      const options = businessTypeSelect.querySelectorAll('.custom-select-option');
+      trigger.textContent = 'Others';
+      options.forEach(opt => {
+        if (opt.getAttribute('data-value') === 'Others') {
+          opt.classList.add('selected');
+        } else {
+          opt.classList.remove('selected');
+        }
+      });
+
       updateCharCount();
       // Clear all checkboxes
       const checkboxes = document.querySelectorAll('#permissionTree .tree-checkbox');
       checkboxes.forEach(cb => cb.checked = false);
       document.getElementById('selectAll').checked = false;
       updatePermissionCount();
+
+      // Reset App Permission to Disable
+      const appPermissionSelect = document.getElementById('appPermissionSelect');
+      const appTrigger = appPermissionSelect.querySelector('.custom-select-trigger');
+      const appOptions = appPermissionSelect.querySelectorAll('.custom-select-option');
+      appTrigger.textContent = 'Disable';
+      document.getElementById('appPermission').value = 'Disable';
+      appOptions.forEach(opt => {
+        if (opt.getAttribute('data-value') === 'Disable') {
+          opt.classList.add('selected');
+        } else {
+          opt.classList.remove('selected');
+        }
+      });
+
+      // Reset Data Permission to Company-related
+      const dataPermissionSelect = document.getElementById('dataPermissionSelect');
+      const dataTrigger = dataPermissionSelect.querySelector('.custom-select-trigger');
+      const dataOptions = dataPermissionSelect.querySelectorAll('.custom-select-option');
+      dataTrigger.textContent = 'Company-related';
+      document.getElementById('dataPermission').value = 'Company-related';
+      dataOptions.forEach(opt => {
+        if (opt.getAttribute('data-value') === 'Company-related') {
+          opt.classList.add('selected');
+        } else {
+          opt.classList.remove('selected');
+        }
+      });
+
       document.getElementById('companyModal').classList.add('active');
     }
 
@@ -1165,12 +1778,59 @@
 
     function saveCompany() {
       const name = document.getElementById('companyName').value;
+      const businessType = document.getElementById('businessType').value;
+      const appPermission = document.getElementById('appPermission').value;
+      const dataPermission = document.getElementById('dataPermission').value;
+
       if (!name.trim()) {
-        alert('Please enter company name');
+        showToast('Please enter company name', 'error');
         return;
       }
-      alert('Company saved: ' + name);
+      if (!businessType) {
+        showToast('Please select business type', 'error');
+        return;
+      }
+      if (!appPermission) {
+        showToast('Please select app permission', 'error');
+        return;
+      }
+      if (!dataPermission) {
+        showToast('Please select data permission', 'error');
+        return;
+      }
+      showToast('Company saved successfully', 'success');
       closeCompanyModal();
+    }
+
+    // Toast notification function
+    function showToast(message, type = 'info') {
+      const toast = document.getElementById('toast');
+      const toastMessage = document.getElementById('toastMessage');
+      const toastIconPath = document.getElementById('toastIconPath');
+
+      // Set message
+      toastMessage.textContent = message;
+
+      // Set icon based on type
+      const icons = {
+        success: 'M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z',
+        error: 'M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-2h2v2zm0-4h-2V7h2v6z',
+        info: 'M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z'
+      };
+
+      toastIconPath.setAttribute('d', icons[type] || icons.info);
+
+      // Remove all type classes and add new one
+      toast.classList.remove('success', 'error', 'info');
+      toast.classList.add(type);
+
+      // Show toast
+      toast.classList.add('show');
+
+      // Hide after 3 seconds
+      setTimeout(() => {
+        toast.classList.remove('show');
+      }, 3000);
     }
 
     // Tree operations
@@ -1211,6 +1871,137 @@
         closeCompanyModal();
       }
     });
+
+    // Custom select dropdown functionality
+    function initCustomSelect(selectElement) {
+      const trigger = selectElement.querySelector('.custom-select-trigger');
+      const dropdown = selectElement.querySelector('.custom-select-dropdown');
+      const options = selectElement.querySelectorAll('.custom-select-option');
+      const hiddenInput = selectElement.nextElementSibling;
+
+      // Toggle dropdown
+      trigger.addEventListener('click', (e) => {
+        e.stopPropagation();
+        // Close all other dropdowns
+        document.querySelectorAll('.custom-select.open').forEach(sel => {
+          if (sel !== selectElement) {
+            sel.classList.remove('open');
+          }
+        });
+        selectElement.classList.toggle('open');
+      });
+
+      // Select option
+      options.forEach(option => {
+        option.addEventListener('click', (e) => {
+          e.stopPropagation();
+          const value = option.getAttribute('data-value');
+
+          // Update trigger text
+          trigger.textContent = value;
+
+          // Update selected state
+          options.forEach(opt => opt.classList.remove('selected'));
+          option.classList.add('selected');
+
+          // Update hidden input if exists
+          if (hiddenInput && hiddenInput.tagName === 'INPUT') {
+            hiddenInput.value = value;
+          }
+
+          // Close dropdown
+          selectElement.classList.remove('open');
+        });
+      });
+    }
+
+    // Initialize all custom selects
+    document.querySelectorAll('.custom-select').forEach(initCustomSelect);
+
+    // Close dropdown when clicking outside
+    document.addEventListener('click', () => {
+      document.querySelectorAll('.custom-select.open').forEach(sel => {
+        sel.classList.remove('open');
+      });
+    });
+
+    // Role selector - handle menu and content switching
+    const roleSelector = document.getElementById('roleSelector');
+    const roleTrigger = roleSelector.querySelector('.custom-select-trigger');
+    const roleOptions = roleSelector.querySelectorAll('.custom-select-option');
+
+    roleOptions.forEach(option => {
+      option.addEventListener('click', () => {
+        const selectedRole = option.getAttribute('data-value');
+        switchRole(selectedRole);
+      });
+    });
+
+    // Switch role function
+    function switchRole(role) {
+      const adminMenu = document.getElementById('adminMenu');
+      const companyMenu = document.getElementById('companyMenu');
+      const companyContent = document.getElementById('companyContent');
+      const deviceContent = document.getElementById('deviceContent');
+
+      if (role === 'Administrator') {
+        // Show admin menu and company content
+        adminMenu.style.display = 'block';
+        companyMenu.style.display = 'none';
+        companyContent.style.display = 'block';
+        deviceContent.style.display = 'none';
+      } else {
+        // Company A or Company B - show device menu and device content
+        adminMenu.style.display = 'none';
+        companyMenu.style.display = 'block';
+        companyContent.style.display = 'none';
+        deviceContent.style.display = 'block';
+      }
+    }
+
+    // Page switching functions
+    function showCompanyPage() {
+      document.getElementById('companyContent').style.display = 'block';
+      document.getElementById('deviceContent').style.display = 'none';
+    }
+
+    function showDevicePage() {
+      document.getElementById('companyContent').style.display = 'none';
+      document.getElementById('deviceContent').style.display = 'block';
+    }
+
+    // Remove device functions
+    let deviceToRemove = null;
+
+    function confirmRemoveDevice(deviceSN) {
+      deviceToRemove = deviceSN;
+      document.getElementById('removeDeviceSN').textContent = deviceSN;
+      document.getElementById('removeDeviceModal').classList.add('active');
+    }
+
+    function closeRemoveDeviceModal() {
+      document.getElementById('removeDeviceModal').classList.remove('active');
+      deviceToRemove = null;
+    }
+
+    function confirmRemove() {
+      if (deviceToRemove) {
+        // In a real application, this would make an API call to remove the device
+        // For this prototype, we'll just show a success message and optionally remove the row
+        showToast('Device removed successfully', 'success');
+
+        // Optional: Remove the row from the table for visual feedback
+        const rows = document.querySelectorAll('#deviceContent tbody tr');
+        rows.forEach(row => {
+          const sn = row.querySelector('td:first-child').textContent;
+          if (sn === deviceToRemove) {
+            row.remove();
+          }
+        });
+
+        closeRemoveDeviceModal();
+      }
+    }
 
     console.log('Anker Partner Cloud - Admin Portal');
   </script>
