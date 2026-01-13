@@ -1,0 +1,1218 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Anker Partner Cloud</title>
+  <link rel="icon" type="image/png" href="./images/Anker Logo for web.png">
+
+  <style>
+    /* Import MontForAnker Font Family */
+    @font-face {
+      font-family: 'MontForAnker';
+      src: url('./fonts/MontForAnker-Regular.ttf') format('truetype');
+      font-weight: 400;
+      font-style: normal;
+    }
+    @font-face {
+      font-family: 'MontForAnker';
+      src: url('./fonts/MontForAnker-Book.ttf') format('truetype');
+      font-weight: 450;
+      font-style: normal;
+    }
+    @font-face {
+      font-family: 'MontForAnker';
+      src: url('./fonts/MontForAnker-SemiBold.ttf') format('truetype');
+      font-weight: 600;
+      font-style: normal;
+    }
+    @font-face {
+      font-family: 'MontForAnker';
+      src: url('./fonts/MontForAnker-Bold.ttf') format('truetype');
+      font-weight: 700;
+      font-style: normal;
+    }
+    @font-face {
+      font-family: 'MontForAnker';
+      src: url('./fonts/MontForAnker-Heavy.ttf') format('truetype');
+      font-weight: 800;
+      font-style: normal;
+    }
+
+    /* Eufy Design System v0.6 - Design Tokens */
+    :root {
+      /* Brand Colors */
+      --brand-fg-primary: #005D8E;
+      --brand-fg-secondary: #007FB2;
+      --brand-fill-primary: #005D8E;
+      --brand-fill-secondary: #007FB2;
+      --brand-fill-tertiary: #E6F4FB;
+
+      /* Foreground Colors */
+      --fg-primary: rgba(0, 0, 0, 0.90);
+      --fg-secondary: rgba(0, 0, 0, 0.60);
+      --fg-tertiary: rgba(0, 0, 0, 0.45);
+      --fg-quaternary: rgba(0, 0, 0, 0.25);
+      --fg-quinary: rgba(0, 0, 0, 0.10);
+
+      /* Background Colors */
+      --bg-primary: #F5F5F7;
+      --bg-secondary: #FFFFFF;
+      --bg-tertiary: #FAFAFA;
+
+      /* Border Colors */
+      --color-border-primary: rgba(0, 0, 0, 0.15);
+      --color-border-secondary: rgba(0, 0, 0, 0.10);
+
+      /* Text Colors */
+      --color-text-primary: var(--fg-primary);
+      --color-text-secondary: var(--fg-secondary);
+      --color-text-tertiary: var(--fg-tertiary);
+
+      /* Spacing */
+      --spacing-xxs: 2px;
+      --spacing-xs: 4px;
+      --spacing-sm: 8px;
+      --spacing-md: 12px;
+      --spacing-lg: 16px;
+      --spacing-xl: 20px;
+      --spacing-xxl: 24px;
+
+      /* Font Sizes */
+      --font-body: 14px;
+      --font-caption: 12px;
+      --font-title: 16px;
+
+      /* Font Weights */
+      --font-weight-regular: 400;
+      --font-weight-semibold: 600;
+      --font-weight-bold: 700;
+    }
+
+    /* Global Styles */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'MontForAnker', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      font-size: var(--font-body);
+      color: var(--fg-primary);
+      background-color: var(--bg-primary);
+      line-height: 1.5;
+    }
+
+    /* Layout */
+    .app-layout {
+      display: flex;
+      flex-direction: column;
+      height: 100vh;
+    }
+
+    /* Top Header */
+    .top-header {
+      background-color: var(--bg-secondary);
+      border-bottom: 1px solid var(--color-border-secondary);
+      padding: 0 var(--spacing-xl);
+      height: 56px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .top-header-left {
+      display: flex;
+      align-items: center;
+      gap: var(--spacing-lg);
+    }
+
+    .logo {
+      height: 24px;
+    }
+
+    .app-title {
+      font-size: var(--font-title);
+      font-weight: var(--font-weight-semibold);
+      color: var(--fg-primary);
+    }
+
+
+    .top-header-right {
+      display: flex;
+      align-items: center;
+      gap: var(--spacing-lg);
+    }
+
+    .role-selector {
+      padding: 6px 12px;
+      border: 1px solid var(--color-border-primary);
+      border-radius: 4px;
+      background-color: var(--bg-secondary);
+      font-size: var(--font-body);
+      cursor: pointer;
+    }
+
+    .user-info {
+      display: flex;
+      align-items: center;
+      gap: var(--spacing-sm);
+    }
+
+    .user-avatar {
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #4A90E2 0%, #6CB8FF 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-size: 12px;
+      font-weight: var(--font-weight-semibold);
+    }
+
+    .user-email {
+      font-size: var(--font-caption);
+      color: var(--fg-secondary);
+    }
+
+    /* Main Content Area */
+    .main-area {
+      display: flex;
+      flex: 1;
+      overflow: hidden;
+    }
+
+    /* Sidebar */
+    .sidebar {
+      width: 240px;
+      background-color: var(--bg-secondary);
+      border-right: 1px solid var(--color-border-secondary);
+      overflow-y: auto;
+    }
+
+    .sidebar-section {
+      border-bottom: 1px solid var(--color-border-secondary);
+    }
+
+    .sidebar-header {
+      padding: var(--spacing-md) var(--spacing-lg);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      cursor: pointer;
+      color: var(--fg-primary);
+      font-weight: var(--font-weight-regular);
+    }
+
+    .sidebar-header > span:first-child {
+      display: flex;
+      align-items: center;
+    }
+
+    .sidebar-header:hover {
+      background-color: var(--bg-primary);
+    }
+
+    .sidebar-header.active {
+      color: var(--brand-fg-primary);
+    }
+
+    .sidebar-icon {
+      width: 16px;
+      height: 16px;
+      margin-right: var(--spacing-sm);
+      vertical-align: middle;
+    }
+
+    .sidebar-menu {
+      display: none;
+    }
+
+    .sidebar-menu.expanded {
+      display: block;
+    }
+
+    .sidebar-menu-item {
+      padding: var(--spacing-sm) var(--spacing-lg) var(--spacing-sm) 48px;
+      cursor: pointer;
+      color: var(--fg-secondary);
+    }
+
+    .sidebar-menu-item:hover {
+      background-color: var(--bg-primary);
+    }
+
+    .sidebar-menu-item.active {
+      background-color: var(--brand-fill-tertiary);
+      color: var(--brand-fg-primary);
+      font-weight: var(--font-weight-regular);
+    }
+
+    /* Content Area */
+    .content-area {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+    }
+
+    /* Main Content */
+    .main-content {
+      flex: 1;
+      overflow-y: auto;
+      padding: var(--spacing-xl);
+    }
+
+    /* Search Section */
+    .search-section {
+      background-color: var(--bg-secondary);
+      padding: var(--spacing-lg);
+      border-radius: 8px;
+      margin-bottom: var(--spacing-lg);
+      display: flex;
+      align-items: center;
+      gap: var(--spacing-lg);
+    }
+
+    .search-label {
+      font-weight: var(--font-weight-semibold);
+      min-width: 120px;
+    }
+
+    .search-input {
+      flex: 1;
+      max-width: 400px;
+      padding: 8px 12px;
+      border: 1px solid var(--color-border-primary);
+      border-radius: 4px;
+      font-size: var(--font-body);
+    }
+
+    .search-input::placeholder {
+      color: var(--fg-tertiary);
+    }
+
+    .btn {
+      padding: 8px 20px;
+      border: none;
+      border-radius: 4px;
+      font-size: var(--font-body);
+      font-weight: var(--font-weight-regular);
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .btn-primary {
+      background-color: var(--brand-fill-primary);
+      color: white;
+    }
+
+    .btn-primary:hover {
+      background-color: #004A73;
+    }
+
+    .btn-secondary {
+      background-color: var(--bg-tertiary);
+      color: var(--fg-primary);
+      border: 1px solid var(--color-border-primary);
+    }
+
+    .btn-secondary:hover {
+      background-color: var(--bg-primary);
+    }
+
+    /* List Section */
+    .list-section {
+      background-color: var(--bg-secondary);
+      border-radius: 8px;
+      padding: var(--spacing-lg);
+    }
+
+    .list-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: var(--spacing-lg);
+    }
+
+    .list-title {
+      font-size: 18px;
+      font-weight: var(--font-weight-bold);
+      color: var(--fg-primary);
+    }
+
+    .list-actions {
+      display: flex;
+      gap: var(--spacing-sm);
+    }
+
+    .icon-btn {
+      width: 32px;
+      height: 32px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border: 1px solid var(--color-border-primary);
+      border-radius: 4px;
+      background-color: var(--bg-secondary);
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .icon-btn:hover {
+      background-color: var(--bg-primary);
+    }
+
+    /* Table */
+    .table-wrapper {
+      overflow-x: auto;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+
+    th {
+      text-align: left;
+      padding: var(--spacing-md);
+      background-color: var(--bg-tertiary);
+      color: var(--fg-primary);
+      font-weight: var(--font-weight-semibold);
+      border-bottom: 1px solid var(--color-border-secondary);
+    }
+
+    td {
+      padding: var(--spacing-md);
+      border-bottom: 1px solid var(--color-border-secondary);
+      color: var(--fg-primary);
+    }
+
+    tr:hover {
+      background-color: var(--bg-tertiary);
+    }
+
+    .action-link {
+      color: var(--brand-fg-primary);
+      cursor: pointer;
+      text-decoration: none;
+      margin: 0 var(--spacing-sm);
+    }
+
+    .action-link:hover {
+      text-decoration: underline;
+    }
+
+    .action-link.delete {
+      color: #FF3B30;
+    }
+
+    /* Pagination */
+    .pagination {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: var(--spacing-lg);
+      padding-top: var(--spacing-lg);
+      border-top: 1px solid var(--color-border-secondary);
+    }
+
+    .pagination-info {
+      color: var(--fg-secondary);
+      font-size: var(--font-caption);
+    }
+
+    .pagination-controls {
+      display: flex;
+      gap: var(--spacing-sm);
+      align-items: center;
+    }
+
+    .pagination-btn {
+      width: 32px;
+      height: 32px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border: 1px solid var(--color-border-primary);
+      border-radius: 4px;
+      background-color: var(--bg-secondary);
+      cursor: pointer;
+    }
+
+    .pagination-btn:hover {
+      background-color: var(--bg-primary);
+    }
+
+    .pagination-btn.active {
+      background-color: var(--brand-fill-primary);
+      color: white;
+      border-color: var(--brand-fill-primary);
+    }
+
+    .page-size-selector {
+      padding: 4px 8px;
+      border: 1px solid var(--color-border-primary);
+      border-radius: 4px;
+      font-size: var(--font-caption);
+      cursor: pointer;
+    }
+
+    /* Footer */
+    .footer {
+      background-color: var(--bg-secondary);
+      border-top: 1px solid var(--color-border-secondary);
+      padding: var(--spacing-lg);
+      text-align: center;
+      color: var(--fg-tertiary);
+      font-size: var(--font-caption);
+    }
+
+    /* Modal */
+    .modal-overlay {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background-color: rgba(0, 0, 0, 0.5);
+      z-index: 1000;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .modal-overlay.active {
+      display: flex;
+    }
+
+    .modal {
+      background-color: var(--bg-secondary);
+      border-radius: 8px;
+      width: 90%;
+      max-width: 1200px;
+      max-height: 90vh;
+      display: flex;
+      flex-direction: column;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+    }
+
+    .modal-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: var(--spacing-lg) var(--spacing-xl);
+      border-bottom: 1px solid var(--color-border-secondary);
+    }
+
+    .modal-title {
+      font-size: 18px;
+      font-weight: var(--font-weight-semibold);
+      color: var(--fg-primary);
+    }
+
+    .modal-close {
+      width: 24px;
+      height: 24px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      color: var(--fg-secondary);
+      font-size: 20px;
+    }
+
+    .modal-close:hover {
+      color: var(--fg-primary);
+    }
+
+    .modal-body {
+      flex: 1;
+      overflow-y: auto;
+      padding: var(--spacing-xl);
+      display: flex;
+      gap: var(--spacing-xxl);
+    }
+
+    .modal-left {
+      flex: 1;
+      min-width: 300px;
+    }
+
+    .modal-right {
+      flex: 1;
+      min-width: 400px;
+    }
+
+    .form-group {
+      margin-bottom: var(--spacing-lg);
+    }
+
+    .form-label {
+      display: block;
+      margin-bottom: var(--spacing-sm);
+      color: var(--fg-primary);
+      font-size: var(--font-body);
+    }
+
+    .form-label.required::before {
+      content: "* ";
+      color: #FF3B30;
+    }
+
+    .form-input {
+      width: 100%;
+      padding: 8px 12px;
+      border: 1px solid var(--color-border-primary);
+      border-radius: 4px;
+      font-size: var(--font-body);
+      font-family: inherit;
+    }
+
+    .form-input::placeholder {
+      color: var(--fg-tertiary);
+    }
+
+    .form-input:focus {
+      outline: none;
+      border-color: var(--brand-fg-primary);
+    }
+
+    .form-textarea {
+      width: 100%;
+      min-height: 120px;
+      padding: 8px 12px;
+      border: 1px solid var(--color-border-primary);
+      border-radius: 4px;
+      font-size: var(--font-body);
+      font-family: inherit;
+      resize: vertical;
+    }
+
+    .form-textarea::placeholder {
+      color: var(--fg-tertiary);
+    }
+
+    .form-textarea:focus {
+      outline: none;
+      border-color: var(--brand-fg-primary);
+    }
+
+    .char-count {
+      text-align: right;
+      margin-top: var(--spacing-xs);
+      color: var(--fg-tertiary);
+      font-size: var(--font-caption);
+    }
+
+    .permission-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: var(--spacing-lg);
+    }
+
+    .permission-title {
+      font-size: var(--font-title);
+      font-weight: var(--font-weight-semibold);
+      color: var(--fg-primary);
+    }
+
+    .permission-count {
+      color: var(--fg-tertiary);
+      font-size: var(--font-caption);
+    }
+
+    .permission-tree {
+      border: 1px solid var(--color-border-secondary);
+      border-radius: 4px;
+      padding: var(--spacing-md);
+      max-height: 400px;
+      overflow-y: auto;
+    }
+
+    .tree-item {
+      margin-bottom: var(--spacing-xs);
+    }
+
+    .tree-node {
+      display: flex;
+      align-items: center;
+      padding: 4px 0;
+      cursor: pointer;
+    }
+
+    .tree-node:hover {
+      background-color: var(--bg-tertiary);
+    }
+
+    .tree-toggle {
+      width: 16px;
+      height: 16px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-right: var(--spacing-xs);
+      color: var(--fg-secondary);
+      cursor: pointer;
+    }
+
+    .tree-toggle.empty {
+      visibility: hidden;
+    }
+
+    .tree-checkbox {
+      margin-right: var(--spacing-sm);
+      cursor: pointer;
+    }
+
+    .tree-label {
+      font-size: var(--font-body);
+      color: var(--fg-primary);
+      user-select: none;
+    }
+
+    .tree-label.button-label {
+      color: var(--fg-tertiary);
+    }
+
+    .tree-children {
+      display: none;
+      margin-left: var(--spacing-xl);
+    }
+
+    .tree-children.expanded {
+      display: block;
+    }
+
+    .modal-footer {
+      display: flex;
+      justify-content: flex-end;
+      gap: var(--spacing-md);
+      padding: var(--spacing-lg) var(--spacing-xl);
+      border-top: 1px solid var(--color-border-secondary);
+    }
+
+    .select-all-wrapper {
+      display: flex;
+      align-items: center;
+      gap: var(--spacing-sm);
+      margin-bottom: var(--spacing-md);
+    }
+
+    .select-all-label {
+      color: var(--brand-fg-primary);
+      cursor: pointer;
+      user-select: none;
+    }
+  </style>
+</head>
+<body>
+  <div class="app-layout">
+    <!-- Top Header -->
+    <div class="top-header">
+      <div class="top-header-left">
+        <img src="./images/Anker Logo New.png" alt="ANKER Innovations" class="logo">
+        <span class="app-title">Anker Partner Cloud</span>
+      </div>
+      <div class="top-header-right">
+        <select class="role-selector">
+          <option>Administrator</option>
+          <option>Company A</option>
+          <option>Company B</option>
+        </select>
+        <div class="user-info">
+          <div class="user-avatar">
+            <svg viewBox="0 0 1024 1024" width="32" height="32">
+              <path d="M512 512m-512 0a512 512 0 1 0 1024 0 512 512 0 1 0-1024 0Z" fill="#80AFFF"></path>
+              <path d="M493.226667 1023.431111V0.568889C499.484444 0 505.742222 0 512 0c282.737778 0 512 229.262222 512 512s-229.262222 512-512 512c-6.257778 0-12.515556 0-18.773333-0.568889z" fill="#6EA3FF"></path>
+              <path d="M150.186667 874.382222c69.404444-149.048889 207.644444-250.88 366.364444-250.88 156.444444 0 292.977778 98.417778 363.52 244.053334-93.297778 96.711111-223.573333 156.444444-368.071111 156.444444-141.084444 0-269.084444-57.457778-361.813333-149.617778z" fill="#D1E1FF"></path>
+              <path d="M497.777778 423.822222m-172.373334 0a172.373333 172.373333 0 1 0 344.746667 0 172.373333 172.373333 0 1 0-344.746667 0Z" fill="#DAE7FF"></path>
+              <path d="M494.933333 595.626667V251.448889h2.844445c95.004444 0 172.373333 77.368889 172.373333 172.373333s-77.368889 172.373333-172.373333 172.373334c-0.568889-0.568889-1.706667-0.568889-2.844445-0.568889z" fill="#C1D8FF"></path>
+              <path d="M489.244444 1024v-399.36c7.395556-0.568889 14.222222-0.568889 21.617778-0.568889 156.444444 0 292.977778 98.417778 363.52 244.053333C781.084444 964.266667 650.808889 1024 506.311111 1024h-17.066667z" fill="#C1D8FF"></path>
+            </svg>
+          </div>
+          <span class="user-email">installer@example.com</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Main Area -->
+    <div class="main-area">
+      <!-- Sidebar -->
+      <div class="sidebar">
+        <div class="sidebar-section">
+          <div class="sidebar-header active" onclick="toggleSection(this)">
+            <span>
+              <svg class="sidebar-icon" viewBox="0 0 1024 1024" fill="currentColor">
+                <path d="M928 832 896 832 896 384c0-70.4-57.6-128-128-128L576 256 576 192c0-70.4-57.6-128-128-128L192 64C121.6 64 64 121.6 64 192l0 640L32 832C14.08 832 0 846.08 0 864 0 881.92 14.08 896 32 896l896 0c17.92 0 32-14.08 32-32C960 846.08 945.92 832 928 832zM512 256l0 64 0 512L128 832 128 192c0-35.2 28.8-64 64-64l256 0c35.2 0 64 28.8 64 64L512 256zM832 832 576 832 576 320l192 0c35.2 0 64 28.8 64 64L832 832zM416 256l-192 0C206.08 256 192 270.08 192 288 192 305.92 206.08 320 224 320l192 0C433.92 320 448 305.92 448 288 448 270.08 433.92 256 416 256zM416 448l-192 0C206.08 448 192 462.08 192 480 192 497.92 206.08 512 224 512l192 0C433.92 512 448 497.92 448 480 448 462.08 433.92 448 416 448zM416 640l-192 0C206.08 640 192 654.08 192 672S206.08 704 224 704l192 0C433.92 704 448 689.92 448 672S433.92 640 416 640zM736 448l-64 0C654.08 448 640 462.08 640 480 640 497.92 654.08 512 672 512l64 0C753.92 512 768 497.92 768 480 768 462.08 753.92 448 736 448zM736 640l-64 0c-17.92 0-32 14.08-32 32s14.08 32 32 32l64 0c17.92 0 32-14.08 32-32S753.92 640 736 640z"/>
+              </svg>
+              Tenant
+            </span>
+            <svg class="dropdown-arrow" width="12" height="12" viewBox="0 0 1024 1024" fill="currentColor" style="transform: rotate(180deg); transition: transform 0.2s;">
+              <path d="M151.4 384.7L476.6 710c19.5 19.5 51.2 19.5 70.7 0l325.3-325.3c19.5-19.5 19.5-51.2 0-70.7s-51.2-19.5-70.7 0L512 603.9 222.1 314c-19.5-19.5-51.2-19.5-70.7 0-19.6 19.5-19.6 51.2 0 70.7z"/>
+            </svg>
+          </div>
+          <div class="sidebar-menu expanded">
+            <div class="sidebar-menu-item active">Company</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Content Area -->
+      <div class="content-area">
+        <!-- Main Content -->
+        <div class="main-content">
+          <!-- Search Section -->
+          <div class="search-section">
+            <label class="search-label">Company Name:</label>
+            <input type="text" class="search-input" placeholder="Please enter">
+            <button class="btn btn-primary">Search</button>
+            <button class="btn btn-secondary">Reset</button>
+          </div>
+
+          <!-- List Section -->
+          <div class="list-section">
+            <div class="list-header">
+              <h2 class="list-title">Company List</h2>
+              <div class="list-actions">
+                <button class="btn btn-primary" onclick="openCreateModal()">Create</button>
+              </div>
+            </div>
+
+            <div class="table-wrapper">
+              <table>
+                <thead>
+                  <tr>
+                    <th>Company Name</th>
+                    <th>Account Quantity</th>
+                    <th>Company Description</th>
+                    <th>Create Time</th>
+                    <th>Operate</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>TechVision Solutions</td>
+                    <td>8</td>
+                    <td>Energy management system integrator.</td>
+                    <td>2025-12-16 18:26:00</td>
+                    <td>
+                      <a class="action-link" onclick="editCompany('TechVision Solutions')">Edit</a>
+                      <a class="action-link delete" onclick="deleteCompany('TechVision Solutions')">Delete</a>
+                      <a class="action-link" onclick="viewApplication('TechVision Solutions')">Application</a>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>GreenPower Systems</td>
+                    <td>12</td>
+                    <td>Renewable energy solutions provider.</td>
+                    <td>2025-11-28 14:32:15</td>
+                    <td>
+                      <a class="action-link" onclick="editCompany('GreenPower Systems')">Edit</a>
+                      <a class="action-link delete" onclick="deleteCompany('GreenPower Systems')">Delete</a>
+                      <a class="action-link" onclick="viewApplication('GreenPower Systems')">Application</a>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>SmartHome Technologies</td>
+                    <td>6</td>
+                    <td>Home automation and IoT integration.</td>
+                    <td>2025-11-17 16:16:32</td>
+                    <td>
+                      <a class="action-link" onclick="editCompany('SmartHome Technologies')">Edit</a>
+                      <a class="action-link delete" onclick="deleteCompany('SmartHome Technologies')">Delete</a>
+                      <a class="action-link" onclick="viewApplication('SmartHome Technologies')">Application</a>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>EcoCharge Networks</td>
+                    <td>15</td>
+                    <td>Electric vehicle charging infrastructure.</td>
+                    <td>2025-11-05 10:22:48</td>
+                    <td>
+                      <a class="action-link" onclick="editCompany('EcoCharge Networks')">Edit</a>
+                      <a class="action-link delete" onclick="deleteCompany('EcoCharge Networks')">Delete</a>
+                      <a class="action-link" onclick="viewApplication('EcoCharge Networks')">Application</a>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>PowerGrid Innovations</td>
+                    <td>9</td>
+                    <td>Smart grid and energy storage solutions.</td>
+                    <td>2025-10-29 11:17:22</td>
+                    <td>
+                      <a class="action-link" onclick="editCompany('PowerGrid Innovations')">Edit</a>
+                      <a class="action-link delete" onclick="deleteCompany('PowerGrid Innovations')">Delete</a>
+                      <a class="action-link" onclick="viewApplication('PowerGrid Innovations')">Application</a>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>SolarTech Industries</td>
+                    <td>11</td>
+                    <td>Solar panel installation and maintenance.</td>
+                    <td>2025-10-15 09:45:33</td>
+                    <td>
+                      <a class="action-link" onclick="editCompany('SolarTech Industries')">Edit</a>
+                      <a class="action-link delete" onclick="deleteCompany('SolarTech Industries')">Delete</a>
+                      <a class="action-link" onclick="viewApplication('SolarTech Industries')">Application</a>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>EnergyHub Corporation</td>
+                    <td>7</td>
+                    <td>Energy monitoring and analytics platform.</td>
+                    <td>2025-09-28 15:20:11</td>
+                    <td>
+                      <a class="action-link" onclick="editCompany('EnergyHub Corporation')">Edit</a>
+                      <a class="action-link delete" onclick="deleteCompany('EnergyHub Corporation')">Delete</a>
+                      <a class="action-link" onclick="viewApplication('EnergyHub Corporation')">Application</a>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>NextGen Power Solutions</td>
+                    <td>14</td>
+                    <td>Battery storage system integrator.</td>
+                    <td>2025-09-12 13:38:47</td>
+                    <td>
+                      <a class="action-link" onclick="editCompany('NextGen Power Solutions')">Edit</a>
+                      <a class="action-link delete" onclick="deleteCompany('NextGen Power Solutions')">Delete</a>
+                      <a class="action-link" onclick="viewApplication('NextGen Power Solutions')">Application</a>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>CleanEnergy Partners</td>
+                    <td>10</td>
+                    <td>Sustainable energy consulting services.</td>
+                    <td>2025-08-30 11:05:29</td>
+                    <td>
+                      <a class="action-link" onclick="editCompany('CleanEnergy Partners')">Edit</a>
+                      <a class="action-link delete" onclick="deleteCompany('CleanEnergy Partners')">Delete</a>
+                      <a class="action-link" onclick="viewApplication('CleanEnergy Partners')">Application</a>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>FutureGrid Systems</td>
+                    <td>13</td>
+                    <td>Advanced metering infrastructure provider.</td>
+                    <td>2025-08-22 17:10:32</td>
+                    <td>
+                      <a class="action-link" onclick="editCompany('FutureGrid Systems')">Edit</a>
+                      <a class="action-link delete" onclick="deleteCompany('FutureGrid Systems')">Delete</a>
+                      <a class="action-link" onclick="viewApplication('FutureGrid Systems')">Application</a>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+
+            <div class="pagination">
+              <div class="pagination-info">1-10 of 10 items</div>
+              <div class="pagination-controls">
+                <button class="pagination-btn">‹</button>
+                <button class="pagination-btn active">1</button>
+                <button class="pagination-btn">›</button>
+                <select class="page-size-selector">
+                  <option>10 / page</option>
+                  <option>20 / page</option>
+                  <option>50 / page</option>
+                </select>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Create/Edit Company Modal -->
+  <div class="modal-overlay" id="companyModal">
+    <div class="modal">
+      <div class="modal-header">
+        <h2 class="modal-title" id="modalTitle">Create Company</h2>
+        <span class="modal-close" onclick="closeCompanyModal()">×</span>
+      </div>
+      <div class="modal-body">
+        <div class="modal-left">
+          <div class="form-group">
+            <label class="form-label required">Company Name</label>
+            <input type="text" class="form-input" id="companyName" placeholder="Please enter">
+          </div>
+          <div class="form-group">
+            <label class="form-label">Company Description</label>
+            <textarea class="form-textarea" id="companyDescription" placeholder="Maximum 200 characters" maxlength="200" oninput="updateCharCount()"></textarea>
+            <div class="char-count" id="charCount">0 / 200</div>
+          </div>
+        </div>
+        <div class="modal-right">
+          <div class="permission-header">
+            <div class="permission-title">Menu Permission</div>
+            <div class="permission-count" id="permissionCount">0 / 32</div>
+          </div>
+          <div class="select-all-wrapper">
+            <input type="checkbox" id="selectAll" class="tree-checkbox" onchange="toggleSelectAll()">
+            <label class="select-all-label" for="selectAll">Select All</label>
+          </div>
+          <div class="permission-tree" id="permissionTree">
+            <!-- Dashboard -->
+            <div class="tree-item">
+              <div class="tree-node">
+                <span class="tree-toggle empty">▸</span>
+                <input type="checkbox" class="tree-checkbox" data-id="dashboard" onchange="updatePermissionCount()">
+                <span class="tree-label">Dashboard</span>
+              </div>
+            </div>
+
+            <!-- User -->
+            <div class="tree-item">
+              <div class="tree-node">
+                <span class="tree-toggle" onclick="toggleTreeNode(this)">▸</span>
+                <input type="checkbox" class="tree-checkbox" data-id="user" onchange="updatePermissionCount()">
+                <span class="tree-label">User</span>
+              </div>
+              <div class="tree-children">
+                <div class="tree-item">
+                  <div class="tree-node">
+                    <span class="tree-toggle empty">▸</span>
+                    <input type="checkbox" class="tree-checkbox" data-id="user-detail-1" onchange="updatePermissionCount()">
+                    <span class="tree-label button-label">└─ User Detail (button)</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- User Detail (standalone) -->
+            <div class="tree-item">
+              <div class="tree-node">
+                <span class="tree-toggle empty">▸</span>
+                <input type="checkbox" class="tree-checkbox" data-id="user-detail-standalone" onchange="updatePermissionCount()">
+                <span class="tree-label">User Detail</span>
+              </div>
+            </div>
+
+            <!-- Device -->
+            <div class="tree-item">
+              <div class="tree-node">
+                <span class="tree-toggle" onclick="toggleTreeNode(this)">▸</span>
+                <input type="checkbox" class="tree-checkbox" data-id="device" onchange="updatePermissionCount()">
+                <span class="tree-label">Device</span>
+              </div>
+              <div class="tree-children">
+                <div class="tree-item">
+                  <div class="tree-node">
+                    <span class="tree-toggle empty">▸</span>
+                    <input type="checkbox" class="tree-checkbox" data-id="device-user-detail" onchange="updatePermissionCount()">
+                    <span class="tree-label button-label">└─ User Detail (button)</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Service -->
+            <div class="tree-item">
+              <div class="tree-node">
+                <span class="tree-toggle" onclick="toggleTreeNode(this)">▸</span>
+                <input type="checkbox" class="tree-checkbox" data-id="service" onchange="updatePermissionCount()">
+                <span class="tree-label">Service</span>
+              </div>
+              <div class="tree-children">
+                <!-- Expert Monitoring -->
+                <div class="tree-item">
+                  <div class="tree-node">
+                    <span class="tree-toggle" onclick="toggleTreeNode(this)">▸</span>
+                    <input type="checkbox" class="tree-checkbox" data-id="expert-monitoring" onchange="updatePermissionCount()">
+                    <span class="tree-label">Expert Monitoring</span>
+                  </div>
+                  <div class="tree-children">
+                    <div class="tree-item">
+                      <div class="tree-node">
+                        <span class="tree-toggle empty">▸</span>
+                        <input type="checkbox" class="tree-checkbox" data-id="expert-user-detail" onchange="updatePermissionCount()">
+                        <span class="tree-label button-label">└─ User Detail (button)</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Warranty -->
+                <div class="tree-item">
+                  <div class="tree-node">
+                    <span class="tree-toggle" onclick="toggleTreeNode(this)">▸</span>
+                    <input type="checkbox" class="tree-checkbox" data-id="warranty" onchange="updatePermissionCount()">
+                    <span class="tree-label">Warranty</span>
+                  </div>
+                  <div class="tree-children">
+                    <div class="tree-item">
+                      <div class="tree-node">
+                        <span class="tree-toggle empty">▸</span>
+                        <input type="checkbox" class="tree-checkbox" data-id="warranty-detail" onchange="updatePermissionCount()">
+                        <span class="tree-label button-label">└─ Detail (button)</span>
+                      </div>
+                    </div>
+                    <div class="tree-item">
+                      <div class="tree-node">
+                        <span class="tree-toggle empty">▸</span>
+                        <input type="checkbox" class="tree-checkbox" data-id="warranty-export" onchange="updatePermissionCount()">
+                        <span class="tree-label button-label">└─ Export (button)</span>
+                      </div>
+                    </div>
+                    <div class="tree-item">
+                      <div class="tree-node">
+                        <span class="tree-toggle empty">▸</span>
+                        <input type="checkbox" class="tree-checkbox" data-id="warranty-reconciliation" onchange="updatePermissionCount()">
+                        <span class="tree-label button-label">└─ Reconciliation (button)</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Warranty Detail (standalone) -->
+            <div class="tree-item">
+              <div class="tree-node">
+                <span class="tree-toggle empty">▸</span>
+                <input type="checkbox" class="tree-checkbox" data-id="warranty-detail-standalone" onchange="updatePermissionCount()">
+                <span class="tree-label">Warranty Detail</span>
+              </div>
+            </div>
+
+            <!-- Alarm History -->
+            <div class="tree-item">
+              <div class="tree-node">
+                <span class="tree-toggle" onclick="toggleTreeNode(this)">▸</span>
+                <input type="checkbox" class="tree-checkbox" data-id="alarm-history" onchange="updatePermissionCount()">
+                <span class="tree-label">Alarm History</span>
+              </div>
+              <div class="tree-children">
+                <div class="tree-item">
+                  <div class="tree-node">
+                    <span class="tree-toggle empty">▸</span>
+                    <input type="checkbox" class="tree-checkbox" data-id="alarm-user-detail" onchange="updatePermissionCount()">
+                    <span class="tree-label button-label">└─ User Detail (button)</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Resource -->
+            <div class="tree-item">
+              <div class="tree-node">
+                <span class="tree-toggle empty">▸</span>
+                <input type="checkbox" class="tree-checkbox" data-id="resource" onchange="updatePermissionCount()">
+                <span class="tree-label">Resource</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-secondary" onclick="closeCompanyModal()">Cancel</button>
+        <button class="btn btn-primary" onclick="saveCompany()">Confirm</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Toggle sidebar section
+    function toggleSection(header) {
+      const menu = header.nextElementSibling;
+      if (menu && menu.classList.contains('sidebar-menu')) {
+        menu.classList.toggle('expanded');
+        const arrow = header.querySelector('.dropdown-arrow');
+        if (arrow) {
+          arrow.style.transform = menu.classList.contains('expanded') ? 'rotate(180deg)' : 'rotate(0deg)';
+        }
+      }
+    }
+
+    // Company operations
+    function editCompany(name) {
+      document.getElementById('modalTitle').textContent = 'Edit Company';
+      document.getElementById('companyName').value = name;
+      document.getElementById('companyModal').classList.add('active');
+    }
+
+    function deleteCompany(name) {
+      // No action for now
+    }
+
+    function viewApplication(name) {
+      // No action for now
+    }
+
+    // Modal operations
+    function openCreateModal() {
+      document.getElementById('modalTitle').textContent = 'Create Company';
+      document.getElementById('companyName').value = '';
+      document.getElementById('companyDescription').value = '';
+      updateCharCount();
+      // Clear all checkboxes
+      const checkboxes = document.querySelectorAll('#permissionTree .tree-checkbox');
+      checkboxes.forEach(cb => cb.checked = false);
+      document.getElementById('selectAll').checked = false;
+      updatePermissionCount();
+      document.getElementById('companyModal').classList.add('active');
+    }
+
+    function closeCompanyModal() {
+      document.getElementById('companyModal').classList.remove('active');
+    }
+
+    function saveCompany() {
+      const name = document.getElementById('companyName').value;
+      if (!name.trim()) {
+        alert('Please enter company name');
+        return;
+      }
+      alert('Company saved: ' + name);
+      closeCompanyModal();
+    }
+
+    // Tree operations
+    function toggleTreeNode(toggleElement) {
+      const node = toggleElement.parentElement;
+      const children = node.nextElementSibling;
+      if (children && children.classList.contains('tree-children')) {
+        children.classList.toggle('expanded');
+        toggleElement.textContent = children.classList.contains('expanded') ? '▾' : '▸';
+      }
+    }
+
+    // Update character count
+    function updateCharCount() {
+      const textarea = document.getElementById('companyDescription');
+      const count = document.getElementById('charCount');
+      count.textContent = textarea.value.length + ' / 200';
+    }
+
+    // Update permission count
+    function updatePermissionCount() {
+      const checkboxes = document.querySelectorAll('#permissionTree .tree-checkbox:checked');
+      const total = document.querySelectorAll('#permissionTree .tree-checkbox').length;
+      document.getElementById('permissionCount').textContent = checkboxes.length + ' / ' + total;
+    }
+
+    // Select all toggle
+    function toggleSelectAll() {
+      const selectAll = document.getElementById('selectAll');
+      const checkboxes = document.querySelectorAll('#permissionTree .tree-checkbox');
+      checkboxes.forEach(cb => cb.checked = selectAll.checked);
+      updatePermissionCount();
+    }
+
+    // Close modal when clicking outside
+    document.getElementById('companyModal')?.addEventListener('click', function(e) {
+      if (e.target === this) {
+        closeCompanyModal();
+      }
+    });
+
+    console.log('Anker Partner Cloud - Admin Portal');
+  </script>
+</body>
+</html>
