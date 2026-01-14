@@ -1617,6 +1617,19 @@
             <input type="hidden" id="businessType" value="Others">
           </div>
 
+          <!-- Data Permission -->
+          <div class="form-group">
+            <label class="form-label required">Data Permission</label>
+            <div class="custom-select" id="dataPermissionSelect" style="width: 100%;">
+              <div class="custom-select-trigger" style="width: 100%;">Company-related</div>
+              <div class="custom-select-dropdown">
+                <div class="custom-select-option selected" data-value="Company-related">Company-related</div>
+                <div class="custom-select-option" data-value="All">All</div>
+              </div>
+            </div>
+            <input type="hidden" id="dataPermission" value="Company-related">
+          </div>
+
           <!-- App Permission -->
           <div class="form-group">
             <label class="form-label required">App Permission</label>
@@ -1630,17 +1643,17 @@
             <input type="hidden" id="appPermission" value="Disable">
           </div>
 
-          <!-- Data Permission -->
+          <!-- SaaS Permission -->
           <div class="form-group">
-            <label class="form-label required">Data Permission</label>
-            <div class="custom-select" id="dataPermissionSelect" style="width: 100%;">
-              <div class="custom-select-trigger" style="width: 100%;">Company-related</div>
+            <label class="form-label required">SaaS Permission</label>
+            <div class="custom-select" id="saasPermissionSelect" style="width: 100%;">
+              <div class="custom-select-trigger" style="width: 100%;">Disable</div>
               <div class="custom-select-dropdown">
-                <div class="custom-select-option selected" data-value="Company-related">Company-related</div>
-                <div class="custom-select-option" data-value="All">All</div>
+                <div class="custom-select-option" data-value="Enable">Enable</div>
+                <div class="custom-select-option selected" data-value="Disable">Disable</div>
               </div>
             </div>
-            <input type="hidden" id="dataPermission" value="Company-related">
+            <input type="hidden" id="saasPermission" value="Disable">
           </div>
         </div>
         <div class="modal-right">
