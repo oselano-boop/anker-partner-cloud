@@ -1637,7 +1637,7 @@
         <div class="modal-right">
           <div class="permission-header">
             <div class="permission-title">Web Permission</div>
-            <div class="permission-count" id="permissionCount">0 / 33</div>
+            <div class="permission-count" id="permissionCount">0 / 38</div>
           </div>
           <div class="select-all-wrapper">
             <input type="checkbox" id="selectAll" class="tree-checkbox" onchange="toggleSelectAll()">
@@ -1823,6 +1823,45 @@
                 <span class="tree-toggle empty">▸</span>
                 <input type="checkbox" class="tree-checkbox" data-id="company-information" onchange="handleCheckboxChange(this)">
                 <span class="tree-label">Company Information</span>
+              </div>
+            </div>
+
+            <!-- Approval -->
+            <div class="tree-item">
+              <div class="tree-node">
+                <span class="tree-toggle" onclick="toggleTreeNode(this)">▾</span>
+                <input type="checkbox" class="tree-checkbox" data-id="approval" onchange="handleCheckboxChange(this)">
+                <span class="tree-label">Approval</span>
+              </div>
+              <div class="tree-children expanded">
+                <div class="tree-item">
+                  <div class="tree-node">
+                    <span class="tree-toggle empty">▸</span>
+                    <input type="checkbox" class="tree-checkbox" data-id="approval-review" onchange="handleCheckboxChange(this)">
+                    <span class="tree-label button-label">└─ Review (button)</span>
+                  </div>
+                </div>
+                <div class="tree-item">
+                  <div class="tree-node">
+                    <span class="tree-toggle empty">▸</span>
+                    <input type="checkbox" class="tree-checkbox" data-id="approval-details" onchange="handleCheckboxChange(this)">
+                    <span class="tree-label button-label">└─ Details (button)</span>
+                  </div>
+                </div>
+                <div class="tree-item">
+                  <div class="tree-node">
+                    <span class="tree-toggle empty">▸</span>
+                    <input type="checkbox" class="tree-checkbox" data-id="approval-approve" onchange="handleCheckboxChange(this)">
+                    <span class="tree-label button-label">└─ Approve (button)</span>
+                  </div>
+                </div>
+                <div class="tree-item">
+                  <div class="tree-node">
+                    <span class="tree-toggle empty">▸</span>
+                    <input type="checkbox" class="tree-checkbox" data-id="approval-reject" onchange="handleCheckboxChange(this)">
+                    <span class="tree-label button-label">└─ Reject (button)</span>
+                  </div>
+                </div>
               </div>
             </div>
 
