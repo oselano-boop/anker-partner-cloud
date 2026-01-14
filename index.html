@@ -856,6 +856,12 @@
       display: none;
     }
 
+    /* Dropdown opens upward when near bottom */
+    .custom-select.open-upward .custom-select-dropdown {
+      top: auto;
+      bottom: calc(100% + 4px);
+    }
+
     .custom-select.open .custom-select-dropdown {
       display: block;
     }
@@ -2479,9 +2485,25 @@
         document.querySelectorAll('.custom-select.open').forEach(sel => {
           if (sel !== selectElement) {
             sel.classList.remove('open');
+            sel.classList.remove('open-upward');
           }
         });
         selectElement.classList.toggle('open');
+
+        // Check if dropdown should open upward
+        if (selectElement.classList.contains('open')) {
+          const rect = selectElement.getBoundingClientRect();
+          const dropdownHeight = 240; // max-height of dropdown
+          const spaceBelow = window.innerHeight - rect.bottom;
+          const spaceAbove = rect.top;
+
+          // If not enough space below and more space above, open upward
+          if (spaceBelow < dropdownHeight && spaceAbove > spaceBelow) {
+            selectElement.classList.add('open-upward');
+          } else {
+            selectElement.classList.remove('open-upward');
+          }
+        }
       });
 
       // Select option
@@ -2520,6 +2542,7 @@
     document.addEventListener('click', () => {
       document.querySelectorAll('.custom-select.open').forEach(sel => {
         sel.classList.remove('open');
+        sel.classList.remove('open-upward');
       });
     });
 
