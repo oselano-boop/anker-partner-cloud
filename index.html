@@ -219,6 +219,12 @@
       border-bottom: 1px solid var(--color-border-secondary);
     }
 
+    /* Remove bottom border from last sections */
+    #adminMenu,
+    #companyMenu {
+      border-bottom: none;
+    }
+
     .sidebar-header {
       padding: var(--spacing-md) var(--spacing-lg);
       display: flex;
@@ -239,7 +245,13 @@
     }
 
     .sidebar-header.active {
+      background-color: var(--brand-fill-tertiary);
       color: var(--brand-fg-primary);
+    }
+
+    /* Expandable sidebar headers (with dropdown arrow) should not show active background */
+    .sidebar-header-expandable.active {
+      background-color: transparent;
     }
 
     .sidebar-icon {
@@ -300,7 +312,7 @@
     }
 
     .search-label {
-      font-weight: var(--font-weight-semibold);
+      font-weight: normal;
       white-space: nowrap;
     }
 
@@ -311,6 +323,8 @@
       border: 1px solid var(--color-border-primary);
       border-radius: 4px;
       font-size: var(--font-body);
+      height: 38px;
+      box-sizing: border-box;
     }
 
     .search-input::placeholder {
@@ -439,6 +453,39 @@
 
     .action-link.details {
       color: #8C8C8C;
+    }
+
+    /* Table Styles */
+    .table-wrapper {
+      overflow-x: auto;
+      width: 100%;
+    }
+
+    table {
+      width: 100%;
+      min-width: max-content;
+    }
+
+    th, td {
+      padding: 12px 16px;
+    }
+
+    /* Table headers always display in single line without truncation */
+    th {
+      white-space: nowrap;
+    }
+
+    /* Only apply truncation to text columns that may be long */
+    td.truncate {
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      max-width: 200px;
+    }
+
+    /* Table cell tooltip on hover - only show help cursor when text is truncated */
+    td.truncate[title]:hover {
+      cursor: help;
     }
 
     /* Pagination */
@@ -824,6 +871,10 @@
       transition: all 0.2s;
       user-select: none;
       white-space: nowrap;
+      height: 38px;
+      box-sizing: border-box;
+      display: flex;
+      align-items: center;
     }
 
     .custom-select-trigger:hover {
@@ -1006,7 +1057,7 @@
       <div class="sidebar">
         <!-- Administrator Menu -->
         <div id="adminMenu" class="sidebar-section">
-          <div class="sidebar-header active" onclick="toggleSection(this)">
+          <div class="sidebar-header sidebar-header-expandable active" onclick="toggleSection(this)">
             <span>
               <svg class="sidebar-icon" viewBox="0 0 1024 1024" fill="currentColor">
                 <path d="M928 832 896 832 896 384c0-70.4-57.6-128-128-128L576 256 576 192c0-70.4-57.6-128-128-128L192 64C121.6 64 64 121.6 64 192l0 640L32 832C14.08 832 0 846.08 0 864 0 881.92 14.08 896 32 896l896 0c17.92 0 32-14.08 32-32C960 846.08 945.92 832 928 832zM512 256l0 64 0 512L128 832 128 192c0-35.2 28.8-64 64-64l256 0c35.2 0 64 28.8 64 64L512 256zM832 832 576 832 576 320l192 0c35.2 0 64 28.8 64 64L832 832zM416 256l-192 0C206.08 256 192 270.08 192 288 192 305.92 206.08 320 224 320l192 0C433.92 320 448 305.92 448 288 448 270.08 433.92 256 416 256zM416 448l-192 0C206.08 448 192 462.08 192 480 192 497.92 206.08 512 224 512l192 0C433.92 512 448 497.92 448 480 448 462.08 433.92 448 416 448zM416 640l-192 0C206.08 640 192 654.08 192 672S206.08 704 224 704l192 0C433.92 704 448 689.92 448 672S433.92 640 416 640zM736 448l-64 0C654.08 448 640 462.08 640 480 640 497.92 654.08 512 672 512l64 0C753.92 512 768 497.92 768 480 768 462.08 753.92 448 736 448zM736 640l-64 0c-17.92 0-32 14.08-32 32s14.08 32 32 32l64 0c17.92 0 32-14.08 32-32S753.92 640 736 640z"/>
@@ -1025,7 +1076,15 @@
 
         <!-- Company Menu -->
         <div id="companyMenu" class="sidebar-section" style="display: none;">
-          <div class="sidebar-header active" onclick="showDevicePage()">
+          <div class="sidebar-header" onclick="showUserPage(event)">
+            <span>
+              <svg class="sidebar-icon" viewBox="0 0 1118 1024" fill="currentColor">
+                <path d="M639.252 221.147c-33.039-92.704-117.58-158.869-216.288-158.869-127.357 0-229.556 110.145-229.556 243.655 0 83.443 39.308 156.875 99.055 200.265C157.246 562.939 62.907 701.457 62.907 863.337h64.464c0-160.212 114.778-293.722 261.003-312.08 1.572 0 40.88-3.338 73.898 0h3.144a280.135 280.135 0 0 1 55.641 14.405c-14.403-27.794-23.846-58.972-27.043-92.164-21.647 10.294-45.689 16.011-71.05 16.011-95.911 0-172.954-81.775-172.954-183.577 0-101.801 77.043-183.577 172.954-183.577 77.79 0 143.167 53.794 165.096 128.437 15.68-12.056 32.858-22.067 51.193-29.647zM814.127 606.47c59.747-43.39 99.055-116.822 99.055-200.265 0-135.178-103.773-245.325-231.128-245.325-127.357 0-229.556 110.145-229.556 243.655 0 83.443 39.307 156.874 99.055 200.265-135.218 56.741-229.556 195.259-229.556 357.139h64.464c0-160.212 114.778-293.722 261.003-312.08 1.572 0 40.88-3.338 73.898 0h3.144c143.079 21.696 253.141 151.868 253.141 310.41h66.037c-1.572-160.212-95.911-298.729-229.556-353.801z m-132.073-18.357c-95.911 0-172.954-81.775-172.954-183.577s77.043-183.577 172.954-183.577 172.954 81.775 172.954 183.577c0 101.801-77.043 183.577-172.954 183.577z" fill="currentColor"/>
+              </svg>
+              User
+            </span>
+          </div>
+          <div class="sidebar-header active" onclick="showDevicePage(event)">
             <span>
               <svg class="sidebar-icon" viewBox="0 0 1024 1024" fill="currentColor">
                 <path d="M954.066 439.7a181.176 181.176 0 0 1-49.844 64.146 25.936 25.936 0 0 1 5.917 30.043l-87.854 188.377a25.985 25.985 0 0 1-34.531 12.566l-74.657-34.81a77.974 77.974 0 0 1-88.605 16.023l-149.2-69.564-50.517 101.011a77.534 77.534 0 0 1-69.729 43.083H223.391v25.982a78.036 78.036 0 0 1-77.952 77.943h-51.97a25.982 25.982 0 0 1-25.984-25.98V608.707a25.983 25.983 0 0 1 25.983-25.982h51.969a78.076 78.076 0 0 1 73.485 51.964h87.941l27.067-54.118L200.593 518.4c-64.927-30.273-93.118-107.718-62.841-172.637l65.89-141.284c30.277-64.919 107.731-93.1 172.655-62.835l565.2 263.523a25.985 25.985 0 0 1 12.569 34.533zM145.439 634.687h-25.985v207.85h25.983a26.012 26.012 0 0 0 25.985-25.982V660.669a26.012 26.012 0 0 0-25.983-25.982z m640.727 42.071l65.894-141.282-2.421-1.127a182 182 0 0 1-59.26 10.429L739.067 654.8z m-463.246 9.89h-99.529v51.962h131.655a25.845 25.845 0 0 0 23.246-14.36l49.884-99.742-47.128-21.973-34.887 69.752a25.984 25.984 0 0 1-23.241 14.361zM217.795 297.083l-32.944 70.641a78.03 78.03 0 0 0 37.7 103.581L646.455 668.95a25.972 25.972 0 0 0 34.53-12.566l55.683-119.4a184.083 184.083 0 0 1-24.326-9.311z m136.539-108.344a78.041 78.041 0 0 0-103.593 37.7l-10.981 23.548 494.544 230.584a130.038 130.038 0 0 0 159.336-40.378z m266.985 411.155l-94.2-43.921a25.982 25.982 0 1 1 21.966-47.094l94.2 43.921a25.982 25.982 0 1 1-21.966 47.094z m-271.626-129.32a25.982 25.982 0 1 1 25.984-25.981 25.983 25.983 0 0 1-25.984 25.981z m-94.184-43.926a25.982 25.982 0 1 1 25.984-25.982 25.984 25.984 0 0 1-25.984 25.982z" fill="currentColor"/>
@@ -1042,10 +1101,20 @@
         <div id="companyContent" class="main-content">
           <!-- Search Section -->
           <div class="search-section">
-            <label class="search-label">Company Name:</label>
-            <input type="text" class="search-input" placeholder="Please enter">
-            <button class="btn btn-primary">Search</button>
-            <button class="btn btn-secondary">Reset</button>
+            <div style="display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px 24px; align-items: center; width: 100%;">
+              <!-- Field 1: Company Name -->
+              <div style="display: flex; align-items: center; gap: 8px; min-width: 0;">
+                <label class="search-label" style="white-space: nowrap; margin: 0; flex-shrink: 0;">Company Name:</label>
+                <input type="text" class="search-input" placeholder="Please enter" style="flex: 1; min-width: 0; width: 100%;">
+              </div>
+              <!-- Empty cells -->
+              <div></div>
+              <!-- Buttons -->
+              <div style="display: flex; gap: 12px; justify-content: flex-end; align-items: center;">
+                <button class="btn btn-primary">Search</button>
+                <button class="btn btn-secondary">Reset</button>
+              </div>
+            </div>
           </div>
 
           <!-- List Section -->
@@ -1070,10 +1139,9 @@
                   </tr>
                 </thead>
                 <tbody>
-                  <tr>
-                    <td>TechVision Solutions</td>
+                  <tr><td class="truncate">TechVision Solutions</td>
                     <td>8</td>
-                    <td>Energy management system integrator.</td>
+                    <td class="truncate">Energy management system integrator.</td>
                     <td>Installer</td>
                     <td>2025-12-16 18:26:00</td>
                     <td>
@@ -1082,10 +1150,9 @@
                       <a class="action-link" onclick="viewApplication('TechVision Solutions')">Application</a>
                     </td>
                   </tr>
-                  <tr>
-                    <td>GreenPower Systems</td>
+                  <tr><td class="truncate">GreenPower Systems</td>
                     <td>12</td>
-                    <td>Renewable energy solutions provider.</td>
+                    <td class="truncate">Renewable energy solutions provider.</td>
                     <td>Installer (SaaS)</td>
                     <td>2025-11-28 14:32:15</td>
                     <td>
@@ -1094,10 +1161,9 @@
                       <a class="action-link" onclick="viewApplication('GreenPower Systems')">Application</a>
                     </td>
                   </tr>
-                  <tr>
-                    <td>SmartHome Technologies</td>
+                  <tr><td class="truncate">SmartHome Technologies</td>
                     <td>6</td>
-                    <td>Home automation and IoT integration.</td>
+                    <td class="truncate">Home automation and IoT integration.</td>
                     <td>Others</td>
                     <td>2025-11-17 16:16:32</td>
                     <td>
@@ -1106,10 +1172,9 @@
                       <a class="action-link" onclick="viewApplication('SmartHome Technologies')">Application</a>
                     </td>
                   </tr>
-                  <tr>
-                    <td>EcoCharge Networks</td>
+                  <tr><td class="truncate">EcoCharge Networks</td>
                     <td>15</td>
-                    <td>Electric vehicle charging infrastructure.</td>
+                    <td class="truncate">Electric vehicle charging infrastructure.</td>
                     <td>Installer</td>
                     <td>2025-11-05 10:22:48</td>
                     <td>
@@ -1118,10 +1183,9 @@
                       <a class="action-link" onclick="viewApplication('EcoCharge Networks')">Application</a>
                     </td>
                   </tr>
-                  <tr>
-                    <td>PowerGrid Innovations</td>
+                  <tr><td class="truncate">PowerGrid Innovations</td>
                     <td>9</td>
-                    <td>Smart grid and energy storage solutions.</td>
+                    <td class="truncate">Smart grid and energy storage solutions.</td>
                     <td>Installer (SaaS)</td>
                     <td>2025-10-29 11:17:22</td>
                     <td>
@@ -1130,10 +1194,9 @@
                       <a class="action-link" onclick="viewApplication('PowerGrid Innovations')">Application</a>
                     </td>
                   </tr>
-                  <tr>
-                    <td>SolarTech Industries</td>
+                  <tr><td class="truncate">SolarTech Industries</td>
                     <td>11</td>
-                    <td>Solar panel installation and maintenance.</td>
+                    <td class="truncate">Solar panel installation and maintenance.</td>
                     <td>Installer</td>
                     <td>2025-10-15 09:45:33</td>
                     <td>
@@ -1142,10 +1205,9 @@
                       <a class="action-link" onclick="viewApplication('SolarTech Industries')">Application</a>
                     </td>
                   </tr>
-                  <tr>
-                    <td>EnergyHub Corporation</td>
+                  <tr><td class="truncate">EnergyHub Corporation</td>
                     <td>7</td>
-                    <td>Energy monitoring and analytics platform.</td>
+                    <td class="truncate">Energy monitoring and analytics platform.</td>
                     <td>Others</td>
                     <td>2025-09-28 15:20:11</td>
                     <td>
@@ -1154,10 +1216,9 @@
                       <a class="action-link" onclick="viewApplication('EnergyHub Corporation')">Application</a>
                     </td>
                   </tr>
-                  <tr>
-                    <td>NextGen Power Solutions</td>
+                  <tr><td class="truncate">NextGen Power Solutions</td>
                     <td>14</td>
-                    <td>Battery storage system integrator.</td>
+                    <td class="truncate">Battery storage system integrator.</td>
                     <td>Installer (SaaS)</td>
                     <td>2025-09-12 13:38:47</td>
                     <td>
@@ -1166,10 +1227,9 @@
                       <a class="action-link" onclick="viewApplication('NextGen Power Solutions')">Application</a>
                     </td>
                   </tr>
-                  <tr>
-                    <td>CleanEnergy Partners</td>
+                  <tr><td class="truncate">CleanEnergy Partners</td>
                     <td>10</td>
-                    <td>Sustainable energy consulting services.</td>
+                    <td class="truncate">Sustainable energy consulting services.</td>
                     <td>Others</td>
                     <td>2025-08-30 11:05:29</td>
                     <td>
@@ -1178,10 +1238,9 @@
                       <a class="action-link" onclick="viewApplication('CleanEnergy Partners')">Application</a>
                     </td>
                   </tr>
-                  <tr>
-                    <td>FutureGrid Systems</td>
+                  <tr><td class="truncate">FutureGrid Systems</td>
                     <td>13</td>
-                    <td>Advanced metering infrastructure provider.</td>
+                    <td class="truncate">Advanced metering infrastructure provider.</td>
                     <td>Installer</td>
                     <td>2025-08-22 17:10:32</td>
                     <td>
@@ -1214,15 +1273,144 @@
         </div>
 
         <!-- Device Content -->
+        <!-- User Content (for Company A/B) -->
+        <div id="userContent" class="main-content" style="display: none;">
+          <!-- Search Section -->
+          <div class="search-section">
+            <div id="userSearchGrid" style="display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px 24px; align-items: center; width: 100%;">
+              <!-- Field 1: User ID -->
+              <div style="display: flex; align-items: center; gap: 8px; min-width: 0;">
+                <label class="search-label" style="white-space: nowrap; margin: 0; flex-shrink: 0;">User ID:</label>
+                <input type="text" class="search-input" placeholder="Please enter" style="flex: 1; min-width: 0; width: 100%;">
+              </div>
+              <!-- Field 2: Account -->
+              <div style="display: flex; align-items: center; gap: 8px; min-width: 0;">
+                <label class="search-label" style="white-space: nowrap; margin: 0; flex-shrink: 0;">Account:</label>
+                <input type="text" class="search-input" placeholder="Please enter" style="flex: 1; min-width: 0; width: 100%;">
+              </div>
+              <!-- Buttons - Default Position (Row 1, Column 3) -->
+              <div id="userButtonsCollapsed" style="display: flex; gap: 12px; justify-content: flex-end; align-items: center;">
+                <button class="btn btn-primary">Search</button>
+                <button class="btn btn-secondary">Reset</button>
+                <a id="userExpandToggle" href="javascript:void(0)" onclick="toggleUserSearchExpand()" style="color: var(--brand-fg-primary); text-decoration: none; line-height: 1;">Expand</a>
+              </div>
+              <!-- Field 3: Nick Name (Hidden by default, will be in Row 1 Column 3 when expanded) -->
+              <div id="userField3" style="display: none; align-items: center; gap: 8px; min-width: 0;">
+                <label class="search-label" style="white-space: nowrap; margin: 0; flex-shrink: 0;">Nick Name:</label>
+                <input type="text" class="search-input" placeholder="Please enter" style="flex: 1; min-width: 0; width: 100%;">
+              </div>
+              <!-- Empty cells for Row 2 Column 1 and 2 -->
+              <div id="userEmptyCell1" style="display: none;"></div>
+              <div id="userEmptyCell2" style="display: none;"></div>
+              <!-- Buttons - Expanded Position (Row 2, Column 3) -->
+              <div id="userButtonsExpanded" style="display: none; gap: 12px; justify-content: flex-end; align-items: center;">
+                <button class="btn btn-primary">Search</button>
+                <button class="btn btn-secondary">Reset</button>
+                <a href="javascript:void(0)" onclick="toggleUserSearchExpand()" style="color: var(--brand-fg-primary); text-decoration: none; line-height: 1;">Pack Up</a>
+              </div>
+            </div>
+          </div>
+
+          <!-- User List Section -->
+          <div class="list-section">
+            <div class="list-header">
+              <h2 class="list-title">User List</h2>
+            </div>
+
+            <div class="table-wrapper">
+              <table>
+                <thead>
+                  <tr>
+                    <th>User ID</th>
+                    <th>Account</th>
+                    <th>Nick Name</th>
+                    <th>Country</th>
+                    <th>City</th>
+                    <th>Device</th>
+                    <th>Service</th>
+                    <th>Status</th>
+                    <th>Company</th>
+                    <th>Create Time</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr><td>742f8cfdf0786d1e6763b1c5e69f7dbe934aef18</td><td style="color: var(--brand-fg-primary);">nicole@example.com</td><td>Nicole Zhang</td><td>CN</td><td>-</td><td>25</td><td>1</td><td>
+                      <span style="display: inline-flex; align-items: center; gap: 6px;">
+                        <span style="width: 8px; height: 8px; background: #34C759; border-radius: 50%;"></span>
+                        Valid
+                      </span>
+                    </td><td class="truncate">Company A</td><td>2023-11-29 11:36:49</td></tr>
+                  <tr><td>8a9d4be2c3f1e7a56042d8f9c6e3b1a2f5d7e8c4</td><td style="color: var(--brand-fg-primary);">john.smith@example.com</td><td>John Smith</td><td>US</td><td>New York</td><td>42</td><td>2</td><td>
+                      <span style="display: inline-flex; align-items: center; gap: 6px;">
+                        <span style="width: 8px; height: 8px; background: #34C759; border-radius: 50%;"></span>
+                        Valid
+                      </span>
+                    </td><td class="truncate">Company A, Company B</td><td>2024-02-15 09:22:31</td></tr>
+                  <tr><td>f3e9c2a1b8d7f4e5c6a9d2b1e8f7c3a4d5e6f9b2</td><td style="color: var(--brand-fg-primary);">mike.johnson@example.com</td><td>Mike Johnson</td><td>GB</td><td>London</td><td>18</td><td>1</td><td>
+                      <span style="display: inline-flex; align-items: center; gap: 6px;">
+                        <span style="width: 8px; height: 8px; background: #FF4D4F; border-radius: 50%;"></span>
+                        Invalid
+                      </span>
+                    </td><td class="truncate">Company B</td><td>2024-05-08 16:45:12</td></tr>
+                  <tr><td>c5d2e8f1a4b9c6d3e7f2a8b5c1d4e9f3a6b7c8d2</td><td style="color: var(--brand-fg-primary);">sarah.wilson@example.com</td><td>Sarah Wilson</td><td>DE</td><td>Berlin</td><td>33</td><td>3</td><td>
+                      <span style="display: inline-flex; align-items: center; gap: 6px;">
+                        <span style="width: 8px; height: 8px; background: #34C759; border-radius: 50%;"></span>
+                        Valid
+                      </span>
+                    </td><td class="truncate">Company A, Company C</td><td>2024-08-20 14:18:27</td></tr>
+                  <tr><td>a7b8c9d1e2f3a4b5c6d7e8f9a1b2c3d4e5f6a7b8</td><td style="color: var(--brand-fg-primary);">robert.brown@example.com</td><td>Robert Brown</td><td>AU</td><td>Sydney</td><td>56</td><td>4</td><td>
+                      <span style="display: inline-flex; align-items: center; gap: 6px;">
+                        <span style="width: 8px; height: 8px; background: #34C759; border-radius: 50%;"></span>
+                        Valid
+                      </span>
+                    </td><td class="truncate">Company B, Company C</td><td>2024-10-03 08:51:44</td></tr>
+                </tbody>
+              </table>
+            </div>
+
+            <!-- Pagination -->
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 16px; padding: 0 8px;">
+              <div style="color: var(--fg-secondary); font-size: var(--font-body);">
+                1-5 of 5 items
+              </div>
+              <div style="display: flex; align-items: center; gap: 8px;">
+                <button class="btn btn-secondary" style="min-width: 32px; padding: 4px 8px;" disabled>&lt;</button>
+                <button class="btn btn-primary" style="min-width: 32px; padding: 4px 8px;">1</button>
+                <button class="btn btn-secondary" style="min-width: 32px; padding: 4px 8px;" disabled>&gt;</button>
+                <div class="custom-select" style="width: 100px; margin-left: 8px;">
+                  <div class="custom-select-trigger">10 / page</div>
+                  <div class="custom-select-dropdown">
+                    <div class="custom-select-option selected" data-value="10">10 / page</div>
+                    <div class="custom-select-option" data-value="20">20 / page</div>
+                    <div class="custom-select-option" data-value="50">50 / page</div>
+                    <div class="custom-select-option" data-value="100">100 / page</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
         <div id="deviceContent" class="main-content" style="display: none;">
           <!-- Search Section -->
           <div class="search-section">
-            <label class="search-label">Device SN:</label>
-            <input type="text" class="search-input" placeholder="Please enter" style="width: 240px;">
-            <label class="search-label" style="margin-left: 16px;">Account:</label>
-            <input type="text" class="search-input" placeholder="Please enter" style="width: 240px;">
-            <button class="btn btn-primary">Search</button>
-            <button class="btn btn-secondary">Reset</button>
+            <div style="display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px 24px; align-items: center; width: 100%;">
+              <!-- Field 1: Device SN -->
+              <div style="display: flex; align-items: center; gap: 8px; min-width: 0;">
+                <label class="search-label" style="white-space: nowrap; margin: 0; flex-shrink: 0;">Device SN:</label>
+                <input type="text" class="search-input" placeholder="Please enter" style="flex: 1; min-width: 0; width: 100%;">
+              </div>
+              <!-- Field 2: Account -->
+              <div style="display: flex; align-items: center; gap: 8px; min-width: 0;">
+                <label class="search-label" style="white-space: nowrap; margin: 0; flex-shrink: 0;">Account:</label>
+                <input type="text" class="search-input" placeholder="Please enter" style="flex: 1; min-width: 0; width: 100%;">
+              </div>
+              <!-- Buttons -->
+              <div style="display: flex; gap: 12px; justify-content: flex-end; align-items: center;">
+                <button class="btn btn-primary">Search</button>
+                <button class="btn btn-secondary">Reset</button>
+              </div>
+            </div>
           </div>
 
           <!-- Device List Section -->
@@ -1249,206 +1437,86 @@
                   </tr>
                 </thead>
                 <tbody>
-                  <tr>
-                    <td>T8124P40233A001B</td>
-                    <td>T8124P40233A001B</td>
-                    <td style="color: var(--brand-fg-primary);">user@example.com</td>
-                    <td>3.2.6.0</td>
-                    <td>0.0.0.0</td>
-                    <td>
+                  <tr><td>T8124P40233A001B</td><td>T8124P40233A001B</td><td style="color: var(--brand-fg-primary);">user@example.com</td><td>3.2.6.0</td><td>0.0.0.0</td><td>
                       <span style="display: inline-flex; align-items: center; gap: 6px;">
                         <span style="width: 8px; height: 8px; background: #34C759; border-radius: 50%;"></span>
                         Online
                       </span>
-                    </td>
-                    <td>2023-10-12 10:29:09</td>
-                    <td>2025-11-14 11:27:08</td>
-                    <td>2025-12-09 11:18:35</td>
-                    <td>TechVision Solutions</td>
-                    <td>
+                    </td><td>2023-10-12 10:29:09</td><td>2025-11-14 11:27:08</td><td>2025-12-09 11:18:35</td><td class="truncate">TechVision Solutions</td><td>
                       <a class="action-link delete" onclick="confirmRemoveDevice('T8124P40233A001B')">Remove</a>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>T8210P82232B0016</td>
-                    <td>T8210P82232B0016</td>
-                    <td style="color: var(--brand-fg-primary);">admin@example.com</td>
-                    <td>3.0.8.2</td>
-                    <td>0.2.2.3</td>
-                    <td>
+                    </td></tr>
+                  <tr><td>T8210P82232B0016</td><td>T8210P82232B0016</td><td style="color: var(--brand-fg-primary);">admin@example.com</td><td>3.0.8.2</td><td>0.2.2.3</td><td>
                       <span style="display: inline-flex; align-items: center; gap: 6px;">
                         <span style="width: 8px; height: 8px; background: #34C759; border-radius: 50%;"></span>
                         Online
                       </span>
-                    </td>
-                    <td>2023-06-02 18:54:34</td>
-                    <td>2025-11-14 11:24:46</td>
-                    <td>2026-01-05 14:22:11</td>
-                    <td>SmartGrid Energy</td>
-                    <td>
+                    </td><td>2023-06-02 18:54:34</td><td>2025-11-14 11:24:46</td><td>2026-01-05 14:22:11</td><td class="truncate">SmartGrid Energy</td><td>
                       <a class="action-link delete" onclick="confirmRemoveDevice('T8210P82232B0016')">Remove</a>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>T8010N31933C0046</td>
-                    <td>HB2</td>
-                    <td style="color: var(--brand-fg-primary);">contact@example.com</td>
-                    <td>4.2.6.8</td>
-                    <td>1.3.0.9</td>
-                    <td>
+                    </td></tr>
+                  <tr><td>T8010N31933C0046</td><td>HB2</td><td style="color: var(--brand-fg-primary);">contact@example.com</td><td>4.2.6.8</td><td>1.3.0.9</td><td>
                       <span style="display: inline-flex; align-items: center; gap: 6px;">
                         <span style="width: 8px; height: 8px; background: #34C759; border-radius: 50%;"></span>
                         Online
                       </span>
-                    </td>
-                    <td>2019-08-21 20:34:48</td>
-                    <td>2025-11-26 03:45:22</td>
-                    <td>2025-11-14 11:23:34</td>
-                    <td>PowerFlow Systems</td>
-                    <td>
+                    </td><td>2019-08-21 20:34:48</td><td>2025-11-26 03:45:22</td><td>2025-11-14 11:23:34</td><td class="truncate">PowerFlow Systems</td><td>
                       <a class="action-link delete" onclick="confirmRemoveDevice('T8010N31933C0046')">Remove</a>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>T8P00530252D7E5C</td>
-                    <td>Back Yard-PoE</td>
-                    <td style="color: var(--brand-fg-primary);">support@example.com</td>
-                    <td>1.0.7.4</td>
-                    <td>-</td>
-                    <td>
+                    </td></tr>
+                  <tr><td>T8P00530252D7E5C</td><td>Back Yard-PoE</td><td style="color: var(--brand-fg-primary);">support@example.com</td><td>1.0.7.4</td><td>-</td><td>
                       <span style="display: inline-flex; align-items: center; gap: 6px;">
                         <span style="width: 8px; height: 8px; background: #34C759; border-radius: 50%;"></span>
                         Online
                       </span>
-                    </td>
-                    <td>2025-07-15 15:13:56</td>
-                    <td>2025-10-15 17:58:51</td>
-                    <td>2026-01-06 10:15:42</td>
-                    <td>EcoCharge Solutions</td>
-                    <td>
+                    </td><td>2025-07-15 15:13:56</td><td>2025-10-15 17:58:51</td><td>2026-01-06 10:15:42</td><td class="truncate">EcoCharge Solutions</td><td>
                       <a class="action-link delete" onclick="confirmRemoveDevice('T8P00530252D7E5C')">Remove</a>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>T8E00510252EA05B</td>
-                    <td>Front Yard-PoE</td>
-                    <td style="color: var(--brand-fg-primary);">info@example.com</td>
-                    <td>1.1.0.3</td>
-                    <td>-</td>
-                    <td>
+                    </td></tr>
+                  <tr><td>T8E00510252EA05B</td><td>Front Yard-PoE</td><td style="color: var(--brand-fg-primary);">info@example.com</td><td>1.1.0.3</td><td>-</td><td>
                       <span style="display: inline-flex; align-items: center; gap: 6px;">
                         <span style="width: 8px; height: 8px; background: #34C759; border-radius: 50%;"></span>
                         Online
                       </span>
-                    </td>
-                    <td>2025-07-14 16:59:21</td>
-                    <td>2025-10-15 17:44:07</td>
-                    <td>2026-01-06 10:30:18</td>
-                    <td>GreenWatt Technologies</td>
-                    <td>
+                    </td><td>2025-07-14 16:59:21</td><td>2025-10-15 17:44:07</td><td>2026-01-06 10:30:18</td><td class="truncate">GreenWatt Technologies</td><td>
                       <a class="action-link delete" onclick="confirmRemoveDevice('T8E00510252EA05B')">Remove</a>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>T821451024F371EF</td>
-                    <td>Doorbell2</td>
-                    <td style="color: var(--brand-fg-primary);">hello@example.com</td>
-                    <td>3.2.1.4</td>
-                    <td>0.3.5.3</td>
-                    <td>
+                    </td></tr>
+                  <tr><td>T821451024F371EF</td><td>Doorbell2</td><td style="color: var(--brand-fg-primary);">hello@example.com</td><td>3.2.1.4</td><td>0.3.5.3</td><td>
                       <span style="display: inline-flex; align-items: center; gap: 6px;">
                         <span style="width: 8px; height: 8px; background: #34C759; border-radius: 50%;"></span>
                         Online
                       </span>
-                    </td>
-                    <td>2024-11-18 11:55:06</td>
-                    <td>2025-10-15 16:21:13</td>
-                    <td>2026-01-06 10:45:55</td>
-                    <td>VoltSecure Inc</td>
-                    <td>
+                    </td><td>2024-11-18 11:55:06</td><td>2025-10-15 16:21:13</td><td>2026-01-06 10:45:55</td><td class="truncate">VoltSecure Inc</td><td>
                       <a class="action-link delete" onclick="confirmRemoveDevice('T821451024F371EF')">Remove</a>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>T8162T10244G716D</td>
-                    <td>Front Yard</td>
-                    <td style="color: var(--brand-fg-primary);">service@example.com</td>
-                    <td>3.1.2.7</td>
-                    <td>0.0.8.6</td>
-                    <td>
+                    </td></tr>
+                  <tr><td>T8162T10244G716D</td><td>Front Yard</td><td style="color: var(--brand-fg-primary);">service@example.com</td><td>3.1.2.7</td><td>0.0.8.6</td><td>
                       <span style="display: inline-flex; align-items: center; gap: 6px;">
                         <span style="width: 8px; height: 8px; background: #34C759; border-radius: 50%;"></span>
                         Online
                       </span>
-                    </td>
-                    <td>2024-12-04 15:40:13</td>
-                    <td>2025-10-15 16:20:42</td>
-                    <td>2026-01-06 10:52:28</td>
-                    <td>EnergySmart Corp</td>
-                    <td>
+                    </td><td>2024-12-04 15:40:13</td><td>2025-10-15 16:20:42</td><td>2026-01-06 10:52:28</td><td class="truncate">EnergySmart Corp</td><td>
                       <a class="action-link delete" onclick="confirmRemoveDevice('T8162T10244G716D')">Remove</a>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>T8124P40233H002C</td>
-                    <td>Smart Camera Pro</td>
-                    <td style="color: var(--brand-fg-primary);">demo@example.com</td>
-                    <td>3.3.1.5</td>
-                    <td>0.1.2.0</td>
-                    <td>
+                    </td></tr>
+                  <tr><td>T8124P40233H002C</td><td>Smart Camera Pro</td><td style="color: var(--brand-fg-primary);">demo@example.com</td><td>3.3.1.5</td><td>0.1.2.0</td><td>
                       <span style="display: inline-flex; align-items: center; gap: 6px;">
                         <span style="width: 8px; height: 8px; background: #34C759; border-radius: 50%;"></span>
                         Online
                       </span>
-                    </td>
-                    <td>2024-09-28 09:15:42</td>
-                    <td>2025-11-20 08:35:19</td>
-                    <td>2026-01-08 14:22:56</td>
-                    <td>PowerLink Systems</td>
-                    <td>
+                    </td><td>2024-09-28 09:15:42</td><td>2025-11-20 08:35:19</td><td>2026-01-08 14:22:56</td><td class="truncate">PowerLink Systems</td><td>
                       <a class="action-link delete" onclick="confirmRemoveDevice('T8124P40233H002C')">Remove</a>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>T8P00530252J08F6</td>
-                    <td>Garage Entrance</td>
-                    <td style="color: var(--brand-fg-primary);">test@example.com</td>
-                    <td>1.0.9.2</td>
-                    <td>-</td>
-                    <td>
+                    </td></tr>
+                  <tr><td>T8P00530252J08F6</td><td>Garage Entrance</td><td style="color: var(--brand-fg-primary);">test@example.com</td><td>1.0.9.2</td><td>-</td><td>
                       <span style="display: inline-flex; align-items: center; gap: 6px;">
                         <span style="width: 8px; height: 8px; background: #34C759; border-radius: 50%;"></span>
                         Online
                       </span>
-                    </td>
-                    <td>2025-08-03 12:28:17</td>
-                    <td>2025-10-22 09:14:33</td>
-                    <td>2026-01-09 11:05:47</td>
-                    <td>CleanEnergy Partners</td>
-                    <td>
+                    </td><td>2025-08-03 12:28:17</td><td>2025-10-22 09:14:33</td><td>2026-01-09 11:05:47</td><td class="truncate">CleanEnergy Partners</td><td>
                       <a class="action-link delete" onclick="confirmRemoveDevice('T8P00530252J08F6')">Remove</a>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>T8010N31933K0047</td>
-                    <td>Security Hub</td>
-                    <td style="color: var(--brand-fg-primary);">sample@example.com</td>
-                    <td>4.3.2.1</td>
-                    <td>1.4.1.2</td>
-                    <td>
+                    </td></tr>
+                  <tr><td>T8010N31933K0047</td><td>Security Hub</td><td style="color: var(--brand-fg-primary);">sample@example.com</td><td>4.3.2.1</td><td>1.4.1.2</td><td>
                       <span style="display: inline-flex; align-items: center; gap: 6px;">
                         <span style="width: 8px; height: 8px; background: #34C759; border-radius: 50%;"></span>
                         Online
                       </span>
-                    </td>
-                    <td>2020-03-15 14:22:30</td>
-                    <td>2025-11-18 10:42:15</td>
-                    <td>2025-12-20 16:38:44</td>
-                    <td>FutureGrid Systems</td>
-                    <td>
+                    </td><td>2020-03-15 14:22:30</td><td>2025-11-18 10:42:15</td><td>2025-12-20 16:38:44</td><td class="truncate">FutureGrid Systems</td><td>
                       <a class="action-link delete" onclick="confirmRemoveDevice('T8010N31933K0047')">Remove</a>
-                    </td>
-                  </tr>
+                    </td></tr>
                 </tbody>
               </table>
             </div>
@@ -1476,30 +1544,70 @@
         <div id="approvalContent" class="main-content" style="display: none;">
           <!-- Search Section -->
           <div class="search-section">
-            <label class="search-label">Tenant Account:</label>
-            <input type="text" class="search-input" placeholder="Please enter" style="width: 200px;">
-            <label class="search-label" style="margin-left: 16px;">Company Name:</label>
-            <input type="text" class="search-input" placeholder="Please enter" style="width: 200px;">
-            <label class="search-label" style="margin-left: 16px;">Status:</label>
-            <div class="custom-select multi-select" id="statusFilterSelect" style="width: 200px;">
-              <div class="custom-select-trigger" style="width: 100%;">Pending</div>
-              <div class="custom-select-dropdown">
-                <div class="custom-select-option selected" data-value="Pending" onclick="toggleStatusOption(event, 'Pending')">
-                  <input type="checkbox" checked onclick="event.stopPropagation()">
-                  <span>Pending</span>
-                </div>
-                <div class="custom-select-option" data-value="Approved" onclick="toggleStatusOption(event, 'Approved')">
-                  <input type="checkbox" onclick="event.stopPropagation()">
-                  <span>Approved</span>
-                </div>
-                <div class="custom-select-option" data-value="Rejected" onclick="toggleStatusOption(event, 'Rejected')">
-                  <input type="checkbox" onclick="event.stopPropagation()">
-                  <span>Rejected</span>
+            <div id="approvalSearchGrid" style="display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px 24px; align-items: center; width: 100%;">
+              <!-- Field 1: Business Type -->
+              <div style="display: flex; align-items: center; gap: 8px; min-width: 0;">
+                <label class="search-label" style="white-space: nowrap; margin: 0; flex-shrink: 0;">Business Type:</label>
+                <div class="custom-select multi-select" id="businessTypeFilterSelect" style="flex: 1; min-width: 0;">
+                  <div class="custom-select-trigger" style="width: 100%;">All</div>
+                  <div class="custom-select-dropdown">
+                    <div class="custom-select-option selected" data-value="Installer" onclick="toggleBusinessTypeOption(event, 'Installer')">
+                      <input type="checkbox" checked onclick="event.stopPropagation()">
+                      <span>Installer</span>
+                    </div>
+                    <div class="custom-select-option selected" data-value="Installer (SaaS)" onclick="toggleBusinessTypeOption(event, 'Installer (SaaS)')">
+                      <input type="checkbox" checked onclick="event.stopPropagation()">
+                      <span>Installer (SaaS)</span>
+                    </div>
+                  </div>
                 </div>
               </div>
+              <!-- Field 2: Status -->
+              <div style="display: flex; align-items: center; gap: 8px; min-width: 0;">
+                <label class="search-label" style="white-space: nowrap; margin: 0; flex-shrink: 0;">Status:</label>
+                <div class="custom-select multi-select" id="statusFilterSelect" style="flex: 1; min-width: 0;">
+                  <div class="custom-select-trigger" style="width: 100%;">Pending</div>
+                  <div class="custom-select-dropdown">
+                    <div class="custom-select-option selected" data-value="Pending" onclick="toggleStatusOption(event, 'Pending')">
+                      <input type="checkbox" checked onclick="event.stopPropagation()">
+                      <span>Pending</span>
+                    </div>
+                    <div class="custom-select-option" data-value="Approved" onclick="toggleStatusOption(event, 'Approved')">
+                      <input type="checkbox" onclick="event.stopPropagation()">
+                      <span>Approved</span>
+                    </div>
+                    <div class="custom-select-option" data-value="Rejected" onclick="toggleStatusOption(event, 'Rejected')">
+                      <input type="checkbox" onclick="event.stopPropagation()">
+                      <span>Rejected</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <!-- Buttons - Default Position (Row 1, Column 3) -->
+              <div id="approvalButtonsCollapsed" style="display: flex; gap: 12px; justify-content: flex-end; align-items: center;">
+                <button class="btn btn-primary">Search</button>
+                <button class="btn btn-secondary">Reset</button>
+                <a id="approvalExpandToggle" href="javascript:void(0)" onclick="toggleApprovalSearchExpand()" style="color: var(--brand-fg-primary); text-decoration: none; line-height: 1;">Expand</a>
+              </div>
+              <!-- Field 3: Tenant Account (Hidden by default) -->
+              <div id="approvalField3" style="display: none; align-items: center; gap: 8px; min-width: 0;">
+                <label class="search-label" style="white-space: nowrap; margin: 0; flex-shrink: 0;">Tenant Account:</label>
+                <input type="text" class="search-input" placeholder="Please enter" style="flex: 1; min-width: 0; width: 100%;">
+              </div>
+              <!-- Field 4: Company Name (Hidden by default) -->
+              <div id="approvalField4" style="display: none; align-items: center; gap: 8px; min-width: 0;">
+                <label class="search-label" style="white-space: nowrap; margin: 0; flex-shrink: 0;">Company Name:</label>
+                <input type="text" class="search-input" placeholder="Please enter" style="flex: 1; min-width: 0; width: 100%;">
+              </div>
+              <!-- Empty cell to push buttons to column 3 -->
+              <div id="approvalEmptyCell" style="display: none;"></div>
+              <!-- Buttons - Expanded Position (Row 2, Column 3) -->
+              <div id="approvalButtonsExpanded" style="display: none; gap: 12px; justify-content: flex-end; align-items: center;">
+                <button class="btn btn-primary">Search</button>
+                <button class="btn btn-secondary">Reset</button>
+                <a href="javascript:void(0)" onclick="toggleApprovalSearchExpand()" style="color: var(--brand-fg-primary); text-decoration: none; line-height: 1;">Pack Up</a>
+              </div>
             </div>
-            <button class="btn btn-primary" style="margin-left: 16px;">Search</button>
-            <button class="btn btn-secondary">Reset</button>
           </div>
 
           <!-- Approval List Section -->
@@ -1522,9 +1630,9 @@
                   </tr>
                 </thead>
                 <tbody id="approvalTableBody">
-                  <tr data-status="Pending">
-                    <td>TechVision Solutions</td>
-                    <td>Energy management system integrator.</td>
+                  <tr data-status="Pending" data-business-type="Installer">
+                    <td class="truncate">TechVision Solutions</td>
+                    <td class="truncate">Energy management system integrator.</td>
                     <td style="color: var(--brand-fg-primary);">tenant1@example.com</td>
                     <td>Installer</td>
                     <td>
@@ -1538,9 +1646,9 @@
                       <a class="action-link review" onclick="openApprovalReview('pending', 'TechVision Solutions', 'tenant1@example.com')">Review</a>
                     </td>
                   </tr>
-                  <tr data-status="Approved">
-                    <td>GreenPower Systems</td>
-                    <td>Renewable energy solutions provider.</td>
+                  <tr data-status="Approved" data-business-type="Installer (SaaS)">
+                    <td class="truncate">GreenPower Systems</td>
+                    <td class="truncate">Renewable energy solutions provider.</td>
                     <td style="color: var(--brand-fg-primary);">tenant2@example.com</td>
                     <td>Installer (SaaS)</td>
                     <td>
@@ -1554,11 +1662,11 @@
                       <a class="action-link details" onclick="openApprovalReview('approved', 'GreenPower Systems', 'tenant2@example.com')">Details</a>
                     </td>
                   </tr>
-                  <tr data-status="Rejected">
-                    <td>SmartHome Technologies</td>
-                    <td>Home automation and IoT integration.</td>
+                  <tr data-status="Rejected" data-business-type="Installer (SaaS)">
+                    <td class="truncate">SmartHome Technologies</td>
+                    <td class="truncate">Home automation and IoT integration.</td>
                     <td style="color: var(--brand-fg-primary);">tenant3@example.com</td>
-                    <td>Others</td>
+                    <td>Installer (SaaS)</td>
                     <td>
                       <span style="display: inline-flex; align-items: center; gap: 6px;">
                         <span style="width: 8px; height: 8px; background: #FF4D4F; border-radius: 50%;"></span>
@@ -1570,9 +1678,9 @@
                       <a class="action-link details" onclick="openApprovalReview('rejected', 'SmartHome Technologies', 'tenant3@example.com')">Details</a>
                     </td>
                   </tr>
-                  <tr data-status="Pending">
-                    <td>EcoCharge Networks</td>
-                    <td>Electric vehicle charging infrastructure.</td>
+                  <tr data-status="Pending" data-business-type="Installer">
+                    <td class="truncate">EcoCharge Networks</td>
+                    <td class="truncate">Electric vehicle charging infrastructure.</td>
                     <td style="color: var(--brand-fg-primary);">tenant4@example.com</td>
                     <td>Installer</td>
                     <td>
@@ -1586,9 +1694,9 @@
                       <a class="action-link review" onclick="openApprovalReview('pending', 'EcoCharge Networks', 'tenant4@example.com')">Review</a>
                     </td>
                   </tr>
-                  <tr data-status="Approved">
-                    <td>PowerGrid Innovations</td>
-                    <td>Smart grid and energy storage solutions.</td>
+                  <tr data-status="Approved" data-business-type="Installer (SaaS)">
+                    <td class="truncate">PowerGrid Innovations</td>
+                    <td class="truncate">Smart grid and energy storage solutions.</td>
                     <td style="color: var(--brand-fg-primary);">tenant5@example.com</td>
                     <td>Installer (SaaS)</td>
                     <td>
@@ -1600,6 +1708,198 @@
                     <td>2026-01-05 13:20:18</td>
                     <td>
                       <a class="action-link details" onclick="openApprovalReview('approved', 'PowerGrid Innovations', 'tenant5@example.com')">Details</a>
+                    </td>
+                  </tr>
+                  <tr data-status="Pending" data-business-type="Installer (SaaS)">
+                    <td class="truncate">SolarCloud Services</td>
+                    <td class="truncate">Cloud-based solar energy monitoring platform.</td>
+                    <td style="color: var(--brand-fg-primary);">tenant6@example.com</td>
+                    <td>Installer (SaaS)</td>
+                    <td>
+                      <span style="display: inline-flex; align-items: center; gap: 6px;">
+                        <span style="width: 8px; height: 8px; background: #1890FF; border-radius: 50%;"></span>
+                        Pending
+                      </span>
+                    </td>
+                    <td>2026-01-04 11:15:30</td>
+                    <td>
+                      <a class="action-link review" onclick="openApprovalReview('pending', 'SolarCloud Services', 'tenant6@example.com')">Review</a>
+                    </td>
+                  </tr>
+                  <tr data-status="Approved" data-business-type="Installer (SaaS)">
+                    <td class="truncate">EnergyHub Platform</td>
+                    <td class="truncate">Integrated energy management SaaS solution.</td>
+                    <td style="color: var(--brand-fg-primary);">tenant7@example.com</td>
+                    <td>Installer (SaaS)</td>
+                    <td>
+                      <span style="display: inline-flex; align-items: center; gap: 6px;">
+                        <span style="width: 8px; height: 8px; background: #52C41A; border-radius: 50%;"></span>
+                        Approved
+                      </span>
+                    </td>
+                    <td>2026-01-03 14:45:55</td>
+                    <td>
+                      <a class="action-link details" onclick="openApprovalReview('approved', 'EnergyHub Platform', 'tenant7@example.com')">Details</a>
+                    </td>
+                  </tr>
+                  <tr data-status="Pending" data-business-type="Installer (SaaS)">
+                    <td class="truncate">CleanTech Analytics</td>
+                    <td class="truncate">AI-powered energy optimization software.</td>
+                    <td style="color: var(--brand-fg-primary);">tenant8@example.com</td>
+                    <td>Installer (SaaS)</td>
+                    <td>
+                      <span style="display: inline-flex; align-items: center; gap: 6px;">
+                        <span style="width: 8px; height: 8px; background: #1890FF; border-radius: 50%;"></span>
+                        Pending
+                      </span>
+                    </td>
+                    <td>2026-01-02 09:20:12</td>
+                    <td>
+                      <a class="action-link review" onclick="openApprovalReview('pending', 'CleanTech Analytics', 'tenant8@example.com')">Review</a>
+                    </td>
+                  </tr>
+                  <tr data-status="Approved" data-business-type="Installer (SaaS)">
+                    <td class="truncate">SmartEnergy Solutions</td>
+                    <td class="truncate">Remote monitoring and control SaaS platform.</td>
+                    <td style="color: var(--brand-fg-primary);">tenant9@example.com</td>
+                    <td>Installer (SaaS)</td>
+                    <td>
+                      <span style="display: inline-flex; align-items: center; gap: 6px;">
+                        <span style="width: 8px; height: 8px; background: #52C41A; border-radius: 50%;"></span>
+                        Approved
+                      </span>
+                    </td>
+                    <td>2026-01-01 16:30:40</td>
+                    <td>
+                      <a class="action-link details" onclick="openApprovalReview('approved', 'SmartEnergy Solutions', 'tenant9@example.com')">Details</a>
+                    </td>
+                  </tr>
+                  <tr data-status="Rejected" data-business-type="Installer (SaaS)">
+                    <td class="truncate">PowerSoft Systems</td>
+                    <td class="truncate">Cloud-based energy billing and analytics.</td>
+                    <td style="color: var(--brand-fg-primary);">tenant10@example.com</td>
+                    <td>Installer (SaaS)</td>
+                    <td>
+                      <span style="display: inline-flex; align-items: center; gap: 6px;">
+                        <span style="width: 8px; height: 8px; background: #FF4D4F; border-radius: 50%;"></span>
+                        Rejected
+                      </span>
+                    </td>
+                    <td>2025-12-30 10:50:25</td>
+                    <td>
+                      <a class="action-link details" onclick="openApprovalReview('rejected', 'PowerSoft Systems', 'tenant10@example.com')">Details</a>
+                    </td>
+                  </tr>
+                  <tr data-status="Pending" data-business-type="Installer">
+                    <td class="truncate">SunPower Installation Co.</td>
+                    <td class="truncate">Professional solar panel installation services.</td>
+                    <td style="color: var(--brand-fg-primary);">tenant11@example.com</td>
+                    <td>Installer</td>
+                    <td>
+                      <span style="display: inline-flex; align-items: center; gap: 6px;">
+                        <span style="width: 8px; height: 8px; background: #1890FF; border-radius: 50%;"></span>
+                        Pending
+                      </span>
+                    </td>
+                    <td>2025-12-28 15:40:35</td>
+                    <td>
+                      <a class="action-link review" onclick="openApprovalReview('pending', 'SunPower Installation Co.', 'tenant11@example.com')">Review</a>
+                    </td>
+                  </tr>
+                  <tr data-status="Approved" data-business-type="Installer">
+                    <td class="truncate">GreenTech Installers</td>
+                    <td class="truncate">Renewable energy system installation and maintenance.</td>
+                    <td style="color: var(--brand-fg-primary);">tenant12@example.com</td>
+                    <td>Installer</td>
+                    <td>
+                      <span style="display: inline-flex; align-items: center; gap: 6px;">
+                        <span style="width: 8px; height: 8px; background: #52C41A; border-radius: 50%;"></span>
+                        Approved
+                      </span>
+                    </td>
+                    <td>2025-12-27 09:15:20</td>
+                    <td>
+                      <a class="action-link details" onclick="openApprovalReview('approved', 'GreenTech Installers', 'tenant12@example.com')">Details</a>
+                    </td>
+                  </tr>
+                  <tr data-status="Pending" data-business-type="Installer">
+                    <td class="truncate">EcoInstall Partners</td>
+                    <td class="truncate">Energy storage and solar installation specialist.</td>
+                    <td style="color: var(--brand-fg-primary);">tenant13@example.com</td>
+                    <td>Installer</td>
+                    <td>
+                      <span style="display: inline-flex; align-items: center; gap: 6px;">
+                        <span style="width: 8px; height: 8px; background: #1890FF; border-radius: 50%;"></span>
+                        Pending
+                      </span>
+                    </td>
+                    <td>2025-12-26 13:25:50</td>
+                    <td>
+                      <a class="action-link review" onclick="openApprovalReview('pending', 'EcoInstall Partners', 'tenant13@example.com')">Review</a>
+                    </td>
+                  </tr>
+                  <tr data-status="Approved" data-business-type="Installer">
+                    <td class="truncate">PowerLine Installations</td>
+                    <td class="truncate">Commercial and residential power system installer.</td>
+                    <td style="color: var(--brand-fg-primary);">tenant14@example.com</td>
+                    <td>Installer</td>
+                    <td>
+                      <span style="display: inline-flex; align-items: center; gap: 6px;">
+                        <span style="width: 8px; height: 8px; background: #52C41A; border-radius: 50%;"></span>
+                        Approved
+                      </span>
+                    </td>
+                    <td>2025-12-25 10:50:15</td>
+                    <td>
+                      <a class="action-link details" onclick="openApprovalReview('approved', 'PowerLine Installations', 'tenant14@example.com')">Details</a>
+                    </td>
+                  </tr>
+                  <tr data-status="Approved" data-business-type="Installer">
+                    <td class="truncate">SolarEdge Contractors</td>
+                    <td class="truncate">Licensed solar and battery system installer.</td>
+                    <td style="color: var(--brand-fg-primary);">tenant15@example.com</td>
+                    <td>Installer</td>
+                    <td>
+                      <span style="display: inline-flex; align-items: center; gap: 6px;">
+                        <span style="width: 8px; height: 8px; background: #52C41A; border-radius: 50%;"></span>
+                        Approved
+                      </span>
+                    </td>
+                    <td>2025-12-24 14:30:42</td>
+                    <td>
+                      <a class="action-link details" onclick="openApprovalReview('approved', 'SolarEdge Contractors', 'tenant15@example.com')">Details</a>
+                    </td>
+                  </tr>
+                  <tr data-status="Pending" data-business-type="Installer">
+                    <td class="truncate">CleanEnergy Installation Group</td>
+                    <td class="truncate">Full-service renewable energy installation company.</td>
+                    <td style="color: var(--brand-fg-primary);">tenant16@example.com</td>
+                    <td>Installer</td>
+                    <td>
+                      <span style="display: inline-flex; align-items: center; gap: 6px;">
+                        <span style="width: 8px; height: 8px; background: #1890FF; border-radius: 50%;"></span>
+                        Pending
+                      </span>
+                    </td>
+                    <td>2025-12-23 11:20:08</td>
+                    <td>
+                      <a class="action-link review" onclick="openApprovalReview('pending', 'CleanEnergy Installation Group', 'tenant16@example.com')">Review</a>
+                    </td>
+                  </tr>
+                  <tr data-status="Rejected" data-business-type="Installer">
+                    <td class="truncate">VoltTech Installers</td>
+                    <td class="truncate">Electrical and solar installation services.</td>
+                    <td style="color: var(--brand-fg-primary);">tenant17@example.com</td>
+                    <td>Installer</td>
+                    <td>
+                      <span style="display: inline-flex; align-items: center; gap: 6px;">
+                        <span style="width: 8px; height: 8px; background: #FF4D4F; border-radius: 50%;"></span>
+                        Rejected
+                      </span>
+                    </td>
+                    <td>2025-12-22 16:45:30</td>
+                    <td>
+                      <a class="action-link details" onclick="openApprovalReview('rejected', 'VoltTech Installers', 'tenant17@example.com')">Details</a>
                     </td>
                   </tr>
                 </tbody>
@@ -2012,11 +2312,33 @@
   <div class="modal-overlay" id="approvalReviewModal">
     <div class="modal">
       <div class="modal-header">
-        <h2 class="modal-title" id="approvalReviewTitle">Approval Review</h2>
+        <div style="display: flex; align-items: center; gap: 12px;">
+          <h2 class="modal-title" id="approvalReviewTitle">Approval Review</h2>
+          <span id="approvalTitleStatus"></span>
+        </div>
         <span class="modal-close" onclick="closeApprovalReview()">×</span>
       </div>
-      <div class="modal-body" style="display: block; padding: var(--spacing-xl);">
-        <!-- Basic Information (Top) -->
+      <div class="modal-body" style="display: block; padding: var(--spacing-xl); flex: 1; overflow-y: auto;">
+        <!-- Approval Information (Top, for approved/rejected) -->
+        <div id="approvalResultSection" style="display: none; background: var(--bg-tertiary); padding: var(--spacing-lg); border-radius: 8px; margin-bottom: var(--spacing-xl);">
+          <h3 style="font-size: var(--font-title); font-weight: var(--font-weight-semibold); margin-bottom: var(--spacing-lg);">Approval Information</h3>
+          <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: var(--spacing-lg);">
+            <div>
+              <div style="color: var(--fg-secondary); font-size: var(--font-caption); margin-bottom: 4px;">Reviewer</div>
+              <div id="reviewedBy">admin@example.com</div>
+            </div>
+            <div>
+              <div style="color: var(--fg-secondary); font-size: var(--font-caption); margin-bottom: 4px;">Review Time</div>
+              <div id="reviewTime">2026-01-10 15:30:22</div>
+            </div>
+            <div id="rejectReasonDiv" style="display: none; grid-column: 1 / -1;">
+              <div style="color: var(--fg-secondary); font-size: var(--font-caption); margin-bottom: 4px;">Reject Reason</div>
+              <div id="rejectReasonText" style="color: #FF4D4F;">Insufficient documentation provided.</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Basic Information -->
         <div style="background: var(--bg-tertiary); padding: var(--spacing-lg); border-radius: 8px; margin-bottom: var(--spacing-xl);">
           <h3 style="font-size: var(--font-title); font-weight: var(--font-weight-semibold); margin-bottom: var(--spacing-lg);">Basic Information</h3>
           <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: var(--spacing-lg);">
@@ -2036,19 +2358,11 @@
               <div style="color: var(--fg-secondary); font-size: var(--font-caption); margin-bottom: 4px;">Business Type</div>
               <div id="reviewBusinessType">Installer</div>
             </div>
-            <div>
-              <div style="color: var(--fg-secondary); font-size: var(--font-caption); margin-bottom: 4px;">Status</div>
-              <div id="reviewStatus">
-                <span style="display: inline-flex; align-items: center; gap: 6px; padding: 4px 12px; background: #E6F7FF; color: #1890FF; border-radius: 4px; font-size: 12px; font-weight: 500;">
-                  Pending
-                </span>
-              </div>
-            </div>
           </div>
         </div>
 
-        <!-- Additional Fields (Middle) -->
-        <div style="margin-bottom: var(--spacing-xl);">
+        <!-- Additional Fields -->
+        <div style="background: var(--bg-tertiary); padding: var(--spacing-lg); border-radius: 8px; margin-bottom: var(--spacing-xl);">
           <h3 style="font-size: var(--font-title); font-weight: var(--font-weight-semibold); margin-bottom: var(--spacing-lg);">Additional Information</h3>
           <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: var(--spacing-lg);">
             <div>
@@ -2062,54 +2376,35 @@
           </div>
         </div>
 
-        <!-- Attachments (Bottom) -->
-        <div style="margin-bottom: var(--spacing-xl);">
+        <!-- Attachments -->
+        <div style="background: var(--bg-tertiary); padding: var(--spacing-lg); border-radius: 8px;">
           <h3 style="font-size: var(--font-title); font-weight: var(--font-weight-semibold); margin-bottom: var(--spacing-lg);">Attachments <span style="color: var(--fg-tertiary); font-weight: var(--font-weight-regular); font-size: var(--font-body);">(3)</span></h3>
           <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--spacing-lg);">
             <!-- Business License -->
             <div>
               <div style="color: var(--fg-secondary); font-size: var(--font-caption); margin-bottom: 8px;">Business License</div>
-              <div class="attachment-thumbnail" onclick="openImagePreview('business_license.jpg', 'Business License')">
-                <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='150' viewBox='0 0 200 150'%3E%3Crect fill='%23f0f0f0' width='200' height='150'/%3E%3Ctext x='50%25' y='50%25' dominant-baseline='middle' text-anchor='middle' font-family='Arial' font-size='14' fill='%23999'%3EBusiness License%3C/text%3E%3C/svg%3E" alt="Business License" style="width: 100%; height: 150px; object-fit: cover; border-radius: 4px; cursor: pointer; border: 1px solid var(--color-border-secondary);">
+              <div class="attachment-thumbnail" onclick="openImagePreview('business-license', 'Business License')" style="background: #f5f5f5; border-radius: 4px; aspect-ratio: 1/1; display: flex; align-items: center; justify-content: center; border: 1px solid var(--color-border-secondary);">
+                <img id="businessLicenseImg" alt="Business License" style="max-width: 100%; max-height: 100%; object-fit: contain; cursor: pointer;">
               </div>
             </div>
             <!-- Sales License -->
             <div>
               <div style="color: var(--fg-secondary); font-size: var(--font-caption); margin-bottom: 8px;">Sales License</div>
-              <div class="attachment-thumbnail" onclick="openImagePreview('sales_license.jpg', 'Sales License')">
-                <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='150' viewBox='0 0 200 150'%3E%3Crect fill='%23f0f0f0' width='200' height='150'/%3E%3Ctext x='50%25' y='50%25' dominant-baseline='middle' text-anchor='middle' font-family='Arial' font-size='14' fill='%23999'%3ESales License%3C/text%3E%3C/svg%3E" alt="Sales License" style="width: 100%; height: 150px; object-fit: cover; border-radius: 4px; cursor: pointer; border: 1px solid var(--color-border-secondary);">
+              <div class="attachment-thumbnail" onclick="openImagePreview('sales-license', 'Sales License')" style="background: #f5f5f5; border-radius: 4px; aspect-ratio: 1/1; display: flex; align-items: center; justify-content: center; border: 1px solid var(--color-border-secondary);">
+                <img id="salesLicenseImg" alt="Sales License" style="max-width: 100%; max-height: 100%; object-fit: contain; cursor: pointer;">
               </div>
             </div>
             <!-- Insurance -->
             <div>
               <div style="color: var(--fg-secondary); font-size: var(--font-caption); margin-bottom: 8px;">Insurance</div>
-              <div class="attachment-thumbnail" onclick="openImagePreview('insurance.jpg', 'Insurance')">
-                <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='150' viewBox='0 0 200 150'%3E%3Crect fill='%23f0f0f0' width='200' height='150'/%3E%3Ctext x='50%25' y='50%25' dominant-baseline='middle' text-anchor='middle' font-family='Arial' font-size='14' fill='%23999'%3EInsurance%3C/text%3E%3C/svg%3E" alt="Insurance" style="width: 100%; height: 150px; object-fit: cover; border-radius: 4px; cursor: pointer; border: 1px solid var(--color-border-secondary);">
+              <div class="attachment-thumbnail" onclick="openImagePreview('insurance', 'Insurance')" style="background: #f5f5f5; border-radius: 4px; aspect-ratio: 1/1; display: flex; align-items: center; justify-content: center; border: 1px solid var(--color-border-secondary);">
+                <img id="insuranceImg" alt="Insurance" style="max-width: 100%; max-height: 100%; object-fit: contain; cursor: pointer;">
               </div>
             </div>
           </div>
         </div>
-
-        <!-- Approval Result (for approved/rejected) -->
-        <div id="approvalResultSection" style="display: none; background: var(--bg-tertiary); padding: var(--spacing-lg); border-radius: 8px;">
-          <h3 style="font-size: var(--font-title); font-weight: var(--font-weight-semibold); margin-bottom: var(--spacing-lg);">Approval Result</h3>
-          <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: var(--spacing-lg);">
-            <div>
-              <div style="color: var(--fg-secondary); font-size: var(--font-caption); margin-bottom: 4px;">Reviewed By</div>
-              <div id="reviewedBy">admin@example.com</div>
-            </div>
-            <div>
-              <div style="color: var(--fg-secondary); font-size: var(--font-caption); margin-bottom: 4px;">Review Time</div>
-              <div id="reviewTime">2026-01-10 15:30:22</div>
-            </div>
-            <div id="rejectReasonDiv" style="grid-column: 1 / -1; display: none;">
-              <div style="color: var(--fg-secondary); font-size: var(--font-caption); margin-bottom: 4px;">Reject Reason</div>
-              <div id="rejectReasonText" style="color: #FF4D4F;">Insufficient documentation provided.</div>
-            </div>
-          </div>
-        </div>
       </div>
-      <div class="modal-footer" id="approvalReviewFooter">
+      <div class="modal-footer" id="approvalReviewFooter" style="padding: 12px 24px 12px 24px;">
         <button class="btn btn-secondary" onclick="closeApprovalReview()">Cancel</button>
         <button class="btn btn-secondary" onclick="confirmApprovalAction('reject')" style="background: #FF4D4F; color: white; border-color: #FF4D4F;">Reject</button>
         <button class="btn btn-primary" onclick="confirmApprovalAction('approve')">Approve</button>
@@ -2143,8 +2438,8 @@
 
   <!-- Reject Confirmation Modal with Reason -->
   <div class="modal-overlay confirm" id="rejectConfirmModal">
-    <div class="modal">
-      <div class="modal-header" style="border-bottom: none; padding: 24px 24px 16px 24px;">
+    <div class="modal" style="max-width: 500px; width: 500px;">
+      <div class="modal-header" style="border-bottom: none; padding: 20px 24px 12px 24px;">
         <div style="display: flex; align-items: center; gap: 12px;">
           <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
             <circle cx="16" cy="16" r="16" fill="#FF4D4F"/>
@@ -2153,19 +2448,19 @@
           <h2 class="modal-title" style="margin: 0;">Confirm Reject</h2>
         </div>
       </div>
-      <div class="modal-body" style="padding: 0 24px 24px 24px;">
-        <p style="margin: 0 0 16px 0; color: var(--fg-primary); font-size: var(--font-body); line-height: 1.6;">
-          Are you sure you want to reject this application? Please provide a reason:
+      <div class="modal-body" style="padding: 0 24px 20px 24px; display: flex; flex-direction: column;">
+        <p style="margin: 0 0 12px 0; color: var(--fg-primary); font-size: var(--font-body); line-height: 1.6;">
+          Are you sure you want to reject this application?
         </p>
-        <div class="form-group" style="margin-bottom: 0;">
-          <label class="form-label required">Reject Reason</label>
-          <textarea class="form-textarea" id="rejectReasonInput" placeholder="Please enter the reason for rejection (required)" maxlength="500" style="min-height: 100px;"></textarea>
+        <div class="form-group" style="margin-bottom: 0; width: 100%;">
+          <label class="form-label required" style="margin-bottom: 8px;">Reject Reason</label>
+          <textarea class="form-textarea" id="rejectReasonInput" placeholder="Please enter the reason for rejection (required)" maxlength="500" style="min-height: 100px; width: 100%; resize: vertical;"></textarea>
           <div class="char-count" id="rejectCharCount">0 / 500</div>
         </div>
       </div>
-      <div class="modal-footer" style="border-top: none; padding: 0 24px 24px 24px; justify-content: flex-end;">
+      <div class="modal-footer" style="border-top: none; padding: 0 24px 20px 24px; justify-content: flex-end;">
         <button class="btn btn-secondary" onclick="closeRejectConfirm()">Cancel</button>
-        <button class="btn btn-primary" style="background: #FF4D4F; border-color: #FF4D4F;" onclick="executeReject()">Confirm Reject</button>
+        <button class="btn btn-primary" onclick="executeReject()">Confirm</button>
       </div>
     </div>
   </div>
@@ -2195,17 +2490,35 @@
   </div>
 
   <!-- Image Preview Modal -->
-  <div class="modal-overlay" id="imagePreviewModal" style="z-index: 2000;">
-    <div class="modal" style="max-width: 90vw; max-height: 90vh; width: auto; height: auto;">
-      <div class="modal-header">
-        <h2 class="modal-title" id="imagePreviewTitle">Image Preview</h2>
-        <span class="modal-close" onclick="closeImagePreview()">×</span>
+  <div class="modal-overlay" id="imagePreviewModal" style="z-index: 2000; background: rgba(0, 0, 0, 0.85); padding: 20px;">
+    <div class="modal" style="width: 90%; max-width: 1200px; max-height: 90vh; height: auto; margin: auto; position: relative; top: 50%; transform: translateY(-50%); display: flex; flex-direction: column;">
+      <div class="modal-header" style="padding: 12px 20px; flex-shrink: 0;">
+        <h2 class="modal-title" id="imagePreviewTitle" style="font-size: 18px;">Image Preview</h2>
+        <div style="display: flex; align-items: center; gap: 16px;">
+          <div style="display: flex; align-items: center; gap: 8px;">
+            <button class="btn btn-secondary" onclick="zoomOut()" style="padding: 6px 12px; min-width: auto;">
+              <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                <path d="M3 8H13" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+              </svg>
+            </button>
+            <span id="zoomLevel" style="min-width: 50px; text-align: center; font-size: 14px; color: var(--fg-secondary);">100%</span>
+            <button class="btn btn-secondary" onclick="zoomIn()" style="padding: 6px 12px; min-width: auto;">
+              <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                <path d="M8 3V13M3 8H13" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+              </svg>
+            </button>
+            <button class="btn btn-secondary" onclick="resetZoom()" style="padding: 6px 12px; min-width: auto;">Reset</button>
+          </div>
+          <span class="modal-close" onclick="closeImagePreview()">×</span>
+        </div>
       </div>
-      <div class="modal-body" style="display: flex; justify-content: center; align-items: center; padding: 0; min-height: 400px;">
-        <img id="imagePreviewImg" src="" alt="" style="max-width: 100%; max-height: 70vh; object-fit: contain;">
+      <div class="modal-body" style="padding: 0; background: #1a1a1a; position: relative; overflow: hidden; flex: 1; min-height: 0; aspect-ratio: 16/9; max-height: calc(90vh - 140px);">
+        <div id="imageContainer" style="width: 100%; height: 100%; display: flex; justify-content: center; align-items: center; cursor: grab; position: relative;">
+          <img id="imagePreviewImg" src="" alt="" style="max-width: 100%; max-height: 100%; object-fit: contain; user-select: none; pointer-events: none;">
+        </div>
       </div>
-      <div class="modal-footer" style="justify-content: space-between;">
-        <div id="imagePreviewFileName" style="color: var(--fg-secondary); font-size: var(--font-body);"></div>
+      <div class="modal-footer" style="padding: 12px 20px; justify-content: space-between; flex-shrink: 0;">
+        <div id="imagePreviewFileName" style="color: var(--fg-secondary); font-size: 14px;"></div>
         <button class="btn btn-secondary" onclick="closeImagePreview()">Close</button>
       </div>
     </div>
@@ -2611,11 +2924,108 @@
       }
     }
 
-    // Filter approval list based on selected statuses
-    function filterApprovalList() {
-      const selectElement = document.getElementById('statusFilterSelect');
+    // Toggle business type option
+    function toggleBusinessTypeOption(event, businessType) {
+      event.stopPropagation();
+      const option = event.currentTarget;
+      const checkbox = option.querySelector('input[type="checkbox"]');
+
+      // Toggle checkbox
+      checkbox.checked = !checkbox.checked;
+
+      // Update selected state
+      if (checkbox.checked) {
+        option.classList.add('selected');
+      } else {
+        option.classList.remove('selected');
+      }
+
+      // Update trigger text
+      updateBusinessTypeTriggerText();
+
+      // Filter approval list
+      filterApprovalList();
+    }
+
+    // Update business type dropdown trigger text
+    function updateBusinessTypeTriggerText() {
+      const selectElement = document.getElementById('businessTypeFilterSelect');
+      const trigger = selectElement.querySelector('.custom-select-trigger');
       const checkedOptions = selectElement.querySelectorAll('.custom-select-option input[type="checkbox"]:checked');
-      const selectedStatuses = Array.from(checkedOptions).map(cb => cb.parentElement.getAttribute('data-value'));
+
+      if (checkedOptions.length === 0) {
+        trigger.textContent = 'All';
+      } else if (checkedOptions.length === 1) {
+        trigger.textContent = checkedOptions[0].nextElementSibling.textContent;
+      } else if (checkedOptions.length === 2) {
+        trigger.textContent = 'All';
+      } else {
+        const types = Array.from(checkedOptions).map(cb => cb.nextElementSibling.textContent);
+        trigger.textContent = types.join(', ');
+      }
+    }
+
+    // Toggle approval search expand/collapse
+    function toggleApprovalSearchExpand() {
+      const field3 = document.getElementById('approvalField3');
+      const field4 = document.getElementById('approvalField4');
+      const emptyCell = document.getElementById('approvalEmptyCell');
+      const buttonsCollapsed = document.getElementById('approvalButtonsCollapsed');
+      const buttonsExpanded = document.getElementById('approvalButtonsExpanded');
+
+      if (field3.style.display === 'none' || field3.style.display === '') {
+        // Expand
+        field3.style.display = 'flex';
+        field4.style.display = 'flex';
+        emptyCell.style.display = 'block';
+        buttonsCollapsed.style.display = 'none';
+        buttonsExpanded.style.display = 'flex';
+      } else {
+        // Collapse
+        field3.style.display = 'none';
+        field4.style.display = 'none';
+        emptyCell.style.display = 'none';
+        buttonsCollapsed.style.display = 'flex';
+        buttonsExpanded.style.display = 'none';
+      }
+    }
+
+    // Toggle user search expand/collapse
+    function toggleUserSearchExpand() {
+      const field3 = document.getElementById('userField3');
+      const emptyCell1 = document.getElementById('userEmptyCell1');
+      const emptyCell2 = document.getElementById('userEmptyCell2');
+      const buttonsCollapsed = document.getElementById('userButtonsCollapsed');
+      const buttonsExpanded = document.getElementById('userButtonsExpanded');
+
+      if (field3.style.display === 'none' || field3.style.display === '') {
+        // Expand
+        field3.style.display = 'flex';
+        emptyCell1.style.display = 'block';
+        emptyCell2.style.display = 'block';
+        buttonsCollapsed.style.display = 'none';
+        buttonsExpanded.style.display = 'flex';
+      } else {
+        // Collapse
+        field3.style.display = 'none';
+        emptyCell1.style.display = 'none';
+        emptyCell2.style.display = 'none';
+        buttonsCollapsed.style.display = 'flex';
+        buttonsExpanded.style.display = 'none';
+      }
+    }
+
+    // Filter approval list based on selected statuses and business types
+    function filterApprovalList() {
+      // Get selected statuses
+      const statusSelect = document.getElementById('statusFilterSelect');
+      const checkedStatusOptions = statusSelect.querySelectorAll('.custom-select-option input[type="checkbox"]:checked');
+      const selectedStatuses = Array.from(checkedStatusOptions).map(cb => cb.parentElement.getAttribute('data-value'));
+
+      // Get selected business types
+      const businessTypeSelect = document.getElementById('businessTypeFilterSelect');
+      const checkedBusinessTypeOptions = businessTypeSelect.querySelectorAll('.custom-select-option input[type="checkbox"]:checked');
+      const selectedBusinessTypes = Array.from(checkedBusinessTypeOptions).map(cb => cb.parentElement.getAttribute('data-value'));
 
       const tableBody = document.getElementById('approvalTableBody');
       const rows = tableBody.querySelectorAll('tr');
@@ -2623,7 +3033,13 @@
       let visibleCount = 0;
       rows.forEach(row => {
         const rowStatus = row.getAttribute('data-status');
-        if (selectedStatuses.length === 0 || selectedStatuses.includes(rowStatus)) {
+        const rowBusinessType = row.getAttribute('data-business-type');
+
+        // Check if row matches selected filters (AND logic)
+        const statusMatch = selectedStatuses.length === 0 || selectedStatuses.includes(rowStatus);
+        const businessTypeMatch = selectedBusinessTypes.length === 0 || selectedBusinessTypes.includes(rowBusinessType);
+
+        if (statusMatch && businessTypeMatch) {
           row.style.display = '';
           visibleCount++;
         } else {
@@ -2638,11 +3054,32 @@
       }
     }
 
+    // Global variables - must be defined before use
+    let currentApprovalStatus = 'pending';
+
+    const certificateImages = {
+      'business-license': {
+        src: 'images/Business License.webp',
+        fileName: 'Business License.webp'
+      },
+      'sales-license': {
+        src: 'images/Sales License.jpg',
+        fileName: 'Sales License.jpg'
+      },
+      'insurance': {
+        src: 'images/Insurance.webp',
+        fileName: 'Insurance.webp'
+      }
+    };
+
     // Initialize all custom selects
     document.querySelectorAll('.custom-select').forEach(initCustomSelect);
 
     // Initialize approval list filter (default: Pending only)
     filterApprovalList();
+
+    // Initialize certificate images
+    initCertificateImages();
 
     // Close dropdown when clicking outside
     document.addEventListener('click', () => {
@@ -2669,38 +3106,82 @@
       const adminMenu = document.getElementById('adminMenu');
       const companyMenu = document.getElementById('companyMenu');
       const companyContent = document.getElementById('companyContent');
+      const userContent = document.getElementById('userContent');
       const deviceContent = document.getElementById('deviceContent');
+      const approvalContent = document.getElementById('approvalContent');
 
       if (role === 'Administrator') {
         // Show admin menu and company content
         adminMenu.style.display = 'block';
         companyMenu.style.display = 'none';
         companyContent.style.display = 'block';
+        userContent.style.display = 'none';
         deviceContent.style.display = 'none';
+        approvalContent.style.display = 'none';
       } else {
-        // Company A or Company B - show device menu and device content
+        // Company A or Company B - show company menu and user content by default
         adminMenu.style.display = 'none';
         companyMenu.style.display = 'block';
         companyContent.style.display = 'none';
-        deviceContent.style.display = 'block';
+        userContent.style.display = 'block';
+        deviceContent.style.display = 'none';
+        approvalContent.style.display = 'none';
+
+        // Update company menu active state
+        document.querySelectorAll('#companyMenu .sidebar-header').forEach(item => item.classList.remove('active'));
+        document.querySelector('#companyMenu .sidebar-header:first-child').classList.add('active');
       }
     }
 
     // Page switching functions
     function showCompanyPage() {
       document.getElementById('companyContent').style.display = 'block';
+      document.getElementById('userContent').style.display = 'none';
       document.getElementById('deviceContent').style.display = 'none';
       document.getElementById('approvalContent').style.display = 'none';
 
       // Update sidebar active state
       document.querySelectorAll('.sidebar-menu-item').forEach(item => item.classList.remove('active'));
       event.target.classList.add('active');
+
+      // Recheck truncation after page is visible
+      setTimeout(checkTextTruncation, 10);
     }
 
-    function showDevicePage() {
+    function showUserPage(event) {
       document.getElementById('companyContent').style.display = 'none';
+      document.getElementById('userContent').style.display = 'block';
+      document.getElementById('deviceContent').style.display = 'none';
+      document.getElementById('approvalContent').style.display = 'none';
+
+      // Update company menu active state
+      document.querySelectorAll('#companyMenu .sidebar-header').forEach(item => item.classList.remove('active'));
+      // Find the closest .sidebar-header element in case user clicks on child element
+      const header = event.target.closest('.sidebar-header');
+      if (header) {
+        header.classList.add('active');
+      }
+
+      // Recheck truncation after page is visible
+      setTimeout(checkTextTruncation, 10);
+    }
+
+    function showDevicePage(event) {
+      document.getElementById('companyContent').style.display = 'none';
+      document.getElementById('userContent').style.display = 'none';
       document.getElementById('deviceContent').style.display = 'block';
       document.getElementById('approvalContent').style.display = 'none';
+
+      // Update company menu active state
+      document.querySelectorAll('#companyMenu .sidebar-header').forEach(item => item.classList.remove('active'));
+      // Find the closest .sidebar-header element in case user clicks on child element
+      const header = event.target.closest('.sidebar-header');
+      if (header) {
+        header.classList.add('active');
+      }
+
+      // Recheck truncation after page is visible
+      setTimeout(checkTextTruncation, 10);
     }
 
     // Remove device functions
@@ -2741,32 +3222,36 @@
     // Show Approval Page
     function showApprovalPage() {
       document.getElementById('companyContent').style.display = 'none';
+      document.getElementById('userContent').style.display = 'none';
       document.getElementById('deviceContent').style.display = 'none';
       document.getElementById('approvalContent').style.display = 'block';
 
       // Update sidebar active state
       document.querySelectorAll('.sidebar-menu-item').forEach(item => item.classList.remove('active'));
       event.target.classList.add('active');
+
+      // Recheck truncation after page is visible
+      setTimeout(checkTextTruncation, 10);
     }
 
     // Open Approval Review Modal
-    let currentApprovalStatus = 'pending';
-
     function openApprovalReview(status, companyName, tenantAccount) {
       currentApprovalStatus = status;
       const modal = document.getElementById('approvalReviewModal');
       const footer = document.getElementById('approvalReviewFooter');
       const resultSection = document.getElementById('approvalResultSection');
       const rejectReasonDiv = document.getElementById('rejectReasonDiv');
+      const titleStatus = document.getElementById('approvalTitleStatus');
 
       // Update basic info
       document.getElementById('reviewCompanyName').textContent = companyName;
       document.getElementById('reviewTenantAccount').textContent = tenantAccount;
 
       if (status === 'pending') {
-        // Pending: Show Approve/Reject buttons
+        // Pending: Show Approve/Reject buttons, hide approval info
         document.getElementById('approvalReviewTitle').textContent = 'Approval Review';
-        document.getElementById('reviewStatus').innerHTML = '<span style="display: inline-flex; align-items: center; gap: 6px; padding: 4px 12px; background: #E6F7FF; color: #1890FF; border-radius: 4px; font-size: 12px; font-weight: 500;">Pending</span>';
+        titleStatus.innerHTML = '<span style="display: inline-flex; align-items: center; gap: 6px; padding: 4px 12px; background: #E6F7FF; color: #1890FF; border-radius: 4px; font-size: 12px; font-weight: 500;">Pending</span>';
+        footer.style.display = 'flex';
         footer.innerHTML = `
           <button class="btn btn-secondary" onclick="closeApprovalReview()">Cancel</button>
           <button class="btn btn-secondary" onclick="confirmApprovalAction('reject')" style="background: #FF4D4F; color: white; border-color: #FF4D4F;">Reject</button>
@@ -2774,19 +3259,19 @@
         `;
         resultSection.style.display = 'none';
       } else {
-        // Approved/Rejected: Show details only with Close button
+        // Approved/Rejected: Hide footer, show approval info at top
         document.getElementById('approvalReviewTitle').textContent = 'Approval Details';
+        footer.style.display = 'none';
+        resultSection.style.display = 'block';
 
         if (status === 'approved') {
-          document.getElementById('reviewStatus').innerHTML = '<span style="display: inline-flex; align-items: center; gap: 6px; padding: 4px 12px; background: #F6FFED; color: #52C41A; border-radius: 4px; font-size: 12px; font-weight: 500;">Approved</span>';
+          titleStatus.innerHTML = '<span style="display: inline-flex; align-items: center; gap: 6px; padding: 4px 12px; background: #F6FFED; color: #52C41A; border-radius: 4px; font-size: 12px; font-weight: 500;">Approved</span>';
           rejectReasonDiv.style.display = 'none';
         } else {
-          document.getElementById('reviewStatus').innerHTML = '<span style="display: inline-flex; align-items: center; gap: 6px; padding: 4px 12px; background: #FFF1F0; color: #FF4D4F; border-radius: 4px; font-size: 12px; font-weight: 500;">Rejected</span>';
+          titleStatus.innerHTML = '<span style="display: inline-flex; align-items: center; gap: 6px; padding: 4px 12px; background: #FFF1F0; color: #FF4D4F; border-radius: 4px; font-size: 12px; font-weight: 500;">Rejected</span>';
           rejectReasonDiv.style.display = 'block';
+          rejectReasonDiv.style.gridColumn = '1 / -1';
         }
-
-        footer.innerHTML = '<button class="btn btn-primary" onclick="closeApprovalReview()">Close</button>';
-        resultSection.style.display = 'block';
       }
 
       modal.classList.add('active');
@@ -2828,9 +3313,18 @@
       showToast('Application approved successfully', 'success');
 
       // In a real app, would update the list here
+      // For demo purposes, just remove the first pending item from the table
       setTimeout(() => {
-        location.reload(); // For demo, just reload
-      }, 1500);
+        const tableBody = document.getElementById('approvalTableBody');
+        const firstPendingRow = Array.from(tableBody.querySelectorAll('tr')).find(row =>
+          row.getAttribute('data-status') === 'Pending' && row.style.display !== 'none'
+        );
+        if (firstPendingRow) {
+          firstPendingRow.remove();
+          // Update pagination info
+          filterApprovalList();
+        }
+      }, 300);
     }
 
     // Execute Reject
@@ -2850,24 +3344,59 @@
       showToast('Application rejected successfully', 'success');
 
       // In a real app, would update the list here
+      // For demo purposes, just remove the first pending item from the table
       setTimeout(() => {
-        location.reload(); // For demo, just reload
-      }, 1500);
+        const tableBody = document.getElementById('approvalTableBody');
+        const firstPendingRow = Array.from(tableBody.querySelectorAll('tr')).find(row =>
+          row.getAttribute('data-status') === 'Pending' && row.style.display !== 'none'
+        );
+        if (firstPendingRow) {
+          firstPendingRow.remove();
+          // Update pagination info
+          filterApprovalList();
+        }
+      }, 300);
     }
 
+    // Initialize certificate thumbnail images
+    function initCertificateImages() {
+      document.getElementById('businessLicenseImg').src = certificateImages['business-license'].src;
+      document.getElementById('salesLicenseImg').src = certificateImages['sales-license'].src;
+      document.getElementById('insuranceImg').src = certificateImages['insurance'].src;
+    }
+
+    // Image zoom and pan state
+    let imageZoom = {
+      scale: 1,
+      translateX: 0,
+      translateY: 0,
+      isDragging: false,
+      startX: 0,
+      startY: 0,
+      initialized: false
+    };
+
     // Open Image Preview
-    function openImagePreview(imageSrc, imageTitle) {
+    function openImagePreview(imageType, imageTitle) {
       const modal = document.getElementById('imagePreviewModal');
       const img = document.getElementById('imagePreviewImg');
       const title = document.getElementById('imagePreviewTitle');
       const fileName = document.getElementById('imagePreviewFileName');
 
-      // Use placeholder image for demo
-      const placeholderSrc = "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='800' height='600' viewBox='0 0 800 600'%3E%3Crect fill='%23f5f5f5' width='800' height='600'/%3E%3Ctext x='50%25' y='45%25' dominant-baseline='middle' text-anchor='middle' font-family='Arial' font-size='24' fill='%23999'%3E" + encodeURIComponent(imageTitle) + "%3C/text%3E%3Ctext x='50%25' y='55%25' dominant-baseline='middle' text-anchor='middle' font-family='Arial' font-size='16' fill='%23ccc'%3E(Preview Image)%3C/text%3E%3C/svg%3E";
+      const certificate = certificateImages[imageType];
 
-      img.src = placeholderSrc;
+      img.src = certificate.src;
       title.textContent = imageTitle;
-      fileName.textContent = imageSrc;
+      fileName.textContent = certificate.fileName;
+
+      // Initialize pan and zoom on first open
+      if (!imageZoom.initialized) {
+        initImagePanAndZoom();
+        imageZoom.initialized = true;
+      }
+
+      // Reset zoom state
+      resetZoom();
 
       modal.classList.add('active');
     }
@@ -2875,6 +3404,101 @@
     // Close Image Preview
     function closeImagePreview() {
       document.getElementById('imagePreviewModal').classList.remove('active');
+      resetZoom();
+    }
+
+    // Zoom In
+    function zoomIn() {
+      imageZoom.scale = Math.min(imageZoom.scale + 0.25, 5);
+      updateImageTransform();
+    }
+
+    // Zoom Out
+    function zoomOut() {
+      imageZoom.scale = Math.max(imageZoom.scale - 0.25, 0.5);
+      updateImageTransform();
+    }
+
+    // Reset Zoom
+    function resetZoom() {
+      imageZoom.scale = 1;
+      imageZoom.translateX = 0;
+      imageZoom.translateY = 0;
+      updateImageTransform();
+    }
+
+    // Update Image Transform
+    function updateImageTransform() {
+      const img = document.getElementById('imagePreviewImg');
+      const container = document.getElementById('imageContainer');
+      const zoomLevel = document.getElementById('zoomLevel');
+
+      if (!img || !container) return;
+
+      img.style.transform = `scale(${imageZoom.scale}) translate(${imageZoom.translateX}px, ${imageZoom.translateY}px)`;
+
+      if (zoomLevel) {
+        zoomLevel.textContent = Math.round(imageZoom.scale * 100) + '%';
+      }
+
+      // Update cursor based on zoom level
+      if (imageZoom.scale > 1) {
+        container.style.cursor = imageZoom.isDragging ? 'grabbing' : 'grab';
+      } else {
+        container.style.cursor = 'default';
+      }
+    }
+
+    // Initialize Image Container Pan/Drag
+    function initImagePanAndZoom() {
+      const imageContainer = document.getElementById('imageContainer');
+      if (!imageContainer) return;
+
+      imageContainer.addEventListener('mousedown', function(e) {
+        if (imageZoom.scale <= 1) return;
+
+        imageZoom.isDragging = true;
+        imageZoom.startX = e.clientX - imageZoom.translateX;
+        imageZoom.startY = e.clientY - imageZoom.translateY;
+        this.style.cursor = 'grabbing';
+      });
+
+      imageContainer.addEventListener('mousemove', function(e) {
+        if (!imageZoom.isDragging) return;
+
+        imageZoom.translateX = e.clientX - imageZoom.startX;
+        imageZoom.translateY = e.clientY - imageZoom.startY;
+        updateImageTransform();
+      });
+
+      imageContainer.addEventListener('mouseup', function() {
+        imageZoom.isDragging = false;
+        if (imageZoom.scale > 1) {
+          this.style.cursor = 'grab';
+        }
+      });
+
+      imageContainer.addEventListener('mouseleave', function() {
+        imageZoom.isDragging = false;
+        if (imageZoom.scale > 1) {
+          this.style.cursor = 'grab';
+        }
+      });
+
+      // Mouse Wheel Zoom
+      imageContainer.addEventListener('wheel', function(e) {
+        e.preventDefault();
+
+        if (e.deltaY < 0) {
+          // Scroll up - zoom in
+          imageZoom.scale = Math.min(imageZoom.scale + 0.1, 5);
+        } else {
+          // Scroll down - zoom out
+          imageZoom.scale = Math.max(imageZoom.scale - 0.1, 0.5);
+        }
+
+        updateImageTransform();
+      }, { passive: false });
     }
 
     // Update reject reason character count
@@ -2905,6 +3529,33 @@
       if (e.target === this) {
         closeImagePreview();
       }
+    });
+
+    // Function to check if text is truncated and add title attribute
+    function checkTextTruncation() {
+      const truncateCells = document.querySelectorAll('td.truncate');
+
+      truncateCells.forEach(cell => {
+        // Check if the content is truncated
+        if (cell.scrollWidth > cell.clientWidth) {
+          // Text is truncated, add title with the full text content
+          const textContent = cell.textContent.trim();
+          cell.setAttribute('title', textContent);
+        } else {
+          // Text is not truncated, remove title if exists
+          cell.removeAttribute('title');
+        }
+      });
+    }
+
+    // Run on page load
+    window.addEventListener('load', checkTextTruncation);
+
+    // Run when window is resized (in case layout changes)
+    let resizeTimer;
+    window.addEventListener('resize', function() {
+      clearTimeout(resizeTimer);
+      resizeTimer = setTimeout(checkTextTruncation, 250);
     });
 
     console.log('Anker Partner Cloud - Admin Portal');
