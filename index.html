@@ -2039,8 +2039,7 @@
             <div>
               <div style="color: var(--fg-secondary); font-size: var(--font-caption); margin-bottom: 4px;">Status</div>
               <div id="reviewStatus">
-                <span style="display: inline-flex; align-items: center; gap: 6px;">
-                  <span style="width: 8px; height: 8px; background: #1890FF; border-radius: 50%;"></span>
+                <span style="display: inline-flex; align-items: center; gap: 6px; padding: 4px 12px; background: #E6F7FF; color: #1890FF; border-radius: 4px; font-size: 12px; font-weight: 500;">
                   Pending
                 </span>
               </div>
@@ -2767,7 +2766,7 @@
       if (status === 'pending') {
         // Pending: Show Approve/Reject buttons
         document.getElementById('approvalReviewTitle').textContent = 'Approval Review';
-        document.getElementById('reviewStatus').innerHTML = '<span style="display: inline-flex; align-items: center; gap: 6px;"><span style="width: 8px; height: 8px; background: #1890FF; border-radius: 50%;"></span>Pending</span>';
+        document.getElementById('reviewStatus').innerHTML = '<span style="display: inline-flex; align-items: center; gap: 6px; padding: 4px 12px; background: #E6F7FF; color: #1890FF; border-radius: 4px; font-size: 12px; font-weight: 500;">Pending</span>';
         footer.innerHTML = `
           <button class="btn btn-secondary" onclick="closeApprovalReview()">Cancel</button>
           <button class="btn btn-secondary" onclick="confirmApprovalAction('reject')" style="background: #FF4D4F; color: white; border-color: #FF4D4F;">Reject</button>
@@ -2779,10 +2778,10 @@
         document.getElementById('approvalReviewTitle').textContent = 'Approval Details';
 
         if (status === 'approved') {
-          document.getElementById('reviewStatus').innerHTML = '<span style="display: inline-flex; align-items: center; gap: 6px;"><span style="width: 8px; height: 8px; background: #52C41A; border-radius: 50%;"></span>Approved</span>';
+          document.getElementById('reviewStatus').innerHTML = '<span style="display: inline-flex; align-items: center; gap: 6px; padding: 4px 12px; background: #F6FFED; color: #52C41A; border-radius: 4px; font-size: 12px; font-weight: 500;">Approved</span>';
           rejectReasonDiv.style.display = 'none';
         } else {
-          document.getElementById('reviewStatus').innerHTML = '<span style="display: inline-flex; align-items: center; gap: 6px;"><span style="width: 8px; height: 8px; background: #FF4D4F; border-radius: 50%;"></span>Rejected</span>';
+          document.getElementById('reviewStatus').innerHTML = '<span style="display: inline-flex; align-items: center; gap: 6px; padding: 4px 12px; background: #FFF1F0; color: #FF4D4F; border-radius: 4px; font-size: 12px; font-weight: 500;">Rejected</span>';
           rejectReasonDiv.style.display = 'block';
         }
 
