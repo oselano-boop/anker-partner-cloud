@@ -1610,6 +1610,7 @@
               <div class="custom-select-trigger" style="width: 100%;">Others</div>
               <div class="custom-select-dropdown">
                 <div class="custom-select-option selected" data-value="Others">Others</div>
+                <div class="custom-select-option" data-value="Integrator">Integrator</div>
                 <div class="custom-select-option" data-value="Installer">Installer</div>
                 <div class="custom-select-option" data-value="Installer (SaaS)">Installer (SaaS)</div>
               </div>
@@ -2216,39 +2217,9 @@
       });
 
       updateCharCount();
-      // Clear all checkboxes
-      const checkboxes = document.querySelectorAll('#permissionTree .tree-checkbox');
-      checkboxes.forEach(cb => cb.checked = false);
-      document.getElementById('selectAll').checked = false;
-      updatePermissionCount();
 
-      // Reset App Permission to Disable
-      const appPermissionSelect = document.getElementById('appPermissionSelect');
-      const appTrigger = appPermissionSelect.querySelector('.custom-select-trigger');
-      const appOptions = appPermissionSelect.querySelectorAll('.custom-select-option');
-      appTrigger.textContent = 'Disable';
-      document.getElementById('appPermission').value = 'Disable';
-      appOptions.forEach(opt => {
-        if (opt.getAttribute('data-value') === 'Disable') {
-          opt.classList.add('selected');
-        } else {
-          opt.classList.remove('selected');
-        }
-      });
-
-      // Reset Data Permission to Company-related
-      const dataPermissionSelect = document.getElementById('dataPermissionSelect');
-      const dataTrigger = dataPermissionSelect.querySelector('.custom-select-trigger');
-      const dataOptions = dataPermissionSelect.querySelectorAll('.custom-select-option');
-      dataTrigger.textContent = 'Company-related';
-      document.getElementById('dataPermission').value = 'Company-related';
-      dataOptions.forEach(opt => {
-        if (opt.getAttribute('data-value') === 'Company-related') {
-          opt.classList.add('selected');
-        } else {
-          opt.classList.remove('selected');
-        }
-      });
+      // Apply default permissions for Others type
+      applyBusinessTypePermissions('Others');
 
       document.getElementById('companyModal').classList.add('active');
     }
@@ -2416,6 +2387,80 @@
       }
     });
 
+    // Apply permissions based on Business Type
+    function applyBusinessTypePermissions(businessType) {
+      // Helper function to set dropdown value
+      function setDropdownValue(selectId, value) {
+        const selectElement = document.getElementById(selectId);
+        const trigger = selectElement.querySelector('.custom-select-trigger');
+        const options = selectElement.querySelectorAll('.custom-select-option');
+        const hiddenInput = document.getElementById(selectId.replace('Select', ''));
+
+        trigger.textContent = value;
+        if (hiddenInput) hiddenInput.value = value;
+        options.forEach(opt => {
+          if (opt.getAttribute('data-value') === value) {
+            opt.classList.add('selected');
+          } else {
+            opt.classList.remove('selected');
+          }
+        });
+      }
+
+      // Helper function to check specific permissions
+      function checkPermissions(permissionIds) {
+        // First uncheck all
+        const allCheckboxes = document.querySelectorAll('#permissionTree .tree-checkbox');
+        allCheckboxes.forEach(cb => cb.checked = false);
+
+        // Then check specified ones
+        permissionIds.forEach(id => {
+          const checkbox = document.querySelector(`#permissionTree .tree-checkbox[data-id="${id}"]`);
+          if (checkbox) {
+            checkbox.checked = true;
+            // Also check all ancestors
+            checkAllAncestors(checkbox.closest('.tree-node'));
+          }
+        });
+
+        updatePermissionCount();
+      }
+
+      // Apply permissions based on business type
+      switch(businessType) {
+        case 'Others':
+          setDropdownValue('appPermissionSelect', 'Disable');
+          setDropdownValue('saasPermissionSelect', 'Disable');
+          setDropdownValue('dataPermissionSelect', 'All');
+          // Select all web permissions
+          document.querySelectorAll('#permissionTree .tree-checkbox').forEach(cb => cb.checked = true);
+          document.getElementById('selectAll').checked = true;
+          updatePermissionCount();
+          break;
+
+        case 'Integrator':
+          setDropdownValue('appPermissionSelect', 'Disable');
+          setDropdownValue('saasPermissionSelect', 'Disable');
+          setDropdownValue('dataPermissionSelect', 'Company-related');
+          checkPermissions(['resource', 'resource-eufy', 'resource-charging', 'company-information', 'account', 'account-list', 'account-list-create', 'account-list-edit', 'account-list-delete', 'role', 'role-create', 'role-edit', 'role-delete', 'log', 'login-log', 'operation-log']);
+          break;
+
+        case 'Installer':
+          setDropdownValue('appPermissionSelect', 'Enable');
+          setDropdownValue('saasPermissionSelect', 'Disable');
+          setDropdownValue('dataPermissionSelect', 'Company-related');
+          checkPermissions(['user', 'user-detail-button', 'user-detail', 'device', 'device-user-detail', 'device-remove', 'company-information', 'account', 'account-list', 'account-list-create', 'account-list-edit', 'account-list-delete', 'role', 'role-create', 'role-edit', 'role-delete', 'log', 'login-log', 'operation-log']);
+          break;
+
+        case 'Installer (SaaS)':
+          setDropdownValue('appPermissionSelect', 'Disable');
+          setDropdownValue('saasPermissionSelect', 'Enable');
+          setDropdownValue('dataPermissionSelect', 'Company-related');
+          checkPermissions(['company-information', 'account', 'account-list', 'account-list-create', 'account-list-edit', 'account-list-delete', 'role', 'role-create', 'role-edit', 'role-delete', 'log', 'login-log', 'operation-log']);
+          break;
+      }
+    }
+
     // Custom select dropdown functionality
     function initCustomSelect(selectElement) {
       const trigger = selectElement.querySelector('.custom-select-trigger');
@@ -2455,6 +2500,11 @@
 
           // Close dropdown
           selectElement.classList.remove('open');
+
+          // If this is the Business Type selector, apply permissions
+          if (selectElement.id === 'businessTypeSelect') {
+            applyBusinessTypePermissions(value);
+          }
         });
       });
     }
