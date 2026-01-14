@@ -2025,6 +2025,10 @@
               <div id="reviewCompanyName" style="color: var(--fg-primary); font-weight: var(--font-weight-semibold);">TechVision Solutions</div>
             </div>
             <div>
+              <div style="color: var(--fg-secondary); font-size: var(--font-caption); margin-bottom: 4px;">Company Description</div>
+              <div id="reviewCompanyDescription">Energy management system integrator.</div>
+            </div>
+            <div>
               <div style="color: var(--fg-secondary); font-size: var(--font-caption); margin-bottom: 4px;">Tenant Account</div>
               <div id="reviewTenantAccount" style="color: var(--brand-fg-primary);">tenant1@example.com</div>
             </div>
@@ -2035,12 +2039,11 @@
             <div>
               <div style="color: var(--fg-secondary); font-size: var(--font-caption); margin-bottom: 4px;">Status</div>
               <div id="reviewStatus">
-                <span style="display: inline-flex; align-items: center; gap: 6px; padding: 4px 12px; background: #E6F7FF; color: #1890FF; border-radius: 4px; font-size: 12px;">Pending</span>
+                <span style="display: inline-flex; align-items: center; gap: 6px;">
+                  <span style="width: 8px; height: 8px; background: #1890FF; border-radius: 50%;"></span>
+                  Pending
+                </span>
               </div>
-            </div>
-            <div style="grid-column: 1 / -1;">
-              <div style="color: var(--fg-secondary); font-size: var(--font-caption); margin-bottom: 4px;">Company Description</div>
-              <div id="reviewCompanyDescription">Energy management system integrator.</div>
             </div>
           </div>
         </div>
@@ -2050,24 +2053,12 @@
           <h3 style="font-size: var(--font-title); font-weight: var(--font-weight-semibold); margin-bottom: var(--spacing-lg);">Additional Information</h3>
           <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: var(--spacing-lg);">
             <div>
-              <div style="color: var(--fg-secondary); font-size: var(--font-caption); margin-bottom: 4px;">Contact Person</div>
-              <div>John Smith</div>
+              <div style="color: var(--fg-secondary); font-size: var(--font-caption); margin-bottom: 4px;">Sales Region</div>
+              <div>North America</div>
             </div>
             <div>
-              <div style="color: var(--fg-secondary); font-size: var(--font-caption); margin-bottom: 4px;">Contact Phone</div>
-              <div>+1 234-567-8900</div>
-            </div>
-            <div>
-              <div style="color: var(--fg-secondary); font-size: var(--font-caption); margin-bottom: 4px;">Contact Email</div>
-              <div style="color: var(--brand-fg-primary);">contact@techvision.com</div>
-            </div>
-            <div>
-              <div style="color: var(--fg-secondary); font-size: var(--font-caption); margin-bottom: 4px;">Company Address</div>
-              <div>123 Tech Street, Silicon Valley, CA 94025</div>
-            </div>
-            <div style="grid-column: 1 / -1;">
-              <div style="color: var(--fg-secondary); font-size: var(--font-caption); margin-bottom: 4px;">Application Reason</div>
-              <div>We are seeking partnership to expand our energy management solutions portfolio and provide better service to our customers in the renewable energy sector.</div>
+              <div style="color: var(--fg-secondary); font-size: var(--font-caption); margin-bottom: 4px;">State and City</div>
+              <div>California, San Francisco</div>
             </div>
           </div>
         </div>
@@ -2075,42 +2066,27 @@
         <!-- Attachments (Bottom) -->
         <div style="margin-bottom: var(--spacing-xl);">
           <h3 style="font-size: var(--font-title); font-weight: var(--font-weight-semibold); margin-bottom: var(--spacing-lg);">Attachments <span style="color: var(--fg-tertiary); font-weight: var(--font-weight-regular); font-size: var(--font-body);">(3)</span></h3>
-          <div style="display: flex; flex-direction: column; gap: var(--spacing-sm);">
-            <div style="display: flex; align-items: center; gap: var(--spacing-md); padding: var(--spacing-md); border: 1px solid var(--color-border-secondary); border-radius: 4px; cursor: pointer;" onmouseover="this.style.background='var(--bg-tertiary)'" onmouseout="this.style.background='transparent'">
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="var(--brand-fg-primary)">
-                <path d="M14 2H6c-1.1 0-1.99.9-1.99 2L4 20c0 1.1.89 2 1.99 2H18c1.1 0 2-.9 2-2V8l-6-6zm2 16H8v-2h8v2zm0-4H8v-2h8v2zm-3-5V3.5L18.5 9H13z"/>
-              </svg>
-              <div style="flex: 1;">
-                <div style="color: var(--fg-primary); font-weight: var(--font-weight-semibold);">Business License.pdf</div>
-                <div style="color: var(--fg-tertiary); font-size: var(--font-caption);">2.3 MB</div>
+          <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--spacing-lg);">
+            <!-- Business License -->
+            <div>
+              <div style="color: var(--fg-secondary); font-size: var(--font-caption); margin-bottom: 8px;">Business License</div>
+              <div class="attachment-thumbnail" onclick="openImagePreview('business_license.jpg', 'Business License')">
+                <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='150' viewBox='0 0 200 150'%3E%3Crect fill='%23f0f0f0' width='200' height='150'/%3E%3Ctext x='50%25' y='50%25' dominant-baseline='middle' text-anchor='middle' font-family='Arial' font-size='14' fill='%23999'%3EBusiness License%3C/text%3E%3C/svg%3E" alt="Business License" style="width: 100%; height: 150px; object-fit: cover; border-radius: 4px; cursor: pointer; border: 1px solid var(--color-border-secondary);">
               </div>
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="var(--fg-tertiary)">
-                <path d="M9.29 6.71a.996.996 0 0 0 0 1.41L13.17 12l-3.88 3.88a.996.996 0 1 0 1.41 1.41l4.59-4.59a.996.996 0 0 0 0-1.41L10.7 6.7c-.38-.38-1.02-.38-1.41.01z"/>
-              </svg>
             </div>
-            <div style="display: flex; align-items: center; gap: var(--spacing-md); padding: var(--spacing-md); border: 1px solid var(--color-border-secondary); border-radius: 4px; cursor: pointer;" onmouseover="this.style.background='var(--bg-tertiary)'" onmouseout="this.style.background='transparent'">
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="var(--brand-fg-primary)">
-                <path d="M14 2H6c-1.1 0-1.99.9-1.99 2L4 20c0 1.1.89 2 1.99 2H18c1.1 0 2-.9 2-2V8l-6-6zm2 16H8v-2h8v2zm0-4H8v-2h8v2zm-3-5V3.5L18.5 9H13z"/>
-              </svg>
-              <div style="flex: 1;">
-                <div style="color: var(--fg-primary); font-weight: var(--font-weight-semibold);">Tax Registration Certificate.pdf</div>
-                <div style="color: var(--fg-tertiary); font-size: var(--font-caption);">1.8 MB</div>
+            <!-- Sales License -->
+            <div>
+              <div style="color: var(--fg-secondary); font-size: var(--font-caption); margin-bottom: 8px;">Sales License</div>
+              <div class="attachment-thumbnail" onclick="openImagePreview('sales_license.jpg', 'Sales License')">
+                <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='150' viewBox='0 0 200 150'%3E%3Crect fill='%23f0f0f0' width='200' height='150'/%3E%3Ctext x='50%25' y='50%25' dominant-baseline='middle' text-anchor='middle' font-family='Arial' font-size='14' fill='%23999'%3ESales License%3C/text%3E%3C/svg%3E" alt="Sales License" style="width: 100%; height: 150px; object-fit: cover; border-radius: 4px; cursor: pointer; border: 1px solid var(--color-border-secondary);">
               </div>
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="var(--fg-tertiary)">
-                <path d="M9.29 6.71a.996.996 0 0 0 0 1.41L13.17 12l-3.88 3.88a.996.996 0 1 0 1.41 1.41l4.59-4.59a.996.996 0 0 0 0-1.41L10.7 6.7c-.38-.38-1.02-.38-1.41.01z"/>
-              </svg>
             </div>
-            <div style="display: flex; align-items: center; gap: var(--spacing-md); padding: var(--spacing-md); border: 1px solid var(--color-border-secondary); border-radius: 4px; cursor: pointer;" onmouseover="this.style.background='var(--bg-tertiary)'" onmouseout="this.style.background='transparent'">
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="var(--brand-fg-primary)">
-                <path d="M14 2H6c-1.1 0-1.99.9-1.99 2L4 20c0 1.1.89 2 1.99 2H18c1.1 0 2-.9 2-2V8l-6-6zm2 16H8v-2h8v2zm0-4H8v-2h8v2zm-3-5V3.5L18.5 9H13z"/>
-              </svg>
-              <div style="flex: 1;">
-                <div style="color: var(--fg-primary); font-weight: var(--font-weight-semibold);">Company Profile.pdf</div>
-                <div style="color: var(--fg-tertiary); font-size: var(--font-caption);">4.1 MB</div>
+            <!-- Insurance -->
+            <div>
+              <div style="color: var(--fg-secondary); font-size: var(--font-caption); margin-bottom: 8px;">Insurance</div>
+              <div class="attachment-thumbnail" onclick="openImagePreview('insurance.jpg', 'Insurance')">
+                <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='150' viewBox='0 0 200 150'%3E%3Crect fill='%23f0f0f0' width='200' height='150'/%3E%3Ctext x='50%25' y='50%25' dominant-baseline='middle' text-anchor='middle' font-family='Arial' font-size='14' fill='%23999'%3EInsurance%3C/text%3E%3C/svg%3E" alt="Insurance" style="width: 100%; height: 150px; object-fit: cover; border-radius: 4px; cursor: pointer; border: 1px solid var(--color-border-secondary);">
               </div>
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="var(--fg-tertiary)">
-                <path d="M9.29 6.71a.996.996 0 0 0 0 1.41L13.17 12l-3.88 3.88a.996.996 0 1 0 1.41 1.41l4.59-4.59a.996.996 0 0 0 0-1.41L10.7 6.7c-.38-.38-1.02-.38-1.41.01z"/>
-              </svg>
             </div>
           </div>
         </div>
@@ -2215,6 +2191,23 @@
       <div class="modal-footer" style="border-top: none; padding: 0 24px 24px 24px; justify-content: flex-end;">
         <button class="btn btn-secondary" onclick="closeRemoveDeviceModal()">Cancel</button>
         <button class="btn btn-primary" onclick="confirmRemove()">Remove</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Image Preview Modal -->
+  <div class="modal-overlay" id="imagePreviewModal" style="z-index: 2000;">
+    <div class="modal" style="max-width: 90vw; max-height: 90vh; width: auto; height: auto;">
+      <div class="modal-header">
+        <h2 class="modal-title" id="imagePreviewTitle">Image Preview</h2>
+        <span class="modal-close" onclick="closeImagePreview()">×</span>
+      </div>
+      <div class="modal-body" style="display: flex; justify-content: center; align-items: center; padding: 0; min-height: 400px;">
+        <img id="imagePreviewImg" src="" alt="" style="max-width: 100%; max-height: 70vh; object-fit: contain;">
+      </div>
+      <div class="modal-footer" style="justify-content: space-between;">
+        <div id="imagePreviewFileName" style="color: var(--fg-secondary); font-size: var(--font-body);"></div>
+        <button class="btn btn-secondary" onclick="closeImagePreview()">Close</button>
       </div>
     </div>
   </div>
@@ -2774,7 +2767,7 @@
       if (status === 'pending') {
         // Pending: Show Approve/Reject buttons
         document.getElementById('approvalReviewTitle').textContent = 'Approval Review';
-        document.getElementById('reviewStatus').innerHTML = '<span style="display: inline-flex; align-items: center; gap: 6px; padding: 4px 12px; background: #E6F7FF; color: #1890FF; border-radius: 4px; font-size: 12px;">Pending</span>';
+        document.getElementById('reviewStatus').innerHTML = '<span style="display: inline-flex; align-items: center; gap: 6px;"><span style="width: 8px; height: 8px; background: #1890FF; border-radius: 50%;"></span>Pending</span>';
         footer.innerHTML = `
           <button class="btn btn-secondary" onclick="closeApprovalReview()">Cancel</button>
           <button class="btn btn-secondary" onclick="confirmApprovalAction('reject')" style="background: #FF4D4F; color: white; border-color: #FF4D4F;">Reject</button>
@@ -2786,10 +2779,10 @@
         document.getElementById('approvalReviewTitle').textContent = 'Approval Details';
 
         if (status === 'approved') {
-          document.getElementById('reviewStatus').innerHTML = '<span style="display: inline-flex; align-items: center; gap: 6px; padding: 4px 12px; background: #F6FFED; color: #52C41A; border-radius: 4px; font-size: 12px;">Approved</span>';
+          document.getElementById('reviewStatus').innerHTML = '<span style="display: inline-flex; align-items: center; gap: 6px;"><span style="width: 8px; height: 8px; background: #52C41A; border-radius: 50%;"></span>Approved</span>';
           rejectReasonDiv.style.display = 'none';
         } else {
-          document.getElementById('reviewStatus').innerHTML = '<span style="display: inline-flex; align-items: center; gap: 6px; padding: 4px 12px; background: #FFF1F0; color: #FF4D4F; border-radius: 4px; font-size: 12px;">Rejected</span>';
+          document.getElementById('reviewStatus').innerHTML = '<span style="display: inline-flex; align-items: center; gap: 6px;"><span style="width: 8px; height: 8px; background: #FF4D4F; border-radius: 50%;"></span>Rejected</span>';
           rejectReasonDiv.style.display = 'block';
         }
 
@@ -2863,6 +2856,28 @@
       }, 1500);
     }
 
+    // Open Image Preview
+    function openImagePreview(imageSrc, imageTitle) {
+      const modal = document.getElementById('imagePreviewModal');
+      const img = document.getElementById('imagePreviewImg');
+      const title = document.getElementById('imagePreviewTitle');
+      const fileName = document.getElementById('imagePreviewFileName');
+
+      // Use placeholder image for demo
+      const placeholderSrc = "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='800' height='600' viewBox='0 0 800 600'%3E%3Crect fill='%23f5f5f5' width='800' height='600'/%3E%3Ctext x='50%25' y='45%25' dominant-baseline='middle' text-anchor='middle' font-family='Arial' font-size='24' fill='%23999'%3E" + encodeURIComponent(imageTitle) + "%3C/text%3E%3Ctext x='50%25' y='55%25' dominant-baseline='middle' text-anchor='middle' font-family='Arial' font-size='16' fill='%23ccc'%3E(Preview Image)%3C/text%3E%3C/svg%3E";
+
+      img.src = placeholderSrc;
+      title.textContent = imageTitle;
+      fileName.textContent = imageSrc;
+
+      modal.classList.add('active');
+    }
+
+    // Close Image Preview
+    function closeImagePreview() {
+      document.getElementById('imagePreviewModal').classList.remove('active');
+    }
+
     // Update reject reason character count
     document.getElementById('rejectReasonInput')?.addEventListener('input', function() {
       document.getElementById('rejectCharCount').textContent = this.value.length + ' / 500';
@@ -2884,6 +2899,12 @@
     document.getElementById('rejectConfirmModal')?.addEventListener('click', function(e) {
       if (e.target === this) {
         closeRejectConfirm();
+      }
+    });
+
+    document.getElementById('imagePreviewModal')?.addEventListener('click', function(e) {
+      if (e.target === this) {
+        closeImagePreview();
       }
     });
 
