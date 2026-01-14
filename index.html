@@ -891,6 +891,34 @@
       font-weight: bold;
     }
 
+    /* Multi-select dropdown styles */
+    .custom-select.multi-select .custom-select-option {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 16px;
+    }
+
+    .custom-select.multi-select .custom-select-option input[type="checkbox"] {
+      width: 16px;
+      height: 16px;
+      cursor: pointer;
+    }
+
+    .custom-select.multi-select .custom-select-option.selected {
+      background-color: transparent;
+      color: var(--fg-primary);
+      font-weight: normal;
+    }
+
+    .custom-select.multi-select .custom-select-option.selected::after {
+      display: none;
+    }
+
+    .custom-select.multi-select .custom-select-option:hover {
+      background-color: #F5F7FA;
+    }
+
     /* Toast Notification */
     .toast {
       position: fixed;
@@ -1453,13 +1481,21 @@
             <label class="search-label" style="margin-left: 16px;">Company Name:</label>
             <input type="text" class="search-input" placeholder="Please enter" style="width: 200px;">
             <label class="search-label" style="margin-left: 16px;">Status:</label>
-            <div class="custom-select" id="statusFilterSelect" style="width: 200px;">
+            <div class="custom-select multi-select" id="statusFilterSelect" style="width: 200px;">
               <div class="custom-select-trigger" style="width: 100%;">Pending</div>
               <div class="custom-select-dropdown">
-                <div class="custom-select-option selected" data-value="Pending">Pending</div>
-                <div class="custom-select-option" data-value="Approved">Approved</div>
-                <div class="custom-select-option" data-value="Rejected">Rejected</div>
-                <div class="custom-select-option" data-value="All">All</div>
+                <div class="custom-select-option selected" data-value="Pending" onclick="toggleStatusOption(event, 'Pending')">
+                  <input type="checkbox" checked onclick="event.stopPropagation()">
+                  <span>Pending</span>
+                </div>
+                <div class="custom-select-option" data-value="Approved" onclick="toggleStatusOption(event, 'Approved')">
+                  <input type="checkbox" onclick="event.stopPropagation()">
+                  <span>Approved</span>
+                </div>
+                <div class="custom-select-option" data-value="Rejected" onclick="toggleStatusOption(event, 'Rejected')">
+                  <input type="checkbox" onclick="event.stopPropagation()">
+                  <span>Rejected</span>
+                </div>
               </div>
             </div>
             <button class="btn btn-primary" style="margin-left: 16px;">Search</button>
@@ -1485,8 +1521,8 @@
                     <th>Operate</th>
                   </tr>
                 </thead>
-                <tbody>
-                  <tr>
+                <tbody id="approvalTableBody">
+                  <tr data-status="Pending">
                     <td>TechVision Solutions</td>
                     <td>Energy management system integrator.</td>
                     <td style="color: var(--brand-fg-primary);">tenant1@example.com</td>
@@ -1501,7 +1537,7 @@
                       <a class="action-link review" onclick="openApprovalReview('pending', 'TechVision Solutions', 'tenant1@example.com')">Review</a>
                     </td>
                   </tr>
-                  <tr>
+                  <tr data-status="Approved">
                     <td>GreenPower Systems</td>
                     <td>Renewable energy solutions provider.</td>
                     <td style="color: var(--brand-fg-primary);">tenant2@example.com</td>
@@ -1516,7 +1552,7 @@
                       <a class="action-link details" onclick="openApprovalReview('approved', 'GreenPower Systems', 'tenant2@example.com')">Details</a>
                     </td>
                   </tr>
-                  <tr>
+                  <tr data-status="Rejected">
                     <td>SmartHome Technologies</td>
                     <td>Home automation and IoT integration.</td>
                     <td style="color: var(--brand-fg-primary);">tenant3@example.com</td>
@@ -1531,7 +1567,7 @@
                       <a class="action-link details" onclick="openApprovalReview('rejected', 'SmartHome Technologies', 'tenant3@example.com')">Details</a>
                     </td>
                   </tr>
-                  <tr>
+                  <tr data-status="Pending">
                     <td>EcoCharge Networks</td>
                     <td>Electric vehicle charging infrastructure.</td>
                     <td style="color: var(--brand-fg-primary);">tenant4@example.com</td>
@@ -1546,7 +1582,7 @@
                       <a class="action-link review" onclick="openApprovalReview('pending', 'EcoCharge Networks', 'tenant4@example.com')">Review</a>
                     </td>
                   </tr>
-                  <tr>
+                  <tr data-status="Approved">
                     <td>PowerGrid Innovations</td>
                     <td>Smart grid and energy storage solutions.</td>
                     <td style="color: var(--brand-fg-primary);">tenant5@example.com</td>
@@ -2506,37 +2542,110 @@
         }
       });
 
-      // Select option
-      options.forEach(option => {
-        option.addEventListener('click', (e) => {
-          e.stopPropagation();
-          const value = option.getAttribute('data-value');
+      // Select option (skip for multi-select dropdowns)
+      if (!selectElement.classList.contains('multi-select')) {
+        options.forEach(option => {
+          option.addEventListener('click', (e) => {
+            e.stopPropagation();
+            const value = option.getAttribute('data-value');
 
-          // Update trigger text
-          trigger.textContent = value;
+            // Update trigger text
+            trigger.textContent = value;
 
-          // Update selected state
-          options.forEach(opt => opt.classList.remove('selected'));
-          option.classList.add('selected');
+            // Update selected state
+            options.forEach(opt => opt.classList.remove('selected'));
+            option.classList.add('selected');
 
-          // Update hidden input if exists
-          if (hiddenInput && hiddenInput.tagName === 'INPUT') {
-            hiddenInput.value = value;
-          }
+            // Update hidden input if exists
+            if (hiddenInput && hiddenInput.tagName === 'INPUT') {
+              hiddenInput.value = value;
+            }
 
-          // Close dropdown
-          selectElement.classList.remove('open');
+            // Close dropdown
+            selectElement.classList.remove('open');
 
-          // If this is the Business Type selector, apply permissions
-          if (selectElement.id === 'businessTypeSelect') {
-            applyBusinessTypePermissions(value);
-          }
+            // If this is the Business Type selector, apply permissions
+            if (selectElement.id === 'businessTypeSelect') {
+              applyBusinessTypePermissions(value);
+            }
+          });
         });
+      }
+    }
+
+    // Toggle status option in multi-select dropdown
+    function toggleStatusOption(event, status) {
+      event.stopPropagation();
+      const option = event.currentTarget;
+      const checkbox = option.querySelector('input[type="checkbox"]');
+
+      // Toggle checkbox
+      checkbox.checked = !checkbox.checked;
+
+      // Update selected state
+      if (checkbox.checked) {
+        option.classList.add('selected');
+      } else {
+        option.classList.remove('selected');
+      }
+
+      // Update trigger text
+      updateStatusTriggerText();
+
+      // Filter approval list
+      filterApprovalList();
+    }
+
+    // Update status dropdown trigger text
+    function updateStatusTriggerText() {
+      const selectElement = document.getElementById('statusFilterSelect');
+      const trigger = selectElement.querySelector('.custom-select-trigger');
+      const checkedOptions = selectElement.querySelectorAll('.custom-select-option input[type="checkbox"]:checked');
+
+      if (checkedOptions.length === 0) {
+        trigger.textContent = 'All';
+      } else if (checkedOptions.length === 1) {
+        trigger.textContent = checkedOptions[0].nextElementSibling.textContent;
+      } else if (checkedOptions.length === 3) {
+        trigger.textContent = 'All';
+      } else {
+        const statuses = Array.from(checkedOptions).map(cb => cb.nextElementSibling.textContent);
+        trigger.textContent = statuses.join(', ');
+      }
+    }
+
+    // Filter approval list based on selected statuses
+    function filterApprovalList() {
+      const selectElement = document.getElementById('statusFilterSelect');
+      const checkedOptions = selectElement.querySelectorAll('.custom-select-option input[type="checkbox"]:checked');
+      const selectedStatuses = Array.from(checkedOptions).map(cb => cb.parentElement.getAttribute('data-value'));
+
+      const tableBody = document.getElementById('approvalTableBody');
+      const rows = tableBody.querySelectorAll('tr');
+
+      let visibleCount = 0;
+      rows.forEach(row => {
+        const rowStatus = row.getAttribute('data-status');
+        if (selectedStatuses.length === 0 || selectedStatuses.includes(rowStatus)) {
+          row.style.display = '';
+          visibleCount++;
+        } else {
+          row.style.display = 'none';
+        }
       });
+
+      // Update pagination info
+      const paginationInfo = document.querySelector('.pagination-info');
+      if (paginationInfo) {
+        paginationInfo.textContent = `1-${visibleCount} of ${visibleCount} items`;
+      }
     }
 
     // Initialize all custom selects
     document.querySelectorAll('.custom-select').forEach(initCustomSelect);
+
+    // Initialize approval list filter (default: Pending only)
+    filterApprovalList();
 
     // Close dropdown when clicking outside
     document.addEventListener('click', () => {
