@@ -1648,7 +1648,7 @@
             <div class="tree-item">
               <div class="tree-node">
                 <span class="tree-toggle empty">▸</span>
-                <input type="checkbox" class="tree-checkbox" data-id="dashboard" onchange="updatePermissionCount()">
+                <input type="checkbox" class="tree-checkbox" data-id="dashboard" onchange="handleCheckboxChange(this)">
                 <span class="tree-label">Dashboard</span>
               </div>
             </div>
@@ -1656,15 +1656,15 @@
             <!-- User -->
             <div class="tree-item">
               <div class="tree-node">
-                <span class="tree-toggle" onclick="toggleTreeNode(this)">▸</span>
-                <input type="checkbox" class="tree-checkbox" data-id="user" onchange="updatePermissionCount()">
+                <span class="tree-toggle" onclick="toggleTreeNode(this)">▾</span>
+                <input type="checkbox" class="tree-checkbox" data-id="user" onchange="handleCheckboxChange(this)">
                 <span class="tree-label">User</span>
               </div>
-              <div class="tree-children">
+              <div class="tree-children expanded">
                 <div class="tree-item">
                   <div class="tree-node">
                     <span class="tree-toggle empty">▸</span>
-                    <input type="checkbox" class="tree-checkbox" data-id="user-detail-1" onchange="updatePermissionCount()">
+                    <input type="checkbox" class="tree-checkbox" data-id="user-detail-button" onchange="handleCheckboxChange(this)">
                     <span class="tree-label button-label">└─ User Detail (button)</span>
                   </div>
                 </div>
@@ -1675,7 +1675,7 @@
             <div class="tree-item">
               <div class="tree-node">
                 <span class="tree-toggle empty">▸</span>
-                <input type="checkbox" class="tree-checkbox" data-id="user-detail-standalone" onchange="updatePermissionCount()">
+                <input type="checkbox" class="tree-checkbox" data-id="user-detail-page" onchange="handleCheckboxChange(this)">
                 <span class="tree-label">User Detail</span>
               </div>
             </div>
@@ -1683,15 +1683,15 @@
             <!-- Device -->
             <div class="tree-item">
               <div class="tree-node">
-                <span class="tree-toggle" onclick="toggleTreeNode(this)">▸</span>
-                <input type="checkbox" class="tree-checkbox" data-id="device" onchange="updatePermissionCount()">
+                <span class="tree-toggle" onclick="toggleTreeNode(this)">▾</span>
+                <input type="checkbox" class="tree-checkbox" data-id="device" onchange="handleCheckboxChange(this)">
                 <span class="tree-label">Device</span>
               </div>
-              <div class="tree-children">
+              <div class="tree-children expanded">
                 <div class="tree-item">
                   <div class="tree-node">
                     <span class="tree-toggle empty">▸</span>
-                    <input type="checkbox" class="tree-checkbox" data-id="device-user-detail" onchange="updatePermissionCount()">
+                    <input type="checkbox" class="tree-checkbox" data-id="device-user-detail" onchange="handleCheckboxChange(this)">
                     <span class="tree-label button-label">└─ User Detail (button)</span>
                   </div>
                 </div>
@@ -1701,23 +1701,23 @@
             <!-- Service -->
             <div class="tree-item">
               <div class="tree-node">
-                <span class="tree-toggle" onclick="toggleTreeNode(this)">▸</span>
-                <input type="checkbox" class="tree-checkbox" data-id="service" onchange="updatePermissionCount()">
+                <span class="tree-toggle" onclick="toggleTreeNode(this)">▾</span>
+                <input type="checkbox" class="tree-checkbox" data-id="service" onchange="handleCheckboxChange(this)">
                 <span class="tree-label">Service</span>
               </div>
-              <div class="tree-children">
+              <div class="tree-children expanded">
                 <!-- Expert Monitoring -->
                 <div class="tree-item">
                   <div class="tree-node">
-                    <span class="tree-toggle" onclick="toggleTreeNode(this)">▸</span>
-                    <input type="checkbox" class="tree-checkbox" data-id="expert-monitoring" onchange="updatePermissionCount()">
+                    <span class="tree-toggle" onclick="toggleTreeNode(this)">▾</span>
+                    <input type="checkbox" class="tree-checkbox" data-id="expert-monitoring" onchange="handleCheckboxChange(this)">
                     <span class="tree-label">Expert Monitoring</span>
                   </div>
-                  <div class="tree-children">
+                  <div class="tree-children expanded">
                     <div class="tree-item">
                       <div class="tree-node">
                         <span class="tree-toggle empty">▸</span>
-                        <input type="checkbox" class="tree-checkbox" data-id="expert-user-detail" onchange="updatePermissionCount()">
+                        <input type="checkbox" class="tree-checkbox" data-id="expert-user-detail" onchange="handleCheckboxChange(this)">
                         <span class="tree-label button-label">└─ User Detail (button)</span>
                       </div>
                     </div>
@@ -1727,29 +1727,29 @@
                 <!-- Warranty -->
                 <div class="tree-item">
                   <div class="tree-node">
-                    <span class="tree-toggle" onclick="toggleTreeNode(this)">▸</span>
-                    <input type="checkbox" class="tree-checkbox" data-id="warranty" onchange="updatePermissionCount()">
+                    <span class="tree-toggle" onclick="toggleTreeNode(this)">▾</span>
+                    <input type="checkbox" class="tree-checkbox" data-id="warranty" onchange="handleCheckboxChange(this)">
                     <span class="tree-label">Warranty</span>
                   </div>
-                  <div class="tree-children">
+                  <div class="tree-children expanded">
                     <div class="tree-item">
                       <div class="tree-node">
                         <span class="tree-toggle empty">▸</span>
-                        <input type="checkbox" class="tree-checkbox" data-id="warranty-detail" onchange="updatePermissionCount()">
+                        <input type="checkbox" class="tree-checkbox" data-id="warranty-detail-button" onchange="handleCheckboxChange(this)">
                         <span class="tree-label button-label">└─ Detail (button)</span>
                       </div>
                     </div>
                     <div class="tree-item">
                       <div class="tree-node">
                         <span class="tree-toggle empty">▸</span>
-                        <input type="checkbox" class="tree-checkbox" data-id="warranty-export" onchange="updatePermissionCount()">
+                        <input type="checkbox" class="tree-checkbox" data-id="warranty-export" onchange="handleCheckboxChange(this)">
                         <span class="tree-label button-label">└─ Export (button)</span>
                       </div>
                     </div>
                     <div class="tree-item">
                       <div class="tree-node">
                         <span class="tree-toggle empty">▸</span>
-                        <input type="checkbox" class="tree-checkbox" data-id="warranty-reconciliation" onchange="updatePermissionCount()">
+                        <input type="checkbox" class="tree-checkbox" data-id="warranty-reconciliation" onchange="handleCheckboxChange(this)">
                         <span class="tree-label button-label">└─ Reconciliation (button)</span>
                       </div>
                     </div>
@@ -1762,7 +1762,7 @@
             <div class="tree-item">
               <div class="tree-node">
                 <span class="tree-toggle empty">▸</span>
-                <input type="checkbox" class="tree-checkbox" data-id="warranty-detail-standalone" onchange="updatePermissionCount()">
+                <input type="checkbox" class="tree-checkbox" data-id="warranty-detail-page" onchange="handleCheckboxChange(this)">
                 <span class="tree-label">Warranty Detail</span>
               </div>
             </div>
@@ -1770,15 +1770,15 @@
             <!-- Alarm History -->
             <div class="tree-item">
               <div class="tree-node">
-                <span class="tree-toggle" onclick="toggleTreeNode(this)">▸</span>
-                <input type="checkbox" class="tree-checkbox" data-id="alarm-history" onchange="updatePermissionCount()">
+                <span class="tree-toggle" onclick="toggleTreeNode(this)">▾</span>
+                <input type="checkbox" class="tree-checkbox" data-id="alarm-history" onchange="handleCheckboxChange(this)">
                 <span class="tree-label">Alarm History</span>
               </div>
-              <div class="tree-children">
+              <div class="tree-children expanded">
                 <div class="tree-item">
                   <div class="tree-node">
                     <span class="tree-toggle empty">▸</span>
-                    <input type="checkbox" class="tree-checkbox" data-id="alarm-user-detail" onchange="updatePermissionCount()">
+                    <input type="checkbox" class="tree-checkbox" data-id="alarm-user-detail" onchange="handleCheckboxChange(this)">
                     <span class="tree-label button-label">└─ User Detail (button)</span>
                   </div>
                 </div>
@@ -1788,9 +1788,133 @@
             <!-- Resource -->
             <div class="tree-item">
               <div class="tree-node">
-                <span class="tree-toggle empty">▸</span>
-                <input type="checkbox" class="tree-checkbox" data-id="resource" onchange="updatePermissionCount()">
+                <span class="tree-toggle" onclick="toggleTreeNode(this)">▾</span>
+                <input type="checkbox" class="tree-checkbox" data-id="resource" onchange="handleCheckboxChange(this)">
                 <span class="tree-label">Resource</span>
+              </div>
+              <div class="tree-children expanded">
+                <div class="tree-item">
+                  <div class="tree-node">
+                    <span class="tree-toggle empty">▸</span>
+                    <input type="checkbox" class="tree-checkbox" data-id="resource-eufy" onchange="handleCheckboxChange(this)">
+                    <span class="tree-label">eufy</span>
+                  </div>
+                </div>
+                <div class="tree-item">
+                  <div class="tree-node">
+                    <span class="tree-toggle empty">▸</span>
+                    <input type="checkbox" class="tree-checkbox" data-id="resource-charging" onchange="handleCheckboxChange(this)">
+                    <span class="tree-label">Charging</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Company Information -->
+            <div class="tree-item">
+              <div class="tree-node">
+                <span class="tree-toggle empty">▸</span>
+                <input type="checkbox" class="tree-checkbox" data-id="company-information" onchange="handleCheckboxChange(this)">
+                <span class="tree-label">Company Information</span>
+              </div>
+            </div>
+
+            <!-- Account -->
+            <div class="tree-item">
+              <div class="tree-node">
+                <span class="tree-toggle" onclick="toggleTreeNode(this)">▾</span>
+                <input type="checkbox" class="tree-checkbox" data-id="account" onchange="handleCheckboxChange(this)">
+                <span class="tree-label">Account</span>
+              </div>
+              <div class="tree-children expanded">
+                <!-- Account List -->
+                <div class="tree-item">
+                  <div class="tree-node">
+                    <span class="tree-toggle" onclick="toggleTreeNode(this)">▾</span>
+                    <input type="checkbox" class="tree-checkbox" data-id="account-list" onchange="handleCheckboxChange(this)">
+                    <span class="tree-label">Account List</span>
+                  </div>
+                  <div class="tree-children expanded">
+                    <div class="tree-item">
+                      <div class="tree-node">
+                        <span class="tree-toggle empty">▸</span>
+                        <input type="checkbox" class="tree-checkbox" data-id="account-list-create" onchange="handleCheckboxChange(this)">
+                        <span class="tree-label button-label">└─ Create (button)</span>
+                      </div>
+                    </div>
+                    <div class="tree-item">
+                      <div class="tree-node">
+                        <span class="tree-toggle empty">▸</span>
+                        <input type="checkbox" class="tree-checkbox" data-id="account-list-edit" onchange="handleCheckboxChange(this)">
+                        <span class="tree-label button-label">└─ Edit (button)</span>
+                      </div>
+                    </div>
+                    <div class="tree-item">
+                      <div class="tree-node">
+                        <span class="tree-toggle empty">▸</span>
+                        <input type="checkbox" class="tree-checkbox" data-id="account-list-delete" onchange="handleCheckboxChange(this)">
+                        <span class="tree-label button-label">└─ Delete (button)</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Role -->
+                <div class="tree-item">
+                  <div class="tree-node">
+                    <span class="tree-toggle" onclick="toggleTreeNode(this)">▾</span>
+                    <input type="checkbox" class="tree-checkbox" data-id="role" onchange="handleCheckboxChange(this)">
+                    <span class="tree-label">Role</span>
+                  </div>
+                  <div class="tree-children expanded">
+                    <div class="tree-item">
+                      <div class="tree-node">
+                        <span class="tree-toggle empty">▸</span>
+                        <input type="checkbox" class="tree-checkbox" data-id="role-create" onchange="handleCheckboxChange(this)">
+                        <span class="tree-label button-label">└─ Create (button)</span>
+                      </div>
+                    </div>
+                    <div class="tree-item">
+                      <div class="tree-node">
+                        <span class="tree-toggle empty">▸</span>
+                        <input type="checkbox" class="tree-checkbox" data-id="role-edit" onchange="handleCheckboxChange(this)">
+                        <span class="tree-label button-label">└─ Edit (button)</span>
+                      </div>
+                    </div>
+                    <div class="tree-item">
+                      <div class="tree-node">
+                        <span class="tree-toggle empty">▸</span>
+                        <input type="checkbox" class="tree-checkbox" data-id="role-delete" onchange="handleCheckboxChange(this)">
+                        <span class="tree-label button-label">└─ Delete (button)</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Log -->
+            <div class="tree-item">
+              <div class="tree-node">
+                <span class="tree-toggle" onclick="toggleTreeNode(this)">▾</span>
+                <input type="checkbox" class="tree-checkbox" data-id="log" onchange="handleCheckboxChange(this)">
+                <span class="tree-label">Log</span>
+              </div>
+              <div class="tree-children expanded">
+                <div class="tree-item">
+                  <div class="tree-node">
+                    <span class="tree-toggle empty">▸</span>
+                    <input type="checkbox" class="tree-checkbox" data-id="login-log" onchange="handleCheckboxChange(this)">
+                    <span class="tree-label">Login Log</span>
+                  </div>
+                </div>
+                <div class="tree-item">
+                  <div class="tree-node">
+                    <span class="tree-toggle empty">▸</span>
+                    <input type="checkbox" class="tree-checkbox" data-id="operation-log" onchange="handleCheckboxChange(this)">
+                    <span class="tree-label">Operation Log</span>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
@@ -2183,6 +2307,69 @@
       const checkboxes = document.querySelectorAll('#permissionTree .tree-checkbox:checked');
       const total = document.querySelectorAll('#permissionTree .tree-checkbox').length;
       document.getElementById('permissionCount').textContent = checkboxes.length + ' / ' + total;
+
+      // Update Select All checkbox state
+      const selectAllCheckbox = document.getElementById('selectAll');
+      const allCheckboxes = document.querySelectorAll('#permissionTree .tree-checkbox');
+      const allChecked = Array.from(allCheckboxes).every(cb => cb.checked);
+      selectAllCheckbox.checked = allChecked;
+    }
+
+    // Handle checkbox change with cascade logic
+    function handleCheckboxChange(checkbox) {
+      const isChecked = checkbox.checked;
+      const treeNode = checkbox.closest('.tree-node');
+      const parentTreeItem = treeNode.parentElement;
+
+      // Find immediate children container
+      const childrenContainer = parentTreeItem.querySelector(':scope > .tree-children');
+
+      if (isChecked) {
+        // When checking: check all descendants
+        if (childrenContainer) {
+          const childCheckboxes = childrenContainer.querySelectorAll('.tree-checkbox');
+          childCheckboxes.forEach(cb => cb.checked = true);
+        }
+
+        // Force check all ancestors
+        checkAllAncestors(treeNode);
+      } else {
+        // When unchecking: uncheck all descendants
+        if (childrenContainer) {
+          const childCheckboxes = childrenContainer.querySelectorAll('.tree-checkbox');
+          childCheckboxes.forEach(cb => cb.checked = false);
+        }
+        // Do NOT affect ancestors when unchecking
+      }
+
+      updatePermissionCount();
+    }
+
+    // Check all ancestor checkboxes
+    function checkAllAncestors(element) {
+      let currentElement = element;
+
+      while (currentElement) {
+        // Move up to find the parent tree-children
+        const parentChildren = currentElement.closest('.tree-children');
+
+        if (!parentChildren) break;
+
+        // Find the parent tree-item that contains this tree-children
+        const parentTreeItem = parentChildren.parentElement;
+
+        if (!parentTreeItem || !parentTreeItem.classList.contains('tree-item')) break;
+
+        // Find the checkbox in the parent tree-node
+        const parentCheckbox = parentTreeItem.querySelector(':scope > .tree-node > .tree-checkbox');
+
+        if (parentCheckbox) {
+          parentCheckbox.checked = true;
+        }
+
+        // Move up to continue checking ancestors
+        currentElement = parentTreeItem;
+      }
     }
 
     // Select all toggle
