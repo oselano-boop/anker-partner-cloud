@@ -2584,11 +2584,17 @@
     function showCompanyPage() {
       document.getElementById('companyContent').style.display = 'block';
       document.getElementById('deviceContent').style.display = 'none';
+      document.getElementById('approvalContent').style.display = 'none';
+
+      // Update sidebar active state
+      document.querySelectorAll('.sidebar-menu-item').forEach(item => item.classList.remove('active'));
+      event.target.classList.add('active');
     }
 
     function showDevicePage() {
       document.getElementById('companyContent').style.display = 'none';
       document.getElementById('deviceContent').style.display = 'block';
+      document.getElementById('approvalContent').style.display = 'none';
     }
 
     // Remove device functions
