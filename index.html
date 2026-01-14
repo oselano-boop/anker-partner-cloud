@@ -3118,6 +3118,13 @@
         userContent.style.display = 'none';
         deviceContent.style.display = 'none';
         approvalContent.style.display = 'none';
+
+        // Reset admin menu active state to Company
+        document.querySelectorAll('#adminMenu .sidebar-menu-item').forEach(item => item.classList.remove('active'));
+        document.querySelector('#adminMenu .sidebar-menu-item:first-child').classList.add('active');
+
+        // Recheck truncation after page is visible
+        setTimeout(checkTextTruncation, 10);
       } else {
         // Company A or Company B - show company menu and user content by default
         adminMenu.style.display = 'none';
@@ -3130,6 +3137,9 @@
         // Update company menu active state
         document.querySelectorAll('#companyMenu .sidebar-header').forEach(item => item.classList.remove('active'));
         document.querySelector('#companyMenu .sidebar-header:first-child').classList.add('active');
+
+        // Recheck truncation after page is visible
+        setTimeout(checkTextTruncation, 10);
       }
     }
 
