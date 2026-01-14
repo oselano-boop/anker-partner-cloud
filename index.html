@@ -1637,7 +1637,7 @@
         <div class="modal-right">
           <div class="permission-header">
             <div class="permission-title">Web Permission</div>
-            <div class="permission-count" id="permissionCount">0 / 32</div>
+            <div class="permission-count" id="permissionCount">0 / 33</div>
           </div>
           <div class="select-all-wrapper">
             <input type="checkbox" id="selectAll" class="tree-checkbox" onchange="toggleSelectAll()">
@@ -1693,6 +1693,13 @@
                     <span class="tree-toggle empty">▸</span>
                     <input type="checkbox" class="tree-checkbox" data-id="device-user-detail" onchange="handleCheckboxChange(this)">
                     <span class="tree-label button-label">└─ User Detail (button)</span>
+                  </div>
+                </div>
+                <div class="tree-item">
+                  <div class="tree-node">
+                    <span class="tree-toggle empty">▸</span>
+                    <input type="checkbox" class="tree-checkbox" data-id="device-remove" onchange="handleCheckboxChange(this)">
+                    <span class="tree-label button-label">└─ Remove (button)</span>
                   </div>
                 </div>
               </div>
