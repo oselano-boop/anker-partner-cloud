@@ -972,6 +972,7 @@
           </div>
           <div class="sidebar-menu expanded">
             <div class="sidebar-menu-item active" onclick="showCompanyPage()">Company</div>
+            <div class="sidebar-menu-item" onclick="showApprovalPage()">Approval</div>
           </div>
         </div>
 
@@ -1423,6 +1424,146 @@
             </div>
           </div>
         </div>
+
+        <!-- Approval Content -->
+        <div id="approvalContent" class="main-content" style="display: none;">
+          <!-- Search Section -->
+          <div class="search-section">
+            <label class="search-label">Tenant Account:</label>
+            <input type="text" class="search-input" placeholder="Please enter" style="width: 200px;">
+            <label class="search-label" style="margin-left: 16px;">Company Name:</label>
+            <input type="text" class="search-input" placeholder="Please enter" style="width: 200px;">
+            <label class="search-label" style="margin-left: 16px;">Status:</label>
+            <div class="custom-select" id="statusFilterSelect" style="width: 200px; display: inline-block; vertical-align: middle;">
+              <div class="custom-select-trigger" style="width: 100%;">Pending</div>
+              <div class="custom-select-dropdown">
+                <div class="custom-select-option selected" data-value="Pending">Pending</div>
+                <div class="custom-select-option" data-value="Approved">Approved</div>
+                <div class="custom-select-option" data-value="Rejected">Rejected</div>
+                <div class="custom-select-option" data-value="All">All</div>
+              </div>
+            </div>
+            <button class="btn btn-primary" style="margin-left: 16px;">Search</button>
+            <button class="btn btn-secondary">Reset</button>
+          </div>
+
+          <!-- Approval List Section -->
+          <div class="list-section">
+            <div class="list-header">
+              <h2 class="list-title">Approval List</h2>
+            </div>
+
+            <div class="table-wrapper">
+              <table>
+                <thead>
+                  <tr>
+                    <th>Company Name</th>
+                    <th>Company Description</th>
+                    <th>Tenant Account</th>
+                    <th>Business Type</th>
+                    <th>Status</th>
+                    <th>Create Time</th>
+                    <th>Operate</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>TechVision Solutions</td>
+                    <td>Energy management system integrator.</td>
+                    <td style="color: var(--brand-fg-primary);">tenant1@example.com</td>
+                    <td>Installer</td>
+                    <td>
+                      <span style="display: inline-flex; align-items: center; gap: 6px; padding: 4px 12px; background: #E6F7FF; color: #1890FF; border-radius: 4px; font-size: 12px;">
+                        Pending
+                      </span>
+                    </td>
+                    <td>2026-01-10 14:22:15</td>
+                    <td>
+                      <a class="action-link" onclick="openApprovalReview('pending', 'TechVision Solutions', 'tenant1@example.com')">Review</a>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>GreenPower Systems</td>
+                    <td>Renewable energy solutions provider.</td>
+                    <td style="color: var(--brand-fg-primary);">tenant2@example.com</td>
+                    <td>Installer (SaaS)</td>
+                    <td>
+                      <span style="display: inline-flex; align-items: center; gap: 6px; padding: 4px 12px; background: #F6FFED; color: #52C41A; border-radius: 4px; font-size: 12px;">
+                        Approved
+                      </span>
+                    </td>
+                    <td>2026-01-08 10:15:33</td>
+                    <td>
+                      <a class="action-link" onclick="openApprovalReview('approved', 'GreenPower Systems', 'tenant2@example.com')">Details</a>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>SmartHome Technologies</td>
+                    <td>Home automation and IoT integration.</td>
+                    <td style="color: var(--brand-fg-primary);">tenant3@example.com</td>
+                    <td>Others</td>
+                    <td>
+                      <span style="display: inline-flex; align-items: center; gap: 6px; padding: 4px 12px; background: #FFF1F0; color: #FF4D4F; border-radius: 4px; font-size: 12px;">
+                        Rejected
+                      </span>
+                    </td>
+                    <td>2026-01-07 16:45:20</td>
+                    <td>
+                      <a class="action-link" onclick="openApprovalReview('rejected', 'SmartHome Technologies', 'tenant3@example.com')">Details</a>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>EcoCharge Networks</td>
+                    <td>Electric vehicle charging infrastructure.</td>
+                    <td style="color: var(--brand-fg-primary);">tenant4@example.com</td>
+                    <td>Installer</td>
+                    <td>
+                      <span style="display: inline-flex; align-items: center; gap: 6px; padding: 4px 12px; background: #E6F7FF; color: #1890FF; border-radius: 4px; font-size: 12px;">
+                        Pending
+                      </span>
+                    </td>
+                    <td>2026-01-06 09:30:45</td>
+                    <td>
+                      <a class="action-link" onclick="openApprovalReview('pending', 'EcoCharge Networks', 'tenant4@example.com')">Review</a>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>PowerGrid Innovations</td>
+                    <td>Smart grid and energy storage solutions.</td>
+                    <td style="color: var(--brand-fg-primary);">tenant5@example.com</td>
+                    <td>Installer (SaaS)</td>
+                    <td>
+                      <span style="display: inline-flex; align-items: center; gap: 6px; padding: 4px 12px; background: #F6FFED; color: #52C41A; border-radius: 4px; font-size: 12px;">
+                        Approved
+                      </span>
+                    </td>
+                    <td>2026-01-05 13:20:18</td>
+                    <td>
+                      <a class="action-link" onclick="openApprovalReview('approved', 'PowerGrid Innovations', 'tenant5@example.com')">Details</a>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+
+            <div class="pagination">
+              <div class="pagination-info">1-5 of 5 items</div>
+              <div class="pagination-controls">
+                <button class="pagination-btn">‹</button>
+                <button class="pagination-btn active">1</button>
+                <button class="pagination-btn">›</button>
+                <div class="custom-select page-size-select">
+                  <div class="custom-select-trigger" style="font-size: var(--font-caption); padding: 6px 32px 6px 10px;">10 / page</div>
+                  <div class="custom-select-dropdown">
+                    <div class="custom-select-option selected" data-value="10 / page">10 / page</div>
+                    <div class="custom-select-option" data-value="20 / page">20 / page</div>
+                    <div class="custom-select-option" data-value="50 / page">50 / page</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
 
@@ -1658,6 +1799,193 @@
       <div class="modal-footer">
         <button class="btn btn-secondary" onclick="closeCompanyModal()">Cancel</button>
         <button class="btn btn-primary" onclick="saveCompany()">Confirm</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Approval Review Modal (Drawer) -->
+  <div class="modal-overlay" id="approvalReviewModal">
+    <div class="modal">
+      <div class="modal-header">
+        <h2 class="modal-title" id="approvalReviewTitle">Approval Review</h2>
+        <span class="modal-close" onclick="closeApprovalReview()">×</span>
+      </div>
+      <div class="modal-body" style="display: block; padding: var(--spacing-xl);">
+        <!-- Basic Information (Top) -->
+        <div style="background: var(--bg-tertiary); padding: var(--spacing-lg); border-radius: 8px; margin-bottom: var(--spacing-xl);">
+          <h3 style="font-size: var(--font-title); font-weight: var(--font-weight-semibold); margin-bottom: var(--spacing-lg);">Basic Information</h3>
+          <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: var(--spacing-lg);">
+            <div>
+              <div style="color: var(--fg-secondary); font-size: var(--font-caption); margin-bottom: 4px;">Company Name</div>
+              <div id="reviewCompanyName" style="color: var(--fg-primary); font-weight: var(--font-weight-semibold);">TechVision Solutions</div>
+            </div>
+            <div>
+              <div style="color: var(--fg-secondary); font-size: var(--font-caption); margin-bottom: 4px;">Tenant Account</div>
+              <div id="reviewTenantAccount" style="color: var(--brand-fg-primary);">tenant1@example.com</div>
+            </div>
+            <div>
+              <div style="color: var(--fg-secondary); font-size: var(--font-caption); margin-bottom: 4px;">Business Type</div>
+              <div id="reviewBusinessType">Installer</div>
+            </div>
+            <div>
+              <div style="color: var(--fg-secondary); font-size: var(--font-caption); margin-bottom: 4px;">Status</div>
+              <div id="reviewStatus">
+                <span style="display: inline-flex; align-items: center; gap: 6px; padding: 4px 12px; background: #E6F7FF; color: #1890FF; border-radius: 4px; font-size: 12px;">Pending</span>
+              </div>
+            </div>
+            <div style="grid-column: 1 / -1;">
+              <div style="color: var(--fg-secondary); font-size: var(--font-caption); margin-bottom: 4px;">Company Description</div>
+              <div id="reviewCompanyDescription">Energy management system integrator.</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Additional Fields (Middle) -->
+        <div style="margin-bottom: var(--spacing-xl);">
+          <h3 style="font-size: var(--font-title); font-weight: var(--font-weight-semibold); margin-bottom: var(--spacing-lg);">Additional Information</h3>
+          <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: var(--spacing-lg);">
+            <div>
+              <div style="color: var(--fg-secondary); font-size: var(--font-caption); margin-bottom: 4px;">Contact Person</div>
+              <div>John Smith</div>
+            </div>
+            <div>
+              <div style="color: var(--fg-secondary); font-size: var(--font-caption); margin-bottom: 4px;">Contact Phone</div>
+              <div>+1 234-567-8900</div>
+            </div>
+            <div>
+              <div style="color: var(--fg-secondary); font-size: var(--font-caption); margin-bottom: 4px;">Contact Email</div>
+              <div style="color: var(--brand-fg-primary);">contact@techvision.com</div>
+            </div>
+            <div>
+              <div style="color: var(--fg-secondary); font-size: var(--font-caption); margin-bottom: 4px;">Company Address</div>
+              <div>123 Tech Street, Silicon Valley, CA 94025</div>
+            </div>
+            <div style="grid-column: 1 / -1;">
+              <div style="color: var(--fg-secondary); font-size: var(--font-caption); margin-bottom: 4px;">Application Reason</div>
+              <div>We are seeking partnership to expand our energy management solutions portfolio and provide better service to our customers in the renewable energy sector.</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Attachments (Bottom) -->
+        <div style="margin-bottom: var(--spacing-xl);">
+          <h3 style="font-size: var(--font-title); font-weight: var(--font-weight-semibold); margin-bottom: var(--spacing-lg);">Attachments <span style="color: var(--fg-tertiary); font-weight: var(--font-weight-regular); font-size: var(--font-body);">(3)</span></h3>
+          <div style="display: flex; flex-direction: column; gap: var(--spacing-sm);">
+            <div style="display: flex; align-items: center; gap: var(--spacing-md); padding: var(--spacing-md); border: 1px solid var(--color-border-secondary); border-radius: 4px; cursor: pointer;" onmouseover="this.style.background='var(--bg-tertiary)'" onmouseout="this.style.background='transparent'">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="var(--brand-fg-primary)">
+                <path d="M14 2H6c-1.1 0-1.99.9-1.99 2L4 20c0 1.1.89 2 1.99 2H18c1.1 0 2-.9 2-2V8l-6-6zm2 16H8v-2h8v2zm0-4H8v-2h8v2zm-3-5V3.5L18.5 9H13z"/>
+              </svg>
+              <div style="flex: 1;">
+                <div style="color: var(--fg-primary); font-weight: var(--font-weight-semibold);">Business License.pdf</div>
+                <div style="color: var(--fg-tertiary); font-size: var(--font-caption);">2.3 MB</div>
+              </div>
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="var(--fg-tertiary)">
+                <path d="M9.29 6.71a.996.996 0 0 0 0 1.41L13.17 12l-3.88 3.88a.996.996 0 1 0 1.41 1.41l4.59-4.59a.996.996 0 0 0 0-1.41L10.7 6.7c-.38-.38-1.02-.38-1.41.01z"/>
+              </svg>
+            </div>
+            <div style="display: flex; align-items: center; gap: var(--spacing-md); padding: var(--spacing-md); border: 1px solid var(--color-border-secondary); border-radius: 4px; cursor: pointer;" onmouseover="this.style.background='var(--bg-tertiary)'" onmouseout="this.style.background='transparent'">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="var(--brand-fg-primary)">
+                <path d="M14 2H6c-1.1 0-1.99.9-1.99 2L4 20c0 1.1.89 2 1.99 2H18c1.1 0 2-.9 2-2V8l-6-6zm2 16H8v-2h8v2zm0-4H8v-2h8v2zm-3-5V3.5L18.5 9H13z"/>
+              </svg>
+              <div style="flex: 1;">
+                <div style="color: var(--fg-primary); font-weight: var(--font-weight-semibold);">Tax Registration Certificate.pdf</div>
+                <div style="color: var(--fg-tertiary); font-size: var(--font-caption);">1.8 MB</div>
+              </div>
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="var(--fg-tertiary)">
+                <path d="M9.29 6.71a.996.996 0 0 0 0 1.41L13.17 12l-3.88 3.88a.996.996 0 1 0 1.41 1.41l4.59-4.59a.996.996 0 0 0 0-1.41L10.7 6.7c-.38-.38-1.02-.38-1.41.01z"/>
+              </svg>
+            </div>
+            <div style="display: flex; align-items: center; gap: var(--spacing-md); padding: var(--spacing-md); border: 1px solid var(--color-border-secondary); border-radius: 4px; cursor: pointer;" onmouseover="this.style.background='var(--bg-tertiary)'" onmouseout="this.style.background='transparent'">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="var(--brand-fg-primary)">
+                <path d="M14 2H6c-1.1 0-1.99.9-1.99 2L4 20c0 1.1.89 2 1.99 2H18c1.1 0 2-.9 2-2V8l-6-6zm2 16H8v-2h8v2zm0-4H8v-2h8v2zm-3-5V3.5L18.5 9H13z"/>
+              </svg>
+              <div style="flex: 1;">
+                <div style="color: var(--fg-primary); font-weight: var(--font-weight-semibold);">Company Profile.pdf</div>
+                <div style="color: var(--fg-tertiary); font-size: var(--font-caption);">4.1 MB</div>
+              </div>
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="var(--fg-tertiary)">
+                <path d="M9.29 6.71a.996.996 0 0 0 0 1.41L13.17 12l-3.88 3.88a.996.996 0 1 0 1.41 1.41l4.59-4.59a.996.996 0 0 0 0-1.41L10.7 6.7c-.38-.38-1.02-.38-1.41.01z"/>
+              </svg>
+            </div>
+          </div>
+        </div>
+
+        <!-- Approval Result (for approved/rejected) -->
+        <div id="approvalResultSection" style="display: none; background: var(--bg-tertiary); padding: var(--spacing-lg); border-radius: 8px;">
+          <h3 style="font-size: var(--font-title); font-weight: var(--font-weight-semibold); margin-bottom: var(--spacing-lg);">Approval Result</h3>
+          <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: var(--spacing-lg);">
+            <div>
+              <div style="color: var(--fg-secondary); font-size: var(--font-caption); margin-bottom: 4px;">Reviewed By</div>
+              <div id="reviewedBy">admin@example.com</div>
+            </div>
+            <div>
+              <div style="color: var(--fg-secondary); font-size: var(--font-caption); margin-bottom: 4px;">Review Time</div>
+              <div id="reviewTime">2026-01-10 15:30:22</div>
+            </div>
+            <div id="rejectReasonDiv" style="grid-column: 1 / -1; display: none;">
+              <div style="color: var(--fg-secondary); font-size: var(--font-caption); margin-bottom: 4px;">Reject Reason</div>
+              <div id="rejectReasonText" style="color: #FF4D4F;">Insufficient documentation provided.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer" id="approvalReviewFooter">
+        <button class="btn btn-secondary" onclick="closeApprovalReview()">Cancel</button>
+        <button class="btn btn-secondary" onclick="confirmApprovalAction('reject')" style="background: #FF4D4F; color: white; border-color: #FF4D4F;">Reject</button>
+        <button class="btn btn-primary" onclick="confirmApprovalAction('approve')">Approve</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Approve Confirmation Modal -->
+  <div class="modal-overlay confirm" id="approveConfirmModal">
+    <div class="modal">
+      <div class="modal-header" style="border-bottom: none; padding: 24px 24px 16px 24px;">
+        <div style="display: flex; align-items: center; gap: 12px;">
+          <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <circle cx="16" cy="16" r="16" fill="#52C41A"/>
+            <path d="M22 11L13.5 19.5L10 16" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+          <h2 class="modal-title" style="margin: 0;">Confirm Approve</h2>
+        </div>
+      </div>
+      <div class="modal-body" style="padding: 0 24px 24px 24px;">
+        <p style="margin: 0; color: var(--fg-primary); font-size: var(--font-body); line-height: 1.6;">
+          Are you sure you want to approve this application?
+        </p>
+      </div>
+      <div class="modal-footer" style="border-top: none; padding: 0 24px 24px 24px; justify-content: flex-end;">
+        <button class="btn btn-secondary" onclick="closeApproveConfirm()">Cancel</button>
+        <button class="btn btn-primary" onclick="executeApprove()">Confirm</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Reject Confirmation Modal with Reason -->
+  <div class="modal-overlay confirm" id="rejectConfirmModal">
+    <div class="modal">
+      <div class="modal-header" style="border-bottom: none; padding: 24px 24px 16px 24px;">
+        <div style="display: flex; align-items: center; gap: 12px;">
+          <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <circle cx="16" cy="16" r="16" fill="#FF4D4F"/>
+            <path d="M20 12L12 20M12 12L20 20" stroke="white" stroke-width="2" stroke-linecap="round"/>
+          </svg>
+          <h2 class="modal-title" style="margin: 0;">Confirm Reject</h2>
+        </div>
+      </div>
+      <div class="modal-body" style="padding: 0 24px 24px 24px;">
+        <p style="margin: 0 0 16px 0; color: var(--fg-primary); font-size: var(--font-body); line-height: 1.6;">
+          Are you sure you want to reject this application? Please provide a reason:
+        </p>
+        <div class="form-group" style="margin-bottom: 0;">
+          <label class="form-label required">Reject Reason</label>
+          <textarea class="form-textarea" id="rejectReasonInput" placeholder="Please enter the reason for rejection (required)" maxlength="500" style="min-height: 100px;"></textarea>
+          <div class="char-count" id="rejectCharCount">0 / 500</div>
+        </div>
+      </div>
+      <div class="modal-footer" style="border-top: none; padding: 0 24px 24px 24px; justify-content: flex-end;">
+        <button class="btn btn-secondary" onclick="closeRejectConfirm()">Cancel</button>
+        <button class="btn btn-primary" style="background: #FF4D4F; border-color: #FF4D4F;" onclick="executeReject()">Confirm Reject</button>
       </div>
     </div>
   </div>
@@ -2002,6 +2330,149 @@
         closeRemoveDeviceModal();
       }
     }
+
+    // ========== Approval Page Functions ==========
+
+    // Show Approval Page
+    function showApprovalPage() {
+      document.getElementById('companyContent').style.display = 'none';
+      document.getElementById('deviceContent').style.display = 'none';
+      document.getElementById('approvalContent').style.display = 'block';
+
+      // Update sidebar active state
+      document.querySelectorAll('.sidebar-menu-item').forEach(item => item.classList.remove('active'));
+      event.target.classList.add('active');
+    }
+
+    // Open Approval Review Modal
+    let currentApprovalStatus = 'pending';
+
+    function openApprovalReview(status, companyName, tenantAccount) {
+      currentApprovalStatus = status;
+      const modal = document.getElementById('approvalReviewModal');
+      const footer = document.getElementById('approvalReviewFooter');
+      const resultSection = document.getElementById('approvalResultSection');
+      const rejectReasonDiv = document.getElementById('rejectReasonDiv');
+
+      // Update basic info
+      document.getElementById('reviewCompanyName').textContent = companyName;
+      document.getElementById('reviewTenantAccount').textContent = tenantAccount;
+
+      if (status === 'pending') {
+        // Pending: Show Approve/Reject buttons
+        document.getElementById('approvalReviewTitle').textContent = 'Approval Review';
+        document.getElementById('reviewStatus').innerHTML = '<span style="display: inline-flex; align-items: center; gap: 6px; padding: 4px 12px; background: #E6F7FF; color: #1890FF; border-radius: 4px; font-size: 12px;">Pending</span>';
+        footer.innerHTML = `
+          <button class="btn btn-secondary" onclick="closeApprovalReview()">Cancel</button>
+          <button class="btn btn-secondary" onclick="confirmApprovalAction('reject')" style="background: #FF4D4F; color: white; border-color: #FF4D4F;">Reject</button>
+          <button class="btn btn-primary" onclick="confirmApprovalAction('approve')">Approve</button>
+        `;
+        resultSection.style.display = 'none';
+      } else {
+        // Approved/Rejected: Show details only with Close button
+        document.getElementById('approvalReviewTitle').textContent = 'Approval Details';
+
+        if (status === 'approved') {
+          document.getElementById('reviewStatus').innerHTML = '<span style="display: inline-flex; align-items: center; gap: 6px; padding: 4px 12px; background: #F6FFED; color: #52C41A; border-radius: 4px; font-size: 12px;">Approved</span>';
+          rejectReasonDiv.style.display = 'none';
+        } else {
+          document.getElementById('reviewStatus').innerHTML = '<span style="display: inline-flex; align-items: center; gap: 6px; padding: 4px 12px; background: #FFF1F0; color: #FF4D4F; border-radius: 4px; font-size: 12px;">Rejected</span>';
+          rejectReasonDiv.style.display = 'block';
+        }
+
+        footer.innerHTML = '<button class="btn btn-primary" onclick="closeApprovalReview()">Close</button>';
+        resultSection.style.display = 'block';
+      }
+
+      modal.classList.add('active');
+    }
+
+    function closeApprovalReview() {
+      document.getElementById('approvalReviewModal').classList.remove('active');
+    }
+
+    // Confirm Approval Action (Approve/Reject)
+    function confirmApprovalAction(action) {
+      if (action === 'approve') {
+        document.getElementById('approveConfirmModal').classList.add('active');
+      } else if (action === 'reject') {
+        // Clear previous reject reason
+        document.getElementById('rejectReasonInput').value = '';
+        document.getElementById('rejectCharCount').textContent = '0 / 500';
+        document.getElementById('rejectConfirmModal').classList.add('active');
+      }
+    }
+
+    // Close Approve Confirm Modal
+    function closeApproveConfirm() {
+      document.getElementById('approveConfirmModal').classList.remove('active');
+    }
+
+    // Close Reject Confirm Modal
+    function closeRejectConfirm() {
+      document.getElementById('rejectConfirmModal').classList.remove('active');
+    }
+
+    // Execute Approve
+    function executeApprove() {
+      // Close both modals
+      closeApproveConfirm();
+      closeApprovalReview();
+
+      // Show success message
+      showToast('Application approved successfully', 'success');
+
+      // In a real app, would update the list here
+      setTimeout(() => {
+        location.reload(); // For demo, just reload
+      }, 1500);
+    }
+
+    // Execute Reject
+    function executeReject() {
+      const reason = document.getElementById('rejectReasonInput').value.trim();
+
+      if (!reason) {
+        showToast('Please enter reject reason', 'error');
+        return;
+      }
+
+      // Close both modals
+      closeRejectConfirm();
+      closeApprovalReview();
+
+      // Show success message
+      showToast('Application rejected successfully', 'success');
+
+      // In a real app, would update the list here
+      setTimeout(() => {
+        location.reload(); // For demo, just reload
+      }, 1500);
+    }
+
+    // Update reject reason character count
+    document.getElementById('rejectReasonInput')?.addEventListener('input', function() {
+      document.getElementById('rejectCharCount').textContent = this.value.length + ' / 500';
+    });
+
+    // Close modals when clicking outside
+    document.getElementById('approvalReviewModal')?.addEventListener('click', function(e) {
+      if (e.target === this) {
+        closeApprovalReview();
+      }
+    });
+
+    document.getElementById('approveConfirmModal')?.addEventListener('click', function(e) {
+      if (e.target === this) {
+        closeApproveConfirm();
+      }
+    });
+
+    document.getElementById('rejectConfirmModal')?.addEventListener('click', function(e) {
+      if (e.target === this) {
+        closeRejectConfirm();
+      }
+    });
 
     console.log('Anker Partner Cloud - Admin Portal');
   </script>
