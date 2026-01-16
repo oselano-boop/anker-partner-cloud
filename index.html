@@ -657,6 +657,27 @@
     .modal-left {
       flex: 1;
       min-width: 300px;
+      overflow-y: auto;
+      max-height: calc(100vh - 140px);
+      padding-right: 8px;
+    }
+
+    /* Custom scrollbar for modal-left */
+    .modal-left::-webkit-scrollbar {
+      width: 6px;
+    }
+
+    .modal-left::-webkit-scrollbar-track {
+      background: transparent;
+    }
+
+    .modal-left::-webkit-scrollbar-thumb {
+      background: var(--color-border-secondary);
+      border-radius: 3px;
+    }
+
+    .modal-left::-webkit-scrollbar-thumb:hover {
+      background: var(--fg-tertiary);
     }
 
     .modal-right {
@@ -1133,6 +1154,8 @@
                     <th>Company Name</th>
                     <th>Account Quantity</th>
                     <th>Company Description</th>
+                    <th>Country</th>
+                    <th>City</th>
                     <th>Business Type</th>
                     <th>Create Time</th>
                     <th>Operate</th>
@@ -1142,6 +1165,8 @@
                   <tr><td class="truncate">TechVision Solutions</td>
                     <td>8</td>
                     <td class="truncate">Energy management system integrator.</td>
+                    <td>US</td>
+                    <td>Los Angeles</td>
                     <td>Installer</td>
                     <td>2025-12-16 18:26:00</td>
                     <td>
@@ -1153,6 +1178,8 @@
                   <tr><td class="truncate">GreenPower Systems</td>
                     <td>12</td>
                     <td class="truncate">Renewable energy solutions provider.</td>
+                    <td>US</td>
+                    <td>San Francisco</td>
                     <td>Installer (SaaS)</td>
                     <td>2025-11-28 14:32:15</td>
                     <td>
@@ -1164,6 +1191,8 @@
                   <tr><td class="truncate">SmartHome Technologies</td>
                     <td>6</td>
                     <td class="truncate">Home automation and IoT integration.</td>
+                    <td>US</td>
+                    <td>Seattle</td>
                     <td>Others</td>
                     <td>2025-11-17 16:16:32</td>
                     <td>
@@ -1175,6 +1204,8 @@
                   <tr><td class="truncate">EcoCharge Networks</td>
                     <td>15</td>
                     <td class="truncate">Electric vehicle charging infrastructure.</td>
+                    <td>US</td>
+                    <td>Austin</td>
                     <td>Installer</td>
                     <td>2025-11-05 10:22:48</td>
                     <td>
@@ -1186,6 +1217,8 @@
                   <tr><td class="truncate">PowerGrid Innovations</td>
                     <td>9</td>
                     <td class="truncate">Smart grid and energy storage solutions.</td>
+                    <td>US</td>
+                    <td>Boston</td>
                     <td>Installer (SaaS)</td>
                     <td>2025-10-29 11:17:22</td>
                     <td>
@@ -1197,6 +1230,8 @@
                   <tr><td class="truncate">SolarTech Industries</td>
                     <td>11</td>
                     <td class="truncate">Solar panel installation and maintenance.</td>
+                    <td>US</td>
+                    <td>Phoenix</td>
                     <td>Installer</td>
                     <td>2025-10-15 09:45:33</td>
                     <td>
@@ -1209,6 +1244,8 @@
                     <td>7</td>
                     <td class="truncate">Energy monitoring and analytics platform.</td>
                     <td>Others</td>
+                    <td>Toronto</td>
+                    <td>Others</td>
                     <td>2025-09-28 15:20:11</td>
                     <td>
                       <a class="action-link" onclick="editCompany('EnergyHub Corporation')">Edit</a>
@@ -1219,6 +1256,8 @@
                   <tr><td class="truncate">NextGen Power Solutions</td>
                     <td>14</td>
                     <td class="truncate">Battery storage system integrator.</td>
+                    <td>US</td>
+                    <td>Denver</td>
                     <td>Installer (SaaS)</td>
                     <td>2025-09-12 13:38:47</td>
                     <td>
@@ -1230,6 +1269,8 @@
                   <tr><td class="truncate">CleanEnergy Partners</td>
                     <td>10</td>
                     <td class="truncate">Sustainable energy consulting services.</td>
+                    <td>US</td>
+                    <td>Portland</td>
                     <td>Others</td>
                     <td>2025-08-30 11:05:29</td>
                     <td>
@@ -1241,6 +1282,8 @@
                   <tr><td class="truncate">FutureGrid Systems</td>
                     <td>13</td>
                     <td class="truncate">Advanced metering infrastructure provider.</td>
+                    <td>US</td>
+                    <td>Miami</td>
                     <td>Installer</td>
                     <td>2025-08-22 17:10:32</td>
                     <td>
@@ -1952,9 +1995,28 @@
           </div>
           <div class="form-group">
             <label class="form-label">Company Description</label>
-            <textarea class="form-textarea" id="companyDescription" placeholder="Maximum 200 characters" maxlength="200" oninput="updateCharCount()"></textarea>
-            <div class="char-count" id="charCount">0 / 200</div>
+            <input type="text" class="form-input" id="companyDescription" placeholder="Maximum 200 characters" maxlength="200">
           </div>
+
+          <!-- Country -->
+          <div class="form-group">
+            <label class="form-label required">Country</label>
+            <div class="custom-select" id="countrySelect" style="width: 100%;">
+              <div class="custom-select-trigger" style="width: 100%;">US</div>
+              <div class="custom-select-dropdown">
+                <div class="custom-select-option selected" data-value="US">US</div>
+                <div class="custom-select-option" data-value="Others">Others</div>
+              </div>
+            </div>
+            <input type="hidden" id="country" value="US">
+          </div>
+
+          <!-- City -->
+          <div class="form-group">
+            <label class="form-label">City</label>
+            <input type="text" class="form-input" id="city" placeholder="e.g., Los Angeles">
+          </div>
+
           <div class="form-group">
             <label class="form-label required">Business Type</label>
             <div class="custom-select" id="businessTypeSelect" style="width: 100%;">
@@ -2351,6 +2413,14 @@
               <div id="reviewCompanyDescription">Energy management system integrator.</div>
             </div>
             <div>
+              <div style="color: var(--fg-secondary); font-size: var(--font-caption); margin-bottom: 4px;">Country</div>
+              <div id="reviewCountry">US</div>
+            </div>
+            <div>
+              <div style="color: var(--fg-secondary); font-size: var(--font-caption); margin-bottom: 4px;">City</div>
+              <div id="reviewCity">Los Angeles</div>
+            </div>
+            <div>
               <div style="color: var(--fg-secondary); font-size: var(--font-caption); margin-bottom: 4px;">Tenant Account</div>
               <div id="reviewTenantAccount" style="color: var(--brand-fg-primary);">tenant1@example.com</div>
             </div>
@@ -2366,12 +2436,12 @@
           <h3 style="font-size: var(--font-title); font-weight: var(--font-weight-semibold); margin-bottom: var(--spacing-lg);">Additional Information</h3>
           <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: var(--spacing-lg);">
             <div>
-              <div style="color: var(--fg-secondary); font-size: var(--font-caption); margin-bottom: 4px;">Sales Region</div>
-              <div>North America</div>
+              <div style="color: var(--fg-secondary); font-size: var(--font-caption); margin-bottom: 4px;">Number of Employees</div>
+              <div id="reviewEmployees">50-200</div>
             </div>
             <div>
-              <div style="color: var(--fg-secondary); font-size: var(--font-caption); margin-bottom: 4px;">State and City</div>
-              <div>California, San Francisco</div>
+              <div style="color: var(--fg-secondary); font-size: var(--font-caption); margin-bottom: 4px;">Interested Products</div>
+              <div id="reviewInterestedProducts">Solar Panels, Battery Storage</div>
             </div>
           </div>
         </div>
@@ -2557,7 +2627,22 @@
       document.getElementById('modalTitle').textContent = 'Create Company';
       document.getElementById('companyName').value = '';
       document.getElementById('companyDescription').value = '';
+      document.getElementById('country').value = 'US';
+      document.getElementById('city').value = '';
       document.getElementById('businessType').value = 'Others';
+
+      // Reset Country custom select
+      const countrySelect = document.getElementById('countrySelect');
+      const countryTrigger = countrySelect.querySelector('.custom-select-trigger');
+      const countryOptions = countrySelect.querySelectorAll('.custom-select-option');
+      countryTrigger.textContent = 'US';
+      countryOptions.forEach(opt => {
+        if (opt.getAttribute('data-value') === 'US') {
+          opt.classList.add('selected');
+        } else {
+          opt.classList.remove('selected');
+        }
+      });
 
       // Reset Business Type custom select
       const businessTypeSelect = document.getElementById('businessTypeSelect');
@@ -2572,8 +2657,6 @@
         }
       });
 
-      updateCharCount();
-
       // Apply default permissions for Others type
       applyBusinessTypePermissions('Others');
 
@@ -2586,12 +2669,18 @@
 
     function saveCompany() {
       const name = document.getElementById('companyName').value;
+      const country = document.getElementById('country').value;
+      const city = document.getElementById('city').value;
       const businessType = document.getElementById('businessType').value;
       const appPermission = document.getElementById('appPermission').value;
       const dataPermission = document.getElementById('dataPermission').value;
 
       if (!name.trim()) {
         showToast('Please enter company name', 'error');
+        return;
+      }
+      if (!country) {
+        showToast('Please select country', 'error');
         return;
       }
       if (!businessType) {
@@ -2651,12 +2740,6 @@
       }
     }
 
-    // Update character count
-    function updateCharCount() {
-      const textarea = document.getElementById('companyDescription');
-      const count = document.getElementById('charCount');
-      count.textContent = textarea.value.length + ' / 200';
-    }
 
     // Update permission count
     function updatePermissionCount() {
