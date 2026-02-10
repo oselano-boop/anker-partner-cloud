@@ -447,12 +447,13 @@
     }
 
     .action-link.review {
-      color: #1890FF;
+      color: var(--brand-fg-primary);
       font-weight: 500;
     }
 
     .action-link.details {
-      color: #8C8C8C;
+      color: var(--brand-fg-primary);
+      font-weight: 500;
     }
 
     /* Table Styles */
@@ -1051,9 +1052,9 @@
         <div class="custom-select" id="roleSelector">
           <div class="custom-select-trigger">Administrator</div>
           <div class="custom-select-dropdown">
-            <div class="custom-select-option selected" data-value="Administrator">Administrator</div>
-            <div class="custom-select-option" data-value="Company A">Company A</div>
-            <div class="custom-select-option" data-value="Company B">Company B</div>
+            <div class="custom-select-option selected" data-value="Administrator" onclick="switchRole('Administrator')">Administrator</div>
+            <div class="custom-select-option" data-value="Company A" onclick="switchRole('Company A')">Company A</div>
+            <div class="custom-select-option" data-value="Company B" onclick="switchRole('Company B')">Company B</div>
           </div>
         </div>
         <div class="user-info">
@@ -1090,8 +1091,10 @@
             </svg>
           </div>
           <div class="sidebar-menu expanded">
+            <div class="sidebar-menu-item" onclick="showTenantAccountPage()">Tenant Account</div>
             <div class="sidebar-menu-item active" onclick="showCompanyPage()">Company</div>
             <div class="sidebar-menu-item" onclick="showApprovalPage()">Approval</div>
+            <div class="sidebar-menu-item" onclick="showPayableStatementPage()">Payable Statement</div>
           </div>
         </div>
 
@@ -1105,13 +1108,28 @@
               User
             </span>
           </div>
-          <div class="sidebar-header active" onclick="showDevicePage(event)">
+          <div class="sidebar-header" onclick="showDevicePage(event)">
             <span>
               <svg class="sidebar-icon" viewBox="0 0 1024 1024" fill="currentColor">
                 <path d="M954.066 439.7a181.176 181.176 0 0 1-49.844 64.146 25.936 25.936 0 0 1 5.917 30.043l-87.854 188.377a25.985 25.985 0 0 1-34.531 12.566l-74.657-34.81a77.974 77.974 0 0 1-88.605 16.023l-149.2-69.564-50.517 101.011a77.534 77.534 0 0 1-69.729 43.083H223.391v25.982a78.036 78.036 0 0 1-77.952 77.943h-51.97a25.982 25.982 0 0 1-25.984-25.98V608.707a25.983 25.983 0 0 1 25.983-25.982h51.969a78.076 78.076 0 0 1 73.485 51.964h87.941l27.067-54.118L200.593 518.4c-64.927-30.273-93.118-107.718-62.841-172.637l65.89-141.284c30.277-64.919 107.731-93.1 172.655-62.835l565.2 263.523a25.985 25.985 0 0 1 12.569 34.533zM145.439 634.687h-25.985v207.85h25.983a26.012 26.012 0 0 0 25.985-25.982V660.669a26.012 26.012 0 0 0-25.983-25.982z m640.727 42.071l65.894-141.282-2.421-1.127a182 182 0 0 1-59.26 10.429L739.067 654.8z m-463.246 9.89h-99.529v51.962h131.655a25.845 25.845 0 0 0 23.246-14.36l49.884-99.742-47.128-21.973-34.887 69.752a25.984 25.984 0 0 1-23.241 14.361zM217.795 297.083l-32.944 70.641a78.03 78.03 0 0 0 37.7 103.581L646.455 668.95a25.972 25.972 0 0 0 34.53-12.566l55.683-119.4a184.083 184.083 0 0 1-24.326-9.311z m136.539-108.344a78.041 78.041 0 0 0-103.593 37.7l-10.981 23.548 494.544 230.584a130.038 130.038 0 0 0 159.336-40.378z m266.985 411.155l-94.2-43.921a25.982 25.982 0 1 1 21.966-47.094l94.2 43.921a25.982 25.982 0 1 1-21.966 47.094z m-271.626-129.32a25.982 25.982 0 1 1 25.984-25.981 25.983 25.983 0 0 1-25.984 25.981z m-94.184-43.926a25.982 25.982 0 1 1 25.984-25.982 25.984 25.984 0 0 1-25.984 25.982z" fill="currentColor"/>
               </svg>
               Device
             </span>
+          </div>
+          <div class="sidebar-header sidebar-header-expandable" onclick="toggleSection(this)">
+            <span>
+              <svg class="sidebar-icon" viewBox="0 0 1024 1024" fill="currentColor">
+                <path d="M834.485 82h-644.969c-14.854 0-26.875 12.021-26.875 26.875v806.237a26.893 26.893 0 0 0 14.172 23.673c8.768 4.724 19.289 4.199 27.582-1.287l307.609-204.307 307.592 204.307a26.876 26.876 0 0 0 14.883 4.489c4.352 0 8.711-1.05 12.705-3.202a26.873 26.873 0 0 0 14.176-23.673v-806.237c0.005-14.854-12.02-26.875-26.875-26.875z m-26.875 783.01l-269.645-179.113c-15.379-10.236-36.324-10.288-51.807-0.059l-269.768 179.172v-729.261h591.219v729.261z" fill="currentColor"/>
+                <path d="M377.637 431.403h107.492v107.524c0 14.829 12.02 26.875 26.875 26.875s26.875-12.046 26.875-26.875v-107.524h107.49c14.855 0 26.875-12.021 26.875-26.874 0-14.861-12.02-26.908-26.875-26.908h-107.49v-107.499c0-14.854-12.02-26.874-26.875-26.874s-26.875 12.021-26.875 26.874v107.499h-107.492c-14.828 0-26.875 12.047-26.875 26.908 0 14.853 12.047 26.874 26.875 26.874z" fill="currentColor"/>
+              </svg>
+              Service
+            </span>
+            <svg class="dropdown-arrow" width="12" height="12" viewBox="0 0 1024 1024" fill="currentColor">
+              <path d="M151.4 384.7L476.6 710c19.5 19.5 51.2 19.5 70.7 0l325.3-325.3c19.5-19.5 19.5-51.2 0-70.7s-51.2-19.5-70.7 0L512 603.9 222.1 314c-19.5-19.5-51.2-19.5-70.7 0-19.6 19.5-19.6 51.2 0 70.7z"/>
+            </svg>
+          </div>
+          <div class="sidebar-menu">
+            <div class="sidebar-menu-item" onclick="showExpertMonitoringPage()">Expert Monitoring</div>
           </div>
         </div>
       </div>
@@ -1376,37 +1394,37 @@
                     <th>Create Time</th>
                   </tr>
                 </thead>
-                <tbody>
-                  <tr><td>742f8cfdf0786d1e6763b1c5e69f7dbe934aef18</td><td style="color: var(--brand-fg-primary);">nicole@example.com</td><td>Nicole Zhang</td><td>CN</td><td>-</td><td>25</td><td>1</td><td>
+                <tbody id="userTableBody">
+                  <tr data-company="TechVision Solutions"><td>742f8cfdf0786d1e6763b1c5e69f7dbe934aef18</td><td style="color: var(--brand-fg-primary);">nicole@example.com</td><td>Nicole Zhang</td><td>CN</td><td>-</td><td>25</td><td>1</td><td>
                       <span style="display: inline-flex; align-items: center; gap: 6px;">
                         <span style="width: 8px; height: 8px; background: #34C759; border-radius: 50%;"></span>
                         Valid
                       </span>
-                    </td><td class="truncate">Company A</td><td>2023-11-29 11:36:49</td></tr>
-                  <tr><td>8a9d4be2c3f1e7a56042d8f9c6e3b1a2f5d7e8c4</td><td style="color: var(--brand-fg-primary);">john.smith@example.com</td><td>John Smith</td><td>US</td><td>New York</td><td>42</td><td>2</td><td>
+                    </td><td class="truncate">TechVision Solutions</td><td>2023-11-29 11:36:49</td></tr>
+                  <tr data-company="GreenPower Systems"><td>8a9d4be2c3f1e7a56042d8f9c6e3b1a2f5d7e8c4</td><td style="color: var(--brand-fg-primary);">john.smith@example.com</td><td>John Smith</td><td>US</td><td>New York</td><td>42</td><td>2</td><td>
                       <span style="display: inline-flex; align-items: center; gap: 6px;">
                         <span style="width: 8px; height: 8px; background: #34C759; border-radius: 50%;"></span>
                         Valid
                       </span>
-                    </td><td class="truncate">Company A, Company B</td><td>2024-02-15 09:22:31</td></tr>
-                  <tr><td>f3e9c2a1b8d7f4e5c6a9d2b1e8f7c3a4d5e6f9b2</td><td style="color: var(--brand-fg-primary);">mike.johnson@example.com</td><td>Mike Johnson</td><td>GB</td><td>London</td><td>18</td><td>1</td><td>
+                    </td><td class="truncate">GreenPower Systems</td><td>2024-02-15 09:22:31</td></tr>
+                  <tr data-company=""><td>f3e9c2a1b8d7f4e5c6a9d2b1e8f7c3a4d5e6f9b2</td><td style="color: var(--brand-fg-primary);">mike.johnson@example.com</td><td>Mike Johnson</td><td>GB</td><td>London</td><td>18</td><td>1</td><td>
                       <span style="display: inline-flex; align-items: center; gap: 6px;">
                         <span style="width: 8px; height: 8px; background: #FF4D4F; border-radius: 50%;"></span>
                         Invalid
                       </span>
-                    </td><td class="truncate">Company B</td><td>2024-05-08 16:45:12</td></tr>
-                  <tr><td>c5d2e8f1a4b9c6d3e7f2a8b5c1d4e9f3a6b7c8d2</td><td style="color: var(--brand-fg-primary);">sarah.wilson@example.com</td><td>Sarah Wilson</td><td>DE</td><td>Berlin</td><td>33</td><td>3</td><td>
+                    </td><td class="truncate">-</td><td>2024-05-08 16:45:12</td></tr>
+                  <tr data-company="SmartHome Technologies"><td>c5d2e8f1a4b9c6d3e7f2a8b5c1d4e9f3a6b7c8d2</td><td style="color: var(--brand-fg-primary);">sarah.wilson@example.com</td><td>Sarah Wilson</td><td>DE</td><td>Berlin</td><td>33</td><td>3</td><td>
                       <span style="display: inline-flex; align-items: center; gap: 6px;">
                         <span style="width: 8px; height: 8px; background: #34C759; border-radius: 50%;"></span>
                         Valid
                       </span>
-                    </td><td class="truncate">Company A, Company C</td><td>2024-08-20 14:18:27</td></tr>
-                  <tr><td>a7b8c9d1e2f3a4b5c6d7e8f9a1b2c3d4e5f6a7b8</td><td style="color: var(--brand-fg-primary);">robert.brown@example.com</td><td>Robert Brown</td><td>AU</td><td>Sydney</td><td>56</td><td>4</td><td>
+                    </td><td class="truncate">SmartHome Technologies</td><td>2024-08-20 14:18:27</td></tr>
+                  <tr data-company=""><td>a7b8c9d1e2f3a4b5c6d7e8f9a1b2c3d4e5f6a7b8</td><td style="color: var(--brand-fg-primary);">robert.brown@example.com</td><td>Robert Brown</td><td>AU</td><td>Sydney</td><td>56</td><td>4</td><td>
                       <span style="display: inline-flex; align-items: center; gap: 6px;">
                         <span style="width: 8px; height: 8px; background: #34C759; border-radius: 50%;"></span>
                         Valid
                       </span>
-                    </td><td class="truncate">Company B, Company C</td><td>2024-10-03 08:51:44</td></tr>
+                    </td><td class="truncate">-</td><td>2024-10-03 08:51:44</td></tr>
                 </tbody>
               </table>
             </div>
@@ -1479,8 +1497,8 @@
                     <th>Operate</th>
                   </tr>
                 </thead>
-                <tbody>
-                  <tr><td>T8124P40233A001B</td><td>T8124P40233A001B</td><td style="color: var(--brand-fg-primary);">user@example.com</td><td>3.2.6.0</td><td>0.0.0.0</td><td>
+                <tbody id="deviceTableBody">
+                  <tr data-company="TechVision Solutions"><td>T8124P40233A001B</td><td>T8124P40233A001B</td><td style="color: var(--brand-fg-primary);">user@example.com</td><td>3.2.6.0</td><td>0.0.0.0</td><td>
                       <span style="display: inline-flex; align-items: center; gap: 6px;">
                         <span style="width: 8px; height: 8px; background: #34C759; border-radius: 50%;"></span>
                         Online
@@ -1488,15 +1506,15 @@
                     </td><td>2023-10-12 10:29:09</td><td>2025-11-14 11:27:08</td><td>2025-12-09 11:18:35</td><td class="truncate">TechVision Solutions</td><td>
                       <a class="action-link delete" onclick="confirmRemoveDevice('T8124P40233A001B')">Remove</a>
                     </td></tr>
-                  <tr><td>T8210P82232B0016</td><td>T8210P82232B0016</td><td style="color: var(--brand-fg-primary);">admin@example.com</td><td>3.0.8.2</td><td>0.2.2.3</td><td>
+                  <tr data-company=""><td>T8210P82232B0016</td><td>T8210P82232B0016</td><td style="color: var(--brand-fg-primary);">admin@example.com</td><td>3.0.8.2</td><td>0.2.2.3</td><td>
                       <span style="display: inline-flex; align-items: center; gap: 6px;">
                         <span style="width: 8px; height: 8px; background: #34C759; border-radius: 50%;"></span>
                         Online
                       </span>
-                    </td><td>2023-06-02 18:54:34</td><td>2025-11-14 11:24:46</td><td>2026-01-05 14:22:11</td><td class="truncate">SmartGrid Energy</td><td>
+                    </td><td>2023-06-02 18:54:34</td><td>2025-11-14 11:24:46</td><td>2026-01-05 14:22:11</td><td class="truncate">-</td><td>
                       <a class="action-link delete" onclick="confirmRemoveDevice('T8210P82232B0016')">Remove</a>
                     </td></tr>
-                  <tr><td>T8010N31933C0046</td><td>HB2</td><td style="color: var(--brand-fg-primary);">contact@example.com</td><td>4.2.6.8</td><td>1.3.0.9</td><td>
+                  <tr data-company="PowerFlow Systems"><td>T8010N31933C0046</td><td>HB2</td><td style="color: var(--brand-fg-primary);">contact@example.com</td><td>4.2.6.8</td><td>1.3.0.9</td><td>
                       <span style="display: inline-flex; align-items: center; gap: 6px;">
                         <span style="width: 8px; height: 8px; background: #34C759; border-radius: 50%;"></span>
                         Online
@@ -1504,15 +1522,15 @@
                     </td><td>2019-08-21 20:34:48</td><td>2025-11-26 03:45:22</td><td>2025-11-14 11:23:34</td><td class="truncate">PowerFlow Systems</td><td>
                       <a class="action-link delete" onclick="confirmRemoveDevice('T8010N31933C0046')">Remove</a>
                     </td></tr>
-                  <tr><td>T8P00530252D7E5C</td><td>Back Yard-PoE</td><td style="color: var(--brand-fg-primary);">support@example.com</td><td>1.0.7.4</td><td>-</td><td>
+                  <tr data-company=""><td>T8P00530252D7E5C</td><td>Back Yard-PoE</td><td style="color: var(--brand-fg-primary);">support@example.com</td><td>1.0.7.4</td><td>-</td><td>
                       <span style="display: inline-flex; align-items: center; gap: 6px;">
                         <span style="width: 8px; height: 8px; background: #34C759; border-radius: 50%;"></span>
                         Online
                       </span>
-                    </td><td>2025-07-15 15:13:56</td><td>2025-10-15 17:58:51</td><td>2026-01-06 10:15:42</td><td class="truncate">EcoCharge Solutions</td><td>
+                    </td><td>2025-07-15 15:13:56</td><td>2025-10-15 17:58:51</td><td>2026-01-06 10:15:42</td><td class="truncate">-</td><td>
                       <a class="action-link delete" onclick="confirmRemoveDevice('T8P00530252D7E5C')">Remove</a>
                     </td></tr>
-                  <tr><td>T8E00510252EA05B</td><td>Front Yard-PoE</td><td style="color: var(--brand-fg-primary);">info@example.com</td><td>1.1.0.3</td><td>-</td><td>
+                  <tr data-company="GreenWatt Technologies"><td>T8E00510252EA05B</td><td>Front Yard-PoE</td><td style="color: var(--brand-fg-primary);">info@example.com</td><td>1.1.0.3</td><td>-</td><td>
                       <span style="display: inline-flex; align-items: center; gap: 6px;">
                         <span style="width: 8px; height: 8px; background: #34C759; border-radius: 50%;"></span>
                         Online
@@ -1520,20 +1538,20 @@
                     </td><td>2025-07-14 16:59:21</td><td>2025-10-15 17:44:07</td><td>2026-01-06 10:30:18</td><td class="truncate">GreenWatt Technologies</td><td>
                       <a class="action-link delete" onclick="confirmRemoveDevice('T8E00510252EA05B')">Remove</a>
                     </td></tr>
-                  <tr><td>T821451024F371EF</td><td>Doorbell2</td><td style="color: var(--brand-fg-primary);">hello@example.com</td><td>3.2.1.4</td><td>0.3.5.3</td><td>
+                  <tr data-company=""><td>T821451024F371EF</td><td>Doorbell2</td><td style="color: var(--brand-fg-primary);">hello@example.com</td><td>3.2.1.4</td><td>0.3.5.3</td><td>
                       <span style="display: inline-flex; align-items: center; gap: 6px;">
                         <span style="width: 8px; height: 8px; background: #34C759; border-radius: 50%;"></span>
                         Online
                       </span>
-                    </td><td>2024-11-18 11:55:06</td><td>2025-10-15 16:21:13</td><td>2026-01-06 10:45:55</td><td class="truncate">VoltSecure Inc</td><td>
+                    </td><td>2024-11-18 11:55:06</td><td>2025-10-15 16:21:13</td><td>2026-01-06 10:45:55</td><td class="truncate">-</td><td>
                       <a class="action-link delete" onclick="confirmRemoveDevice('T821451024F371EF')">Remove</a>
                     </td></tr>
-                  <tr><td>T8162T10244G716D</td><td>Front Yard</td><td style="color: var(--brand-fg-primary);">service@example.com</td><td>3.1.2.7</td><td>0.0.8.6</td><td>
+                  <tr data-company=""><td>T8162T10244G716D</td><td>Front Yard</td><td style="color: var(--brand-fg-primary);">service@example.com</td><td>3.1.2.7</td><td>0.0.8.6</td><td>
                       <span style="display: inline-flex; align-items: center; gap: 6px;">
                         <span style="width: 8px; height: 8px; background: #34C759; border-radius: 50%;"></span>
                         Online
                       </span>
-                    </td><td>2024-12-04 15:40:13</td><td>2025-10-15 16:20:42</td><td>2026-01-06 10:52:28</td><td class="truncate">EnergySmart Corp</td><td>
+                    </td><td>2024-12-04 15:40:13</td><td>2025-10-15 16:20:42</td><td>2026-01-06 10:52:28</td><td class="truncate">-</td><td>
                       <a class="action-link delete" onclick="confirmRemoveDevice('T8162T10244G716D')">Remove</a>
                     </td></tr>
                   <tr><td>T8124P40233H002C</td><td>Smart Camera Pro</td><td style="color: var(--brand-fg-primary);">demo@example.com</td><td>3.3.1.5</td><td>0.1.2.0</td><td>
@@ -1572,6 +1590,151 @@
                 <button class="pagination-btn">›</button>
                 <div class="custom-select page-size-select">
                   <div class="custom-select-trigger" style="font-size: var(--font-caption); padding: 6px 32px 6px 10px;">10 / page</div>
+                  <div class="custom-select-dropdown">
+                    <div class="custom-select-option selected" data-value="10 / page">10 / page</div>
+                    <div class="custom-select-option" data-value="20 / page">20 / page</div>
+                    <div class="custom-select-option" data-value="50 / page">50 / page</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Expert Monitoring Content -->
+        <div id="expertMonitoringContent" class="main-content" style="display: none;">
+          <!-- Search Section -->
+          <div class="search-section">
+            <div id="expertMonitoringSearchGrid" style="display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px 24px; align-items: center; width: 100%;">
+              <!-- Field 1: Subscription ID -->
+              <div style="display: flex; align-items: center; gap: 8px; min-width: 0;">
+                <label class="search-label" style="white-space: nowrap; margin: 0; flex-shrink: 0;">Subscription ID:</label>
+                <input type="text" id="expertSubscriptionIdInput" class="search-input" placeholder="Please enter" style="flex: 1; min-width: 0; width: 100%;">
+              </div>
+              <!-- Field 2: Account -->
+              <div style="display: flex; align-items: center; gap: 8px; min-width: 0;">
+                <label class="search-label" style="white-space: nowrap; margin: 0; flex-shrink: 0;">Account:</label>
+                <input type="text" id="expertAccountInput" class="search-input" placeholder="Please enter" style="flex: 1; min-width: 0; width: 100%;">
+              </div>
+              <!-- Buttons - Default Position (Row 1, Column 3) -->
+              <div id="expertButtonsCollapsed" style="display: flex; gap: 12px; justify-content: flex-end; align-items: center;">
+                <button class="btn btn-primary" onclick="searchExpertMonitoring()">Search</button>
+                <button class="btn btn-secondary" onclick="resetExpertSearch()">Reset</button>
+                <a href="javascript:void(0)" onclick="toggleExpertSearchExpand()" style="color: var(--brand-fg-primary); text-decoration: none; line-height: 1;">Expand</a>
+              </div>
+              <!-- Field 3: Hub SN (Hidden by default) -->
+              <div id="expertField3" style="display: none; align-items: center; gap: 8px; min-width: 0;">
+                <label class="search-label" style="white-space: nowrap; margin: 0; flex-shrink: 0;">Hub SN:</label>
+                <input type="text" id="expertHubSnInput" class="search-input" placeholder="Please enter" style="flex: 1; min-width: 0; width: 100%;">
+              </div>
+              <!-- Empty cells to push buttons to column 3 -->
+              <div id="expertEmptyCell1" style="display: none;"></div>
+              <div id="expertEmptyCell2" style="display: none;"></div>
+              <!-- Buttons - Expanded Position (Row 2, Column 3) -->
+              <div id="expertButtonsExpanded" style="display: none; gap: 12px; justify-content: flex-end; align-items: center;">
+                <button class="btn btn-primary" onclick="searchExpertMonitoring()">Search</button>
+                <button class="btn btn-secondary" onclick="resetExpertSearch()">Reset</button>
+                <a href="javascript:void(0)" onclick="toggleExpertSearchExpand()" style="color: var(--brand-fg-primary); text-decoration: none; line-height: 1;">Pack Up</a>
+              </div>
+            </div>
+          </div>
+
+          <!-- Expert Monitoring List Section -->
+          <div class="list-section">
+            <div class="list-header">
+              <h2 class="list-title">Expert Monitoring List</h2>
+            </div>
+
+            <div class="table-wrapper">
+              <table>
+                <thead>
+                  <tr>
+                    <th>Subscription ID</th>
+                    <th>Account</th>
+                    <th>Hub SN</th>
+                    <th>Status</th>
+                    <th>Company</th>
+                    <th>Subscription Time</th>
+                  </tr>
+                </thead>
+                <tbody id="expertMonitoringTableBody">
+                  <tr data-company="TechVision Solutions">
+                    <td>0199eae5-d63a-7878-89af-515a158516ad</td>
+                    <td style="color: var(--brand-fg-primary);">john.smith@example.com</td>
+                    <td>T9000P1025200034</td>
+                    <td>
+                      <span style="display: inline-flex; align-items: center; gap: 6px;">
+                        <span style="width: 8px; height: 8px; background: #34C759; border-radius: 50%;"></span>
+                        Active
+                      </span>
+                    </td>
+                    <td class="truncate">TechVision Solutions</td>
+                    <td>2025-10-16 08:00:00</td>
+                  </tr>
+                  <tr data-company="GreenPower Systems">
+                    <td>0299fbe6-e74b-8989-90bg-626b269627be</td>
+                    <td style="color: var(--brand-fg-primary);">alice.wilson@example.com</td>
+                    <td>T9000P1025200045</td>
+                    <td>
+                      <span style="display: inline-flex; align-items: center; gap: 6px;">
+                        <span style="width: 8px; height: 8px; background: #34C759; border-radius: 50%;"></span>
+                        Active
+                      </span>
+                    </td>
+                    <td class="truncate">GreenPower Systems</td>
+                    <td>2025-11-20 10:30:00</td>
+                  </tr>
+                  <tr data-company="">
+                    <td>0399gcf7-f85c-9a9a-a1ch-737c370738cf</td>
+                    <td style="color: var(--brand-fg-primary);">bob.brown@example.com</td>
+                    <td>T9000P1025200056</td>
+                    <td>
+                      <span style="display: inline-flex; align-items: center; gap: 6px;">
+                        <span style="width: 8px; height: 8px; background: #FF9500; border-radius: 50%;"></span>
+                        Expired
+                      </span>
+                    </td>
+                    <td class="truncate">-</td>
+                    <td>2025-09-05 14:15:00</td>
+                  </tr>
+                  <tr data-company="SmartHome Technologies">
+                    <td>0499hdg8-g96d-ab0b-b2di-848d481849dg</td>
+                    <td style="color: var(--brand-fg-primary);">mary.jones@example.com</td>
+                    <td>T9000P1025200067</td>
+                    <td>
+                      <span style="display: inline-flex; align-items: center; gap: 6px;">
+                        <span style="width: 8px; height: 8px; background: #34C759; border-radius: 50%;"></span>
+                        Active
+                      </span>
+                    </td>
+                    <td class="truncate">SmartHome Technologies</td>
+                    <td>2025-12-01 09:45:00</td>
+                  </tr>
+                  <tr data-company="">
+                    <td>0599ieh9-ha7e-bc1c-c3ej-959e592950eh</td>
+                    <td style="color: var(--brand-fg-primary);">david.miller@example.com</td>
+                    <td>T9000P1025200078</td>
+                    <td>
+                      <span style="display: inline-flex; align-items: center; gap: 6px;">
+                        <span style="width: 8px; height: 8px; background: #34C759; border-radius: 50%;"></span>
+                        Active
+                      </span>
+                    </td>
+                    <td class="truncate">-</td>
+                    <td>2026-01-10 11:20:00</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+
+            <!-- Pagination -->
+            <div class="pagination">
+              <div class="pagination-info">
+                Total 5 items
+              </div>
+              <div style="display: flex; gap: 12px; align-items: center;">
+                <div class="custom-select" id="expertPageSizeSelect" style="width: auto;">
+                  <div class="custom-select-trigger" style="width: 100%;">10 / page</div>
                   <div class="custom-select-dropdown">
                     <div class="custom-select-option selected" data-value="10 / page">10 / page</div>
                     <div class="custom-select-option" data-value="20 / page">20 / page</div>
@@ -1967,8 +2130,185 @@
             </div>
           </div>
         </div>
+
+        <!-- Payable Statement Content -->
+        <div id="payableStatementContent" class="main-content" style="display: none;">
+          <!-- Search Section -->
+          <div class="search-section">
+            <div id="payableSearchGrid" style="display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px 24px; align-items: center; width: 100%;">
+              <!-- Field 1: Month -->
+              <div style="display: flex; align-items: center; gap: 8px; min-width: 0;">
+                <label class="search-label" style="white-space: nowrap; margin: 0; flex-shrink: 0;">Month:</label>
+                <div class="custom-select multi-select" id="payableMonthFilterSelect" style="flex: 1; min-width: 0;">
+                  <div class="custom-select-trigger" style="width: 100%;">Loading...</div>
+                  <div class="custom-select-dropdown">
+                    <!-- Month options will be dynamically generated based on available data -->
+                  </div>
+                </div>
+              </div>
+              <!-- Field 2: Status -->
+              <div style="display: flex; align-items: center; gap: 8px; min-width: 0;">
+                <label class="search-label" style="white-space: nowrap; margin: 0; flex-shrink: 0;">Status:</label>
+                <div class="custom-select multi-select" id="payableStatusFilterSelect" style="flex: 1; min-width: 0;">
+                  <div class="custom-select-trigger" style="width: 100%;">Pending</div>
+                  <div class="custom-select-dropdown">
+                    <div class="custom-select-option selected" data-value="Pending" onclick="togglePayableStatusOption(event, 'Pending')">
+                      <input type="checkbox" checked onclick="event.stopPropagation()">
+                      <span>Pending</span>
+                    </div>
+                    <div class="custom-select-option" data-value="Paid" onclick="togglePayableStatusOption(event, 'Paid')">
+                      <input type="checkbox" onclick="event.stopPropagation()">
+                      <span>Paid</span>
+                    </div>
+                    <div class="custom-select-option" data-value="On Hold" onclick="togglePayableStatusOption(event, 'On Hold')">
+                      <input type="checkbox" onclick="event.stopPropagation()">
+                      <span>On Hold</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <!-- Buttons - Default Position (Row 1, Column 3) -->
+              <div id="payableButtonsCollapsed" style="display: flex; gap: 12px; justify-content: flex-end; align-items: center;">
+                <button class="btn btn-primary" onclick="searchPayableStatements()">Search</button>
+                <button class="btn btn-secondary" onclick="resetPayableSearch()">Reset</button>
+                <a href="javascript:void(0)" onclick="togglePayableSearchExpand()" style="color: var(--brand-fg-primary); text-decoration: none; line-height: 1;">Expand</a>
+              </div>
+              <!-- Field 3: Company Name (Hidden by default) -->
+              <div id="payableField3" style="display: none; align-items: center; gap: 8px; min-width: 0;">
+                <label class="search-label" style="white-space: nowrap; margin: 0; flex-shrink: 0;">Company Name:</label>
+                <input type="text" id="payableCompanyNameInput" class="search-input" placeholder="Please enter" style="flex: 1; min-width: 0; width: 100%;">
+              </div>
+              <!-- Empty cells to push buttons to column 3 -->
+              <div id="payableEmptyCell1" style="display: none;"></div>
+              <div id="payableEmptyCell2" style="display: none;"></div>
+              <!-- Buttons - Expanded Position (Row 2, Column 3) -->
+              <div id="payableButtonsExpanded" style="display: none; gap: 12px; justify-content: flex-end; align-items: center;">
+                <button class="btn btn-primary" onclick="searchPayableStatements()">Search</button>
+                <button class="btn btn-secondary" onclick="resetPayableSearch()">Reset</button>
+                <a href="javascript:void(0)" onclick="togglePayableSearchExpand()" style="color: var(--brand-fg-primary); text-decoration: none; line-height: 1;">Pack Up</a>
+              </div>
+            </div>
+          </div>
+
+          <!-- List Section -->
+          <div class="list-section">
+            <div class="list-header">
+              <h2 class="list-title">Payable Statement List</h2>
+            </div>
+
+            <div class="table-wrapper">
+              <table>
+                <thead>
+                  <tr>
+                    <th>Company Name</th>
+                    <th>Month</th>
+                    <th>Revenue Amount</th>
+                    <th>Revenue Share (5%)</th>
+                    <th>Status</th>
+                    <th>Operate</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td class="truncate">TechVision Solutions</td>
+                    <td>2026-01</td>
+                    <td>$4,500.00</td>
+                    <td style="font-weight: 600; color: var(--brand-fg-primary);">$225.00</td>
+                    <td>
+                      <span style="display: inline-flex; align-items: center; gap: 6px;">
+                        <span style="width: 8px; height: 8px; background: #1890FF; border-radius: 50%;"></span>
+                        Pending
+                      </span>
+                    </td>
+                    <td>
+                      <a class="action-link review" onclick="openPayableDetails('TechVision Solutions', 4500, 'Pending', '2026-01')">Details</a>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td class="truncate">GreenPower Systems</td>
+                    <td>2025-12</td>
+                    <td>$3,150.00</td>
+                    <td style="font-weight: 600; color: var(--brand-fg-primary);">$157.50</td>
+                    <td>
+                      <span style="display: inline-flex; align-items: center; gap: 6px;">
+                        <span style="width: 8px; height: 8px; background: #52C41A; border-radius: 50%;"></span>
+                        Paid
+                      </span>
+                    </td>
+                    <td>
+                      <a class="action-link review" onclick="openPayableDetails('GreenPower Systems', 3150, 'Paid', '2025-12')">Details</a>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td class="truncate">SmartHome Technologies</td>
+                    <td>2025-11</td>
+                    <td>$2,700.00</td>
+                    <td style="font-weight: 600; color: var(--brand-fg-primary);">$135.00</td>
+                    <td>
+                      <span style="display: inline-flex; align-items: center; gap: 6px;">
+                        <span style="width: 8px; height: 8px; background: #FF4D4F; border-radius: 50%;"></span>
+                        On Hold
+                      </span>
+                    </td>
+                    <td>
+                      <a class="action-link review" onclick="openPayableDetails('SmartHome Technologies', 2700, 'On Hold', '2025-11')">Details</a>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td class="truncate">EcoCharge Networks</td>
+                    <td>2026-01</td>
+                    <td>$5,850.00</td>
+                    <td style="font-weight: 600; color: var(--brand-fg-primary);">$292.50</td>
+                    <td>
+                      <span style="display: inline-flex; align-items: center; gap: 6px;">
+                        <span style="width: 8px; height: 8px; background: #1890FF; border-radius: 50%;"></span>
+                        Pending
+                      </span>
+                    </td>
+                    <td>
+                      <a class="action-link review" onclick="openPayableDetails('EcoCharge Networks', 5850, 'Pending', '2026-01')">Details</a>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td class="truncate">PowerGrid Innovations</td>
+                    <td>2025-12</td>
+                    <td>$1,800.00</td>
+                    <td style="font-weight: 600; color: var(--brand-fg-primary);">$90.00</td>
+                    <td>
+                      <span style="display: inline-flex; align-items: center; gap: 6px;">
+                        <span style="width: 8px; height: 8px; background: #52C41A; border-radius: 50%;"></span>
+                        Paid
+                      </span>
+                    </td>
+                    <td>
+                      <a class="action-link review" onclick="openPayableDetails('PowerGrid Innovations', 1800, 'Paid', '2025-12')">Details</a>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+
+            <!-- Pagination -->
+            <div class="pagination">
+              <div class="pagination-info">
+                Total 5 items
+              </div>
+              <div style="display: flex; gap: 12px; align-items: center;">
+                <div class="custom-select" id="payablePageSizeSelect" style="width: auto;">
+                  <div class="custom-select-trigger" style="width: 100%;">10 / page</div>
+                  <div class="custom-select-dropdown">
+                    <div class="custom-select-option selected" data-value="10 / page">10 / page</div>
+                    <div class="custom-select-option" data-value="20 / page">20 / page</div>
+                    <div class="custom-select-option" data-value="50 / page">50 / page</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
       </div>
+      <!-- End of Content Area -->
     </div>
+    <!-- End of Main Area -->
 
   </div>
 
@@ -2531,6 +2871,128 @@
       <div class="modal-footer" style="border-top: none; padding: 0 24px 20px 24px; justify-content: flex-end;">
         <button class="btn btn-secondary" onclick="closeRejectConfirm()">Cancel</button>
         <button class="btn btn-primary" onclick="executeReject()">Confirm</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Payable Details Drawer -->
+  <div class="modal-overlay" id="payableDetailsModal" onclick="closePayableDetailsOnOverlay(event)">
+    <div class="modal">
+      <div class="modal-header">
+        <div style="display: flex; align-items: center; gap: 12px;">
+          <h2 class="modal-title" id="payableDetailsTitle">Payable Statement</h2>
+          <span id="payableDetailsStatus"></span>
+        </div>
+        <span class="modal-close" onclick="closePayableDetails()">×</span>
+      </div>
+      <div class="modal-body" style="display: block; padding: var(--spacing-xl); flex: 1; overflow-y: auto;">
+        <!-- Basic Information -->
+        <div style="background: var(--bg-tertiary); padding: var(--spacing-lg); border-radius: 8px; margin-bottom: var(--spacing-xl);">
+          <h3 style="font-size: var(--font-title); font-weight: var(--font-weight-semibold); margin-bottom: var(--spacing-lg);">Basic Information</h3>
+          <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: var(--spacing-lg);">
+            <div>
+              <div style="color: var(--fg-secondary); font-size: var(--font-caption); margin-bottom: 4px;">Company Name</div>
+              <div id="payableCompanyName" style="color: var(--fg-primary); font-weight: var(--font-weight-semibold);">TechVision Solutions</div>
+            </div>
+            <div>
+              <div style="color: var(--fg-secondary); font-size: var(--font-caption); margin-bottom: 4px;">Month</div>
+              <div id="payableMonth">January 2026</div>
+            </div>
+            <div>
+              <div style="color: var(--fg-secondary); font-size: var(--font-caption); margin-bottom: 4px;">Revenue Amount</div>
+              <div id="payableRevenueAmount" style="font-size: var(--font-title); font-weight: var(--font-weight-semibold); color: var(--fg-primary);">$4,500.00</div>
+            </div>
+            <div>
+              <div style="color: var(--fg-secondary); font-size: var(--font-caption); margin-bottom: 4px;">Revenue Share (5%)</div>
+              <div id="payableRevenueShare" style="font-size: var(--font-title); font-weight: var(--font-weight-semibold); color: var(--brand-fg-primary);">$225.00</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Payout Account Information -->
+        <div style="background: var(--bg-tertiary); padding: var(--spacing-lg); border-radius: 8px; margin-bottom: var(--spacing-xl);">
+          <h3 style="font-size: var(--font-title); font-weight: var(--font-weight-semibold); margin-bottom: var(--spacing-lg);">Payout Account</h3>
+          <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: var(--spacing-lg);">
+            <div>
+              <div style="color: var(--fg-secondary); font-size: var(--font-caption); margin-bottom: 4px;">Account Holder Name</div>
+              <div id="payableAccountHolder">TechVision Solutions</div>
+            </div>
+            <div>
+              <div style="color: var(--fg-secondary); font-size: var(--font-caption); margin-bottom: 4px;">Routing Number</div>
+              <div id="payableRoutingNumber">021000021</div>
+            </div>
+            <div>
+              <div style="color: var(--fg-secondary); font-size: var(--font-caption); margin-bottom: 4px;">Account Number</div>
+              <div id="payableAccountNumber">4532117845691234</div>
+            </div>
+            <div>
+              <div style="color: var(--fg-secondary); font-size: var(--font-caption); margin-bottom: 4px;">Account Type</div>
+              <div id="payableAccountType">Checking</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Revenue Details -->
+        <div style="background: var(--bg-tertiary); padding: var(--spacing-lg); border-radius: 8px;">
+          <h3 style="font-size: var(--font-title); font-weight: var(--font-weight-semibold); margin-bottom: var(--spacing-lg);">Revenue Details <span id="payableServiceCount" style="color: var(--fg-tertiary); font-weight: var(--font-weight-regular); font-size: var(--font-body);">(5)</span></h3>
+          <div class="table-wrapper">
+            <table>
+              <thead>
+                <tr>
+                  <th>Service Name</th>
+                  <th>User Account</th>
+                  <th>Subscription ID</th>
+                  <th>Payment Date</th>
+                  <th style="text-align: right;">Amount</th>
+                </tr>
+              </thead>
+              <tbody id="payableServiceDetailsList">
+                <tr>
+                  <td>Expert Monitoring</td>
+                  <td>david.miller@example.com</td>
+                  <td>SUB-2026010525005</td>
+                  <td>2026-01-25</td>
+                  <td style="text-align: right; font-weight: 600;">$900.00</td>
+                </tr>
+                <tr>
+                  <td>Expert Monitoring</td>
+                  <td>mary.jones@example.com</td>
+                  <td>SUB-2026010422004</td>
+                  <td>2026-01-22</td>
+                  <td style="text-align: right; font-weight: 600;">$900.00</td>
+                </tr>
+                <tr>
+                  <td>Expert Monitoring</td>
+                  <td>bob.brown@example.com</td>
+                  <td>SUB-2026010320003</td>
+                  <td>2026-01-20</td>
+                  <td style="text-align: right; font-weight: 600;">$900.00</td>
+                </tr>
+                <tr>
+                  <td>Expert Monitoring</td>
+                  <td>alice.wilson@example.com</td>
+                  <td>SUB-2026010218002</td>
+                  <td>2026-01-18</td>
+                  <td style="text-align: right; font-weight: 600;">$900.00</td>
+                </tr>
+                <tr>
+                  <td>Expert Monitoring</td>
+                  <td>john.smith@example.com</td>
+                  <td>SUB-2026010115001</td>
+                  <td>2026-01-15</td>
+                  <td style="text-align: right; font-weight: 600;">$900.00</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer" id="payableDetailsFooter" style="padding: 12px 24px 12px 24px;">
+        <button class="btn btn-secondary" onclick="closePayableDetails()">Close</button>
+        <div style="display: flex; gap: 8px;">
+          <button class="btn btn-secondary" onclick="changePayableStatus('On Hold')" style="background: #FF4D4F; color: white; border-color: #FF4D4F;">Mark On Hold</button>
+          <button class="btn btn-secondary" onclick="changePayableStatus('Paid')" style="background: #0FBD58; color: white; border-color: #0FBD58;">Mark Paid</button>
+        </div>
       </div>
     </div>
   </div>
@@ -3192,6 +3654,7 @@
       const userContent = document.getElementById('userContent');
       const deviceContent = document.getElementById('deviceContent');
       const approvalContent = document.getElementById('approvalContent');
+      const payableStatementContent = document.getElementById('payableStatementContent');
 
       if (role === 'Administrator') {
         // Show admin menu and company content
@@ -3201,10 +3664,11 @@
         userContent.style.display = 'none';
         deviceContent.style.display = 'none';
         approvalContent.style.display = 'none';
+        payableStatementContent.style.display = 'none';
 
         // Reset admin menu active state to Company
         document.querySelectorAll('#adminMenu .sidebar-menu-item').forEach(item => item.classList.remove('active'));
-        document.querySelector('#adminMenu .sidebar-menu-item:first-child').classList.add('active');
+        document.querySelector('#adminMenu .sidebar-menu-item:nth-child(2)').classList.add('active');
 
         // Recheck truncation after page is visible
         setTimeout(checkTextTruncation, 10);
@@ -3216,6 +3680,7 @@
         userContent.style.display = 'block';
         deviceContent.style.display = 'none';
         approvalContent.style.display = 'none';
+        payableStatementContent.style.display = 'none';
 
         // Update company menu active state
         document.querySelectorAll('#companyMenu .sidebar-header').forEach(item => item.classList.remove('active'));
@@ -3226,12 +3691,122 @@
       }
     }
 
+    // Current role and company context
+    let currentRole = 'Administrator'; // 'Administrator', 'Company A', 'Company B'
+
+    // Role switching function
+    function switchRole(role) {
+      currentRole = role;
+
+      // Update trigger text
+      const trigger = document.querySelector('#roleSelector .custom-select-trigger');
+      trigger.textContent = role;
+
+      // Update selected option
+      const options = document.querySelectorAll('#roleSelector .custom-select-option');
+      options.forEach(opt => {
+        if (opt.getAttribute('data-value') === role) {
+          opt.classList.add('selected');
+        } else {
+          opt.classList.remove('selected');
+        }
+      });
+
+      // Close dropdown
+      document.querySelector('#roleSelector .custom-select-dropdown').classList.remove('active');
+
+      // Update menu visibility and data based on role
+      const adminMenu = document.getElementById('adminMenu');
+      const companyMenu = document.getElementById('companyMenu');
+
+      if (role === 'Administrator') {
+        // Show Administrator menu (Tenant)
+        adminMenu.style.display = 'block';
+        companyMenu.style.display = 'none';
+
+        // Show Company page (default for Administrator)
+        showCompanyPage();
+      } else {
+        // Show Company menu (User, Device) for Company A or Company B
+        adminMenu.style.display = 'none';
+        companyMenu.style.display = 'block';
+
+        // Show User page by default
+        showUserPage(null);
+
+        // Filter User and Device data based on company
+        filterUserAndDeviceData(role);
+      }
+
+      showToast(`Switched to ${role}`, 'success');
+    }
+
+    // Filter User and Device data based on selected company
+    function filterUserAndDeviceData(company) {
+      // Map role to actual company name
+      const companyMap = {
+        'Company A': 'TechVision Solutions',  // Normal permissions - only see own data
+        'Company B': 'GreenPower Systems'      // Super permissions - see all data
+      };
+
+      const actualCompany = companyMap[company];
+      const isSuperPermission = (company === 'Company B');
+
+      // Filter User table
+      const userRows = document.querySelectorAll('#userTableBody tr');
+      userRows.forEach(row => {
+        const rowCompany = row.getAttribute('data-company');
+
+        if (isSuperPermission) {
+          // Company B: show all data
+          row.style.display = '';
+        } else {
+          // Company A: only show own company data
+          if (rowCompany === actualCompany) {
+            row.style.display = '';
+          } else {
+            row.style.display = 'none';
+          }
+        }
+      });
+
+      // Filter Device table
+      const deviceRows = document.querySelectorAll('#deviceTableBody tr');
+      deviceRows.forEach(row => {
+        const rowCompany = row.getAttribute('data-company');
+
+        if (isSuperPermission) {
+          // Company B: show all data
+          row.style.display = '';
+        } else {
+          // Company A: only show own company data
+          if (rowCompany === actualCompany) {
+            row.style.display = '';
+          } else {
+            row.style.display = 'none';
+          }
+        }
+      });
+
+      // Also filter Expert Monitoring data
+      filterExpertMonitoringData(company);
+    }
+
     // Page switching functions
+    function showTenantAccountPage() {
+      // Placeholder function for Tenant Account page
+      // Page content will be designed later
+      showToast('Page is under design', 'info');
+      // Do not change the active menu state
+    }
+
     function showCompanyPage() {
       document.getElementById('companyContent').style.display = 'block';
       document.getElementById('userContent').style.display = 'none';
       document.getElementById('deviceContent').style.display = 'none';
+      document.getElementById('expertMonitoringContent').style.display = 'none';
       document.getElementById('approvalContent').style.display = 'none';
+      document.getElementById('payableStatementContent').style.display = 'none';
 
       // Update sidebar active state
       document.querySelectorAll('.sidebar-menu-item').forEach(item => item.classList.remove('active'));
@@ -3245,14 +3820,27 @@
       document.getElementById('companyContent').style.display = 'none';
       document.getElementById('userContent').style.display = 'block';
       document.getElementById('deviceContent').style.display = 'none';
+      document.getElementById('expertMonitoringContent').style.display = 'none';
       document.getElementById('approvalContent').style.display = 'none';
+      document.getElementById('payableStatementContent').style.display = 'none';
 
       // Update company menu active state
       document.querySelectorAll('#companyMenu .sidebar-header').forEach(item => item.classList.remove('active'));
+      document.querySelectorAll('#companyMenu .sidebar-menu-item').forEach(item => item.classList.remove('active'));
       // Find the closest .sidebar-header element in case user clicks on child element
-      const header = event.target.closest('.sidebar-header');
-      if (header) {
-        header.classList.add('active');
+      if (event) {
+        const header = event.target.closest('.sidebar-header');
+        if (header) {
+          header.classList.add('active');
+        }
+      } else {
+        // Default to first menu item (User)
+        document.querySelector('#companyMenu .sidebar-header:first-child').classList.add('active');
+      }
+
+      // Apply data filtering based on current role
+      if (currentRole !== 'Administrator') {
+        filterUserAndDeviceData(currentRole);
       }
 
       // Recheck truncation after page is visible
@@ -3263,14 +3851,44 @@
       document.getElementById('companyContent').style.display = 'none';
       document.getElementById('userContent').style.display = 'none';
       document.getElementById('deviceContent').style.display = 'block';
+      document.getElementById('expertMonitoringContent').style.display = 'none';
       document.getElementById('approvalContent').style.display = 'none';
+      document.getElementById('payableStatementContent').style.display = 'none';
 
       // Update company menu active state
       document.querySelectorAll('#companyMenu .sidebar-header').forEach(item => item.classList.remove('active'));
+      document.querySelectorAll('#companyMenu .sidebar-menu-item').forEach(item => item.classList.remove('active'));
       // Find the closest .sidebar-header element in case user clicks on child element
       const header = event.target.closest('.sidebar-header');
       if (header) {
         header.classList.add('active');
+      }
+
+      // Apply data filtering based on current role
+      if (currentRole !== 'Administrator') {
+        filterUserAndDeviceData(currentRole);
+      }
+
+      // Recheck truncation after page is visible
+      setTimeout(checkTextTruncation, 10);
+    }
+
+    function showExpertMonitoringPage() {
+      document.getElementById('companyContent').style.display = 'none';
+      document.getElementById('userContent').style.display = 'none';
+      document.getElementById('deviceContent').style.display = 'none';
+      document.getElementById('expertMonitoringContent').style.display = 'block';
+      document.getElementById('approvalContent').style.display = 'none';
+      document.getElementById('payableStatementContent').style.display = 'none';
+
+      // Update company menu active state
+      document.querySelectorAll('#companyMenu .sidebar-header').forEach(item => item.classList.remove('active'));
+      document.querySelectorAll('#companyMenu .sidebar-menu-item').forEach(item => item.classList.remove('active'));
+      event.target.classList.add('active');
+
+      // Apply data filtering based on current role
+      if (currentRole !== 'Administrator') {
+        filterExpertMonitoringData(currentRole);
       }
 
       // Recheck truncation after page is visible
@@ -3317,7 +3935,9 @@
       document.getElementById('companyContent').style.display = 'none';
       document.getElementById('userContent').style.display = 'none';
       document.getElementById('deviceContent').style.display = 'none';
+      document.getElementById('expertMonitoringContent').style.display = 'none';
       document.getElementById('approvalContent').style.display = 'block';
+      document.getElementById('payableStatementContent').style.display = 'none';
 
       // Update sidebar active state
       document.querySelectorAll('.sidebar-menu-item').forEach(item => item.classList.remove('active'));
@@ -3325,6 +3945,505 @@
 
       // Recheck truncation after page is visible
       setTimeout(checkTextTruncation, 10);
+    }
+
+    function showPayableStatementPage() {
+      document.getElementById('companyContent').style.display = 'none';
+      document.getElementById('userContent').style.display = 'none';
+      document.getElementById('deviceContent').style.display = 'none';
+      document.getElementById('expertMonitoringContent').style.display = 'none';
+      document.getElementById('approvalContent').style.display = 'none';
+      document.getElementById('payableStatementContent').style.display = 'block';
+
+      // Update sidebar active state
+      document.querySelectorAll('.sidebar-menu-item').forEach(item => item.classList.remove('active'));
+      event.target.classList.add('active');
+
+      // Initialize month filter options based on available data
+      setTimeout(() => {
+        initializePayableMonthFilter();
+        searchPayableStatements(false);
+        checkTextTruncation();
+      }, 10);
+    }
+
+    // Payable Statement Functions
+    let currentPayableCompany = '';
+    let currentPayableStatus = '';
+
+    // Initialize month filter based on available data
+    function initializePayableMonthFilter() {
+      const table = document.querySelector('#payableStatementContent table tbody');
+      const rows = table.querySelectorAll('tr');
+      const months = new Set();
+
+      // Extract unique months from table data
+      rows.forEach(row => {
+        const monthCell = row.cells[1];
+        if (monthCell) {
+          const month = monthCell.textContent.trim();
+          months.add(month);
+        }
+      });
+
+      // Convert to array and sort (newest first)
+      const sortedMonths = Array.from(months).sort((a, b) => {
+        return b.localeCompare(a); // Descending order (2026-01 before 2025-12)
+      });
+
+      // Generate dropdown options
+      const monthSelect = document.getElementById('payableMonthFilterSelect');
+      const dropdown = monthSelect.querySelector('.custom-select-dropdown');
+
+      // Clear existing options
+      dropdown.innerHTML = '';
+
+      // Add options for each month with data
+      sortedMonths.forEach((month, index) => {
+        const isSelected = index === 0; // Select the newest month by default
+        const option = document.createElement('div');
+        option.className = `custom-select-option${isSelected ? ' selected' : ''}`;
+        option.setAttribute('data-value', month);
+        option.setAttribute('onclick', `togglePayableMonthOption(event, '${month}')`);
+        option.innerHTML = `
+          <input type="checkbox" ${isSelected ? 'checked' : ''} onclick="event.stopPropagation()">
+          <span>${month}</span>
+        `;
+        dropdown.appendChild(option);
+      });
+
+      // Update trigger text
+      updatePayableMonthTriggerText();
+    }
+
+    function openPayableDetails(companyName, revenueAmount, status, month) {
+      currentPayableCompany = companyName;
+      currentPayableStatus = status;
+
+      const modal = document.getElementById('payableDetailsModal');
+      const titleStatus = document.getElementById('payableDetailsStatus');
+      const footer = document.getElementById('payableDetailsFooter');
+
+      // Update title and status tag
+      document.getElementById('payableDetailsTitle').textContent = 'Payable Statement';
+
+      // Set status tag with colored background style (like Approval Review)
+      let statusHTML;
+      if (status === 'Pending') {
+        statusHTML = '<span style="display: inline-flex; align-items: center; gap: 6px; padding: 4px 12px; background: #E6F7FF; color: #1890FF; border-radius: 4px; font-size: 12px; font-weight: 500;">Pending</span>';
+      } else if (status === 'Paid') {
+        statusHTML = '<span style="display: inline-flex; align-items: center; gap: 6px; padding: 4px 12px; background: #F6FFED; color: #52C41A; border-radius: 4px; font-size: 12px; font-weight: 500;">Paid</span>';
+      } else if (status === 'On Hold') {
+        statusHTML = '<span style="display: inline-flex; align-items: center; gap: 6px; padding: 4px 12px; background: #FFF1F0; color: #FF4D4F; border-radius: 4px; font-size: 12px; font-weight: 500;">On Hold</span>';
+      }
+      titleStatus.innerHTML = statusHTML;
+
+      // Update statement information
+      document.getElementById('payableCompanyName').textContent = companyName;
+      document.getElementById('payableMonth').textContent = month;
+      document.getElementById('payableRevenueAmount').textContent = `$${revenueAmount.toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2})}`;
+      const revenueShare = revenueAmount * 0.05;
+      document.getElementById('payableRevenueShare').textContent = `$${revenueShare.toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2})}`;
+
+      // Update payout account information (full display for finance team)
+      document.getElementById('payableAccountHolder').textContent = companyName;
+      document.getElementById('payableRoutingNumber').textContent = '021000021';
+      document.getElementById('payableAccountNumber').textContent = '4532117845691234';
+      document.getElementById('payableAccountType').textContent = 'Checking';
+
+      // Show/hide footer buttons based on status
+      if (status === 'Paid') {
+        footer.style.display = 'flex';
+        footer.innerHTML = '<button class="btn btn-secondary" onclick="closePayableDetails()">Close</button>';
+      } else {
+        footer.style.display = 'flex';
+        footer.innerHTML = `
+          <button class="btn btn-secondary" onclick="closePayableDetails()">Close</button>
+          <div style="display: flex; gap: 8px;">
+            ${status !== 'On Hold' ? '<button class="btn btn-secondary" onclick="changePayableStatus(\'On Hold\')" style="background: #FF4D4F; color: white; border-color: #FF4D4F;">Mark On Hold</button>' : ''}
+            ${status !== 'Paid' ? '<button class="btn btn-secondary" onclick="changePayableStatus(\'Paid\')" style="background: #0FBD58; color: white; border-color: #0FBD58;">Mark Paid</button>' : ''}
+          </div>
+        `;
+      }
+
+      modal.classList.add('active');
+    }
+
+    function closePayableDetails() {
+      document.getElementById('payableDetailsModal').classList.remove('active');
+    }
+
+    function closePayableDetailsOnOverlay(event) {
+      // Close modal only if clicking on the overlay (not the modal content)
+      if (event.target === event.currentTarget) {
+        closePayableDetails();
+      }
+    }
+
+    function changePayableStatus(newStatus) {
+      // Update the status
+      currentPayableStatus = newStatus;
+
+      // Find and update the status in the table
+      const table = document.querySelector('#payableStatementContent table tbody');
+      const rows = table.querySelectorAll('tr');
+
+      rows.forEach(row => {
+        const companyName = row.cells[0].textContent.trim();
+        if (companyName === currentPayableCompany) {
+          const statusCell = row.cells[4];
+
+          // Update status display with colored dot
+          let statusColor;
+          if (newStatus === 'Pending') {
+            statusColor = '#1890FF';
+          } else if (newStatus === 'Paid') {
+            statusColor = '#52C41A';
+          } else if (newStatus === 'On Hold') {
+            statusColor = '#FF4D4F';
+          }
+
+          statusCell.innerHTML = `
+            <span style="display: inline-flex; align-items: center; gap: 6px;">
+              <span style="width: 8px; height: 8px; background: ${statusColor}; border-radius: 50%;"></span>
+              ${newStatus}
+            </span>
+          `;
+        }
+      });
+
+      showToast(`Status changed to ${newStatus}`, 'success');
+
+      // Close the modal
+      closePayableDetails();
+
+      // Re-apply search filters to update the list display
+      // This will hide the record if it no longer matches current filter criteria
+      searchPayableStatements(false);
+    }
+
+    function togglePayableStatusOption(event, value) {
+      event.stopPropagation();
+      const option = event.currentTarget;
+      const checkbox = option.querySelector('input[type="checkbox"]');
+
+      checkbox.checked = !checkbox.checked;
+      option.classList.toggle('selected');
+
+      updatePayableStatusTriggerText();
+    }
+
+    function updatePayableStatusTriggerText() {
+      const select = document.getElementById('payableStatusFilterSelect');
+      const trigger = select.querySelector('.custom-select-trigger');
+      const selectedOptions = select.querySelectorAll('.custom-select-option.selected');
+
+      if (selectedOptions.length === 0) {
+        trigger.textContent = 'All';
+      } else if (selectedOptions.length === 1) {
+        trigger.textContent = selectedOptions[0].getAttribute('data-value');
+      } else if (selectedOptions.length === 3) {
+        trigger.textContent = 'All';
+      } else {
+        const values = Array.from(selectedOptions).map(opt => opt.getAttribute('data-value'));
+        trigger.textContent = values.join(', ');
+      }
+    }
+
+    function togglePayableMonthOption(event, value) {
+      event.stopPropagation();
+      const option = event.currentTarget;
+      const checkbox = option.querySelector('input[type="checkbox"]');
+
+      checkbox.checked = !checkbox.checked;
+      option.classList.toggle('selected');
+
+      updatePayableMonthTriggerText();
+    }
+
+    function updatePayableMonthTriggerText() {
+      const select = document.getElementById('payableMonthFilterSelect');
+      const trigger = select.querySelector('.custom-select-trigger');
+      const selectedOptions = select.querySelectorAll('.custom-select-option.selected');
+
+      if (selectedOptions.length === 0) {
+        trigger.textContent = 'All';
+      } else if (selectedOptions.length === 1) {
+        trigger.textContent = selectedOptions[0].querySelector('span').textContent;
+      } else if (selectedOptions.length === 4) {
+        trigger.textContent = 'All';
+      } else {
+        const values = Array.from(selectedOptions).map(opt => opt.querySelector('span').textContent);
+        trigger.textContent = values.join(', ');
+      }
+    }
+
+    // Toggle payable search expand/collapse
+    function togglePayableSearchExpand() {
+      const field3 = document.getElementById('payableField3');
+      const emptyCell1 = document.getElementById('payableEmptyCell1');
+      const emptyCell2 = document.getElementById('payableEmptyCell2');
+      const buttonsCollapsed = document.getElementById('payableButtonsCollapsed');
+      const buttonsExpanded = document.getElementById('payableButtonsExpanded');
+
+      if (field3.style.display === 'none' || field3.style.display === '') {
+        // Expand
+        field3.style.display = 'flex';
+        emptyCell1.style.display = 'block';
+        emptyCell2.style.display = 'block';
+        buttonsCollapsed.style.display = 'none';
+        buttonsExpanded.style.display = 'flex';
+      } else {
+        // Collapse
+        field3.style.display = 'none';
+        emptyCell1.style.display = 'none';
+        emptyCell2.style.display = 'none';
+        buttonsCollapsed.style.display = 'flex';
+        buttonsExpanded.style.display = 'none';
+      }
+    }
+
+    // Search payable statements
+    function searchPayableStatements(showMessage = true) {
+      const monthSelect = document.getElementById('payableMonthFilterSelect');
+      const statusSelect = document.getElementById('payableStatusFilterSelect');
+      const companyNameInput = document.getElementById('payableCompanyNameInput');
+
+      // Get selected months
+      const selectedMonths = Array.from(monthSelect.querySelectorAll('.custom-select-option.selected'))
+        .map(opt => opt.getAttribute('data-value'));
+
+      // Get selected statuses
+      const selectedStatuses = Array.from(statusSelect.querySelectorAll('.custom-select-option.selected'))
+        .map(opt => opt.getAttribute('data-value'));
+
+      // Get company name filter
+      const companyNameFilter = companyNameInput.value.toLowerCase().trim();
+
+      // Get all table rows
+      const table = document.querySelector('#payableStatementContent table tbody');
+      const rows = table.querySelectorAll('tr');
+
+      let visibleCount = 0;
+
+      rows.forEach(row => {
+        const companyName = row.cells[0].textContent.trim();
+        const month = row.cells[1].textContent.trim();
+        const statusCell = row.cells[4];
+        const status = statusCell.textContent.trim();
+
+        // Convert month text to value (e.g., "January 2026" -> "2026-01")
+        const monthValue = getMonthValue(month);
+
+        // Check filters
+        const monthMatch = selectedMonths.length === 0 || selectedMonths.includes(monthValue);
+        const statusMatch = selectedStatuses.length === 0 || selectedStatuses.includes(status);
+        const companyMatch = companyNameFilter === '' || companyName.toLowerCase().includes(companyNameFilter);
+
+        if (monthMatch && statusMatch && companyMatch) {
+          row.style.display = '';
+          visibleCount++;
+        } else {
+          row.style.display = 'none';
+        }
+      });
+
+      // Update pagination info
+      const paginationInfo = document.querySelector('#payableStatementContent .pagination-info');
+      if (paginationInfo) {
+        paginationInfo.textContent = `Total ${visibleCount} items`;
+      }
+
+      if (showMessage) {
+        showToast(`Found ${visibleCount} results`, 'success');
+      }
+    }
+
+    // Reset payable search
+    function resetPayableSearch() {
+      // Reset month filter - select only the first (latest) month
+      const monthSelect = document.getElementById('payableMonthFilterSelect');
+      const monthOptions = monthSelect.querySelectorAll('.custom-select-option');
+      monthOptions.forEach((opt, index) => {
+        if (index === 0) {
+          // Select first (latest) month
+          opt.classList.add('selected');
+          opt.querySelector('input[type="checkbox"]').checked = true;
+        } else {
+          opt.classList.remove('selected');
+          opt.querySelector('input[type="checkbox"]').checked = false;
+        }
+      });
+      updatePayableMonthTriggerText();
+
+      // Reset status filter - select only Pending
+      const statusSelect = document.getElementById('payableStatusFilterSelect');
+      statusSelect.querySelectorAll('.custom-select-option').forEach(opt => {
+        const value = opt.getAttribute('data-value');
+        if (value === 'Pending') {
+          opt.classList.add('selected');
+          opt.querySelector('input[type="checkbox"]').checked = true;
+        } else {
+          opt.classList.remove('selected');
+          opt.querySelector('input[type="checkbox"]').checked = false;
+        }
+      });
+      updatePayableStatusTriggerText();
+
+      // Reset company name
+      const companyNameInput = document.getElementById('payableCompanyNameInput');
+      companyNameInput.value = '';
+
+      // Execute search with default filters
+      searchPayableStatements(false);
+
+      showToast('Search filters reset to default', 'success');
+    }
+
+    // Helper function to convert month text to value
+    function getMonthValue(monthText) {
+      // Month is already in YYYY-MM format, return as is
+      return monthText;
+    }
+
+    // Expert Monitoring Functions
+    function toggleExpertSearchExpand() {
+      const field3 = document.getElementById('expertField3');
+      const emptyCell1 = document.getElementById('expertEmptyCell1');
+      const emptyCell2 = document.getElementById('expertEmptyCell2');
+      const buttonsCollapsed = document.getElementById('expertButtonsCollapsed');
+      const buttonsExpanded = document.getElementById('expertButtonsExpanded');
+
+      if (field3.style.display === 'none' || field3.style.display === '') {
+        // Expand
+        field3.style.display = 'flex';
+        emptyCell1.style.display = 'block';
+        emptyCell2.style.display = 'block';
+        buttonsCollapsed.style.display = 'none';
+        buttonsExpanded.style.display = 'flex';
+      } else {
+        // Collapse
+        field3.style.display = 'none';
+        emptyCell1.style.display = 'none';
+        emptyCell2.style.display = 'none';
+        buttonsCollapsed.style.display = 'flex';
+        buttonsExpanded.style.display = 'none';
+      }
+    }
+
+    function searchExpertMonitoring(showMessage = true) {
+      const subscriptionIdInput = document.getElementById('expertSubscriptionIdInput');
+      const accountInput = document.getElementById('expertAccountInput');
+      const hubSnInput = document.getElementById('expertHubSnInput');
+
+      // Get filter values
+      const subscriptionIdFilter = subscriptionIdInput.value.toLowerCase().trim();
+      const accountFilter = accountInput.value.toLowerCase().trim();
+      const hubSnFilter = hubSnInput.value.toLowerCase().trim();
+
+      // Get all table rows
+      const table = document.querySelector('#expertMonitoringTableBody');
+      const rows = table.querySelectorAll('tr');
+
+      let visibleCount = 0;
+
+      rows.forEach(row => {
+        const subscriptionId = row.cells[0].textContent.trim().toLowerCase();
+        const account = row.cells[1].textContent.trim().toLowerCase();
+        const hubSn = row.cells[2].textContent.trim().toLowerCase();
+
+        // Check filters
+        const subscriptionMatch = subscriptionIdFilter === '' || subscriptionId.includes(subscriptionIdFilter);
+        const accountMatch = accountFilter === '' || account.includes(accountFilter);
+        const hubSnMatch = hubSnFilter === '' || hubSn.includes(hubSnFilter);
+
+        // Check if row should be visible (based on search AND company filter)
+        const currentDisplay = row.style.display;
+        const isCompanyFiltered = (currentDisplay === 'none' && !subscriptionMatch && !accountMatch && !hubSnMatch);
+
+        if (subscriptionMatch && accountMatch && hubSnMatch && currentDisplay !== 'none') {
+          row.style.display = '';
+          visibleCount++;
+        } else if (!subscriptionMatch || !accountMatch || !hubSnMatch) {
+          row.style.display = 'none';
+        }
+      });
+
+      // Update pagination info
+      const paginationInfo = document.querySelector('#expertMonitoringContent .pagination-info');
+      if (paginationInfo) {
+        paginationInfo.textContent = `Total ${visibleCount} items`;
+      }
+
+      if (showMessage) {
+        showToast(`Found ${visibleCount} results`, 'success');
+      }
+    }
+
+    function resetExpertSearch() {
+      // Clear all input fields
+      document.getElementById('expertSubscriptionIdInput').value = '';
+      document.getElementById('expertAccountInput').value = '';
+      document.getElementById('expertHubSnInput').value = '';
+
+      // Re-apply company filter (if any)
+      if (currentRole !== 'Administrator') {
+        filterExpertMonitoringData(currentRole);
+      } else {
+        // Show all rows
+        const table = document.querySelector('#expertMonitoringTableBody');
+        const rows = table.querySelectorAll('tr');
+        rows.forEach(row => {
+          row.style.display = '';
+        });
+
+        // Update pagination info
+        const paginationInfo = document.querySelector('#expertMonitoringContent .pagination-info');
+        if (paginationInfo) {
+          paginationInfo.textContent = `Total ${rows.length} items`;
+        }
+      }
+
+      showToast('Search filters reset', 'success');
+    }
+
+    function filterExpertMonitoringData(company) {
+      // Map role to actual company name
+      const companyMap = {
+        'Company A': 'TechVision Solutions',
+        'Company B': 'GreenPower Systems'
+      };
+
+      const actualCompany = companyMap[company];
+      const isSuperPermission = (company === 'Company B');
+
+      // Filter Expert Monitoring table
+      const rows = document.querySelectorAll('#expertMonitoringTableBody tr');
+      let visibleCount = 0;
+
+      rows.forEach(row => {
+        const rowCompany = row.getAttribute('data-company');
+
+        if (isSuperPermission) {
+          // Company B: show all data
+          row.style.display = '';
+          visibleCount++;
+        } else {
+          // Company A: only show own company data
+          if (rowCompany === actualCompany) {
+            row.style.display = '';
+            visibleCount++;
+          } else {
+            row.style.display = 'none';
+          }
+        }
+      });
+
+      // Update pagination info
+      const paginationInfo = document.querySelector('#expertMonitoringContent .pagination-info');
+      if (paginationInfo) {
+        paginationInfo.textContent = `Total ${visibleCount} items`;
+      }
     }
 
     // Open Approval Review Modal
@@ -3641,8 +4760,31 @@
       });
     }
 
+    // Initialize page - ensure Company is selected by default
+    function initializePage() {
+      // Ensure Company content is visible
+      document.getElementById('companyContent').style.display = 'block';
+      document.getElementById('userContent').style.display = 'none';
+      document.getElementById('deviceContent').style.display = 'none';
+      document.getElementById('approvalContent').style.display = 'none';
+      document.getElementById('payableStatementContent').style.display = 'none';
+
+      // Ensure Company menu item is active
+      document.querySelectorAll('.sidebar-menu-item').forEach(item => {
+        item.classList.remove('active');
+      });
+      document.querySelectorAll('.sidebar-menu-item').forEach(item => {
+        if (item.textContent.trim() === 'Company') {
+          item.classList.add('active');
+        }
+      });
+
+      // Run text truncation check
+      checkTextTruncation();
+    }
+
     // Run on page load
-    window.addEventListener('load', checkTextTruncation);
+    window.addEventListener('load', initializePage);
 
     // Run when window is resized (in case layout changes)
     let resizeTimer;
